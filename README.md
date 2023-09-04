@@ -9,7 +9,7 @@ soon...
 
 
 
-<b><strong><i>You can visit the website live at </i></strong></b>soon...
+<b><strong><i>You can visit the website live at </i></strong></b>[taaza.com](https://wh1te-401.github.io/test/taaza/)
 
 This is a web template that I have created and made available for private use. Please note the licensing terms before using this template.
 
