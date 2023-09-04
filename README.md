@@ -42,5 +42,5 @@ This pack comes under Creative Commons Attribution-NonCommercial license (CC BY-
 
 ~Work by Sethu Satheesh
   
-  ©Sethu
+  ©Sethu    Reach me at [Instagram](https://www.instagram.com/whxite.exe/)
 
