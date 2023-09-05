@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taaza</title>
+  <link rel="icon" type="image/x-icon" href="./assets/images/favicon.png">
+
+  <!--
+    - custom css link 
+  -->
+  <link rel="stylesheet" href="./assets/css/taaza.css">
+  <link rel="stylesheet" href="./assets/css/media_query.css">
+
+  <!--
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Monoton&family=Rubik:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+
+
+    <style>
+    /* Form Styles */
+    .form-title {
+        color: #0d5215;
+        font-family: var(--ff-poppins);
+        font-size: 3.4rem;
+        font-weight: var(--fw-800);
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .form-field {
+      flex: 0 0 48%;
+      margin-bottom: 20px;
+      color: #787878;
+    }
+
+    .form-field label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-field input[type="submit"] {
+      background-color: #216aca;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .form-field input[type="submit"]:hover {
+      background-color: #060952;
+    }
+
+    .btn {
+  background-image: linear-gradient(to right, #0d5215 , green);
+  color: white;
+  width: 100%;
+  font-size: var(--fs-7);
+  text-transform: uppercase;
+  padding: 20px 30px;
+  text-align: center;
+  border-radius: 7px;
+}
+
+.form-question{
+
+}
+
+  </style>
+
+</head>
+
+<body>
+
+  <!--
+    - main container
+  -->
+
+  <div class="container">
+
+    <!--
+      - #HEADER
+    -->
+
+    <header>
+
+      <nav class="navbar">
+
+        <div class="navbar-wrapper">
+
+          <a href="#">
+            <img src="./assets/images/logo.png" alt="logo" width="130">
+          </a>
+          <b>
+          <ul class="navbar-nav">
+
+            <li>
+              <a href="#home" class="nav-link">Home</a>
+            </li>
+
+            <li>
+              <a href="#about" class="nav-link">About</a>
+            </li>
+
+            <li>
+              <a href="#services" class="nav-link">Services</a>
+            </li>
+
+            <li>
+              <a href="#menu" class="nav-link">Our Menu</a>
+            </li>
+
+            <li>
+              <a href="#testimonials" class="nav-link">Testimonials</a>
+            </li>
+
+            <li>
+              <a href="#testimonials" class="nav-link">Login</a>
+            </li>
+
+          </ul>
+        </b>
+
+          <div class="navbar-btn-group">
+
+            <button class="shopping-cart-btn">
+              <img src="./assets/images/cart.svg" alt="shopping cart icon" width="18">
+              <span class="count">5</span>
+            </button>
+
+            <button class="menu-toggle-btn">
+              <span class="line one"></span>
+              <span class="line two"></span>
+              <span class="line three"></span>
+            </button>
+
+          </div>
+
+        </div>
+
+      </nav>
+
+      
+      <!-- #HOME SECTION -->
+
+      <section class="home" id="home">
+
+        <div class="home-left">
+
+          <div class="container">
+              <div class="form-container">
+                <div class="form-title"><b>Register</b></div>
+                <form action="#" method="POST">
+                  <!-- Login Information -->
+                  <div class="form-section">
+                    <div class="form-field">
+                      <label for="full-name">FULL NAME</label>
+                      <input type="text" id="full-name" name="full_name" required>
+                    </div>
+                    <div class="form-field">
+                      <label for="mobile">MOBILE NUMBER</label>
+                      <input type="text" id="mobile" name="mobile_number" required>
+                    </div>
+                    <div class="form-field">
+                      <label for="email">EMAIL</label>
+                      <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-field">
+                      <label for="password">PASSWORD</label>
+                      <input type="password" id="password" name="password" required>
+                    </div>
+                  </div>
+                  <!-- Donor Information -->
+                  <div class="form-section">
+                    <div class="form-field">
+                      <label for="blood-group">BLOOD GROUP</label>
+                      <select id="blood-group" name="blood_group" required>
+                        <option value="" disabled selected>Select Blood Group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label for="birth-date">BIRTH DATE</label>
+                      <input type="date" id="birth-date" name="birth_date" required>
+                    </div>
+                    <div class="form-field">
+                      <label for="gender">GENDER</label>
+                      <select id="gender" name="gender" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label for="weight">WEIGHT</label>
+                      <input type="text" id="weight" name="weight" required>
+                    </div>
+                  </div>
+                  <!-- Contact Information -->
+                  <div class="form-section">
+                    <div class="form-field">
+                      <label for="state">STATE</label>
+                      <input type="text" id="state" name="state" required>
+                    </div>
+                    <div class="form-field">
+                      <label for="district">DISTRICT</label>
+                      <input type="text" id="district" name="district" required>
+                    </div>
+                    <div class="form-field">
+                      <label for="zip-code">ZIP CODE</label>
+                      <input type="text" id="zip-code" name="zip_code" required>
+                    </div>
+                    <div class="form-field">
+                      <label for="area">AREA</label>
+                      <input type="text" id="area" name="area" required>
+                    </div>
+                  </div>
+                  <div class="form-field">
+                      <label for="area">Landmarks</label>
+                      <input type="text" id="landmarks" name="landmarks" required>
+                    </div>
+                  <button type="submit" class="btn">Register</button>
+                </form>
+                <br><center>
+                <div class="form-question"><h3>Already Registered? <u><a href="login.php" style="display: inline; color: #216aca;" onmouseover="this.style.color='#03d9ff'" onmouseout="this.style.color='#216aca'">Login Here</h3></a></u></div>
+              </center>
+              </div>
+            </div>
+        </div>
+
+
+
+        <div class="home-right" style="margin-top: 1cm;">
+
+          <img src="./assets/images/food1.png" alt="food image" class="food-img food-1" width="200" loading="lazy">
+          <img src="./assets/images/food2.png" alt="food image" class="food-img food-2" width="200" loading="lazy">
+          <img src="./assets/images/food3.png" alt="food image" class="food-img food-3" width="200" loading="lazy">
+
+          <img src="./assets/images/dialog-1.svg" alt="dialog" class="dialog dialog-1" width="230">
+          <img src="./assets/images/dialog-2.svg" alt="dialog" class="dialog dialog-2" width="230">
+
+          <img src="./assets/images/circle.svg" alt="circle shape" class="shape shape-1" width="25">
+          <img src="./assets/images/circle.svg" alt="circle shape" class="shape shape-2" width="15">
+          <img src="./assets/images/circle.svg" alt="circle shape" class="shape shape-3" width="30">
+          <img src="./assets/images/ring.svg" alt="ring shape" class="shape shape-4" width="60">
+          <img src="./assets/images/ring.svg" alt="ring shape" class="shape shape-5" width="40">
+
+        </div>
+      </section>
+
+</header>
+
+    <!-- #FOOTER -->
+
+    <footer>
+      <div class="footer-wrapper">
+        <a href="#">
+          <img src="./assets/images/logo.png" alt="logo" class="footer-brand" width="150">
+        </a>
+        <div class="social-link">
+
+          <a href="https://twitter.com/Annabel07785340">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </a>
+
+          <a href="https://www.instagram.com/whxite.exe/">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
+
+          <a href="https://www.facebook.com/andro.pool.54/">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </a>
+
+          <a href="https://youtu.be/OTQqj3-Zqi8?si=tT2NfC3Sh7p_UaSS">
+            <ion-icon name="logo-youtube"></ion-icon>
+          </a>
+        </div>
+        <p class="copyright">&copy; Copyright 2024 Taaza. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!--custom js link -->
+  <script src="./assets/js/taaza.js"></script>
+
+  <!-- ionicon link -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
