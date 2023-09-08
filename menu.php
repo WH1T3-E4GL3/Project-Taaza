@@ -193,11 +193,53 @@
         gap: 12px;
         margin-bottom: 36px;
       }
+      .box-top::before,
+.box-top::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  opacity: 0;
+}
+
+.box-top::before {
+  top: 0;
+  left: 0;
+}
+
+.box-top::after {
+  bottom: 0;
+  right: 0;
+}
+
+.box:hover .box-top::before,
+.box:hover .box-top::after {
+  animation: flash 1.5s ease forwards;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.box:hover .box-image {
+  transform: scale(1.1);
+}
+
       .box-image {
         width: 100%;
         height: 360px;
         object-fit: cover;
         object-position: 50% 20%;
+        transition: transform 0.3s, opacity 0.3s;
+      }
+      .box:hover .box-image {
+        transform: scale(1.1);
       }
       .title-flex {
         display: flex;
@@ -638,7 +680,5 @@
     <a href="#" class="button">buy Now</a>
   </div>
 </div>
-
-
 
 <?php require "includes/footer.php"; ?>
