@@ -861,3 +861,268 @@ footer {
   letter-spacing: 0.5px;
 }
 
+
+/* Login Form Styles */
+.form-title {
+        color: #0d5215;
+        font-family: var(--ff-poppins);
+        font-size: 3.4rem;
+        font-weight: var(--fw-800);
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .form-field {
+      flex: 0 0 48%;
+      margin-bottom: 20px;
+      color: #787878;
+    }
+
+    .form-field label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-field input[type="submit"] {
+      background-color: #216aca;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .form-field input[type="submit"]:hover {
+      background-color: #060952;
+    }
+
+    .login-btn {
+  background-image: linear-gradient(to right, #0d5215 , green);
+  color: white;
+  width: 100%;
+  font-size: var(--fs-7);
+  text-transform: uppercase;
+  padding: 20px 30px;
+  text-align: center;
+  border-radius: 7px;
+}
+
+/* New Login */
+
+    hr {
+      border: none;
+      height: 1px;
+      background-color: #c5c7c9;
+      margin: 20px 0;
+    }
+
+    /* Form Styles */
+    .form-container1 {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .form-field {
+      flex: 0 0 48%;
+      margin-bottom: 20px;
+    }
+
+    .form-field label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-field input,
+    .form-field select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-field input[type="submit"] {
+      background-color: #216aca;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .form-field input[type="submit"]:hover {
+      background-color: #060952;
+    }
+
+    .form-title-login {
+      text-align: center;
+      margin-top: 30px;
+      font-family: var(--ff-poppins);
+      font-size: 1.8rem;
+      color: #216aca;
+    }
+
+    .form-title-login a {
+      color: #216aca;
+      text-decoration: underline;
+    }
+
+    .form-title-login a:hover {
+      color: #03d9ff;
+    }
+
+
+/* contact */
+.contact-container {
+  margin-top: 10em; /* Adjust the top margin as needed */
+  margin-bottom: 5em; /* Adjust the bottom margin as needed */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the content horizontally */
+  align-items: flex-start; /* Align items to the top */
+}
+
+.contact-content {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.hero-banner {
+  flex: 1;
+  max-width: 90%; /* Ensure the map doesn't overflow on smaller screens */
+  height: auto; /* Let the map's height adjust automatically */
+}
+
+/* Media Query for screens up to 768px */
+@media screen and (max-width: 768px) {
+  .contact-container {
+    flex-direction: column; /* Change flex direction to column for smaller screens */
+    align-items: center; /* Center items horizontally */
+  }
+  
+  .contact-content {
+    padding: 10px;
+  }
+  
+  .hero-banner {
+    margin-top: 20px; /* Add some space between content and map */
+    max-width: 100%; /* Allow map to take full width */
+  }
+
+  .hero-banner iframe {
+    width: 100%; /* Make the map responsive to smaller screens */
+    max-height: 350px; /* Set a maximum height to maintain aspect ratio */
+  }
+}
+
+/* Media Query for screens between 769px and 1199px */
+@media screen and (min-width: 769px) and (max-width: 1199px) {
+  .contact-content {
+    padding: 95px;
+  }
+
+  .hero-banner iframe {
+    width: 90%; /* Make the map responsive to medium-sized screens */
+    max-height: 300px; /* Set a maximum height to maintain aspect ratio */
+  }
+}
+
+/* Media Query for screens between 1200px and 1499px */
+@media screen and (min-width: 1200px) and (max-width: 1499px) {
+  .contact-content {
+    padding: 95px;
+  }
+
+  .hero-banner iframe {
+    width: 90%; /* Make the map responsive to larger screens */
+    max-height: 300px; /* Set a maximum height to maintain aspect ratio */
+  }
+}
+
+
+
+.contact-content img {
+  width: 180px;
+  height: 65px;
+}
+
+.contact-content h2 {
+  color: #0d5215;
+}
+
+.contact-content .contact-text {
+  font-size: 1.1em;
+  margin-bottom: 1em;
+}
+
+
+.contact-content .contact-form {
+  display: flex;
+  align-items: center;
+}
+
+.contact-content .email-field {
+  background-color: var(--cultured);
+  color: var(--black);
+  min-height: 70px;
+  padding-inline: 15px;
+  border-radius: var(--radius-4);
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+
+
+}
+
+.contact-content .btn {
+  display: block;
+  min-height: 70px;
+  width: 50%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-image: linear-gradient(to right, #0d5215 , green);
+  color: var(--white);
+  font-size: var(--fs-7);
+  text-transform: uppercase;
+  padding: 20px 30px;
+  text-align: center;
+  border-radius: var(--radius-4);
+  box-shadow: var(--shadow-4)
+  box-sizing: border-box;
+
+}
+
+@media screen and (min-width: 100px) and (max-width: 1199px) {
+  .contact-content .btn {
+    font-size: 13px;
+  }
+}
+
+
