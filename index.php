@@ -412,10 +412,12 @@
           </a>
         </div>
 
+        <a href="menu.php" style="color: black;">
         <button class="btn btn-primary btn-icon">
           <img src="./assets/images/menu.svg" alt="menu icon">
           Full menu
         </button>
+      </a>
       </section>
 
 
