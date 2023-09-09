@@ -17,17 +17,19 @@
           </p>
 
           <div class="btn-group">
+            <a href="login.php" style="color: black;">
             <button class="btn btn-primary btn-icon">
-              <img src="./assets/images/menu.svg" alt="menu icon">
-              <a href="login.php" style="color: black;">
-              Login
-            </a>
+              <img src="./assets/images/menu.svg" alt="menu icon">             
+              Login          
             </button>
+            </a>
 
+            <a href="about.php" style="color: black;">
             <button class="btn btn-secondary btn-icon">
               <img src="./assets/images/arrow.svg" alt="menu icon">
               About us
             </button>
+          </a>
           </div>
         </div>
 
