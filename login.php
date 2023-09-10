@@ -5,10 +5,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize form inputs
     $full_name = isset($_POST["full-name"]) ? htmlspecialchars($_POST["full-name"]) : "";
     $email = isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : "";
-    $password = isset($_POST["password"]) ? $_POST["password"] : ""; // No need to htmlspecialchars for the password
+    $password = isset($_POST["password"]) ? $_POST["password"] : "";
+    $confirm_password = isset($_POST["confirm-password"]) ? $_POST["confirm-password"] : "";
     $gender = isset($_POST["gender"]) ? htmlspecialchars($_POST["gender"]) : "";
     $state = isset($_POST["state"]) ? htmlspecialchars($_POST["state"]) : "";
     $district = isset($_POST["district"]) ? htmlspecialchars($_POST["district"]) : "";
+
+    if ($password !== $confirm_password) {
+        echo '<script>alert("Password and Confirm Password do not match.");</script>';
+        echo '<script>window.location.href = "login.php";</script>';
+        exit(); // Exit the script to prevent further execution
+    }
+
+    // Check if email already exists
+    $check_email_stmt = $conn->prepare("SELECT * FROM registered_users WHERE email = ?");
+    $check_email_stmt->bind_param("s", $email);
+    $check_email_stmt->execute();
+    $check_email_result = $check_email_stmt->get_result();
+
+    if ($check_email_result->num_rows > 0) {
+        echo '<script>alert("A user with that email already exists.");</script>';
+        $check_email_stmt->close();
+        echo '<script>window.location.href = "login.php";</script>';
+        exit(); // Exit the script to prevent further execution
+    }
+
+    $check_email_stmt->close();
 
     // Hash the password securely
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -22,15 +44,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ssssss", $full_name, $email, $hashed_password, $gender, $state, $district);
     
     if ($stmt->execute()) {
-    echo '<script>alert("Registration successful!");</script>';
-    echo '<script>window.location.href = "new-login.php";</script>';
-} else {
-    echo '<script>alert("Error during registration.");</script>';
-}
+        echo '<script>alert("Registration successful!");</script>';
+        echo '<script>window.location.href = "new-login.php";</script>';
+    } else {
+        echo '<script>alert("Error during registration.");</script>';
+    }
    
     $stmt->close();
 }
 ?>
+
 
 <?php require "includes/header.php"; ?>
 
@@ -91,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </div>
                   <div class="form-field">
                       <label for="confirm-password">CONFIRM YOUR PASSWORD</label>
-                      <input type="text" id="confirm-password" name="confirm-password" required>
+                      <input type="password" id="confirm-password" name="confirm-password" required>
                     </div>
 
                   <button type="submit" class="login-btn">Register</button>
@@ -121,5 +144,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
       </section>
 </header>
+
+<!-- Password Complexity Check -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('password');
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        const isValid = passwordPattern.test(password);
+
+        if (!isValid) {
+            this.setCustomValidity('Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.');
+        } else {
+            this.setCustomValidity('');
+        }
+    });
+});
+</script>
 
 <?php require "includes/footer.php"; ?>
