@@ -161,7 +161,7 @@ hr {
     <li class="cards_item">
       <div class="card">
         <div class="card_image">
-          <img src="https://assets.codepen.io/652/photo-1468777675496-5782faaea55b.jpeg" alt="mixed vegetable salad in a mason jar." />
+          <img src="./assets/images/service1.png" alt="mixed vegetable salad in a mason jar." />
           <span class="card_price"><span>$</span>9</span>
         </div>
         <div class="card_content">
@@ -183,7 +183,7 @@ hr {
     <li class="cards_item">
       <div class="card">
         <div class="card_image">
-          <img src="https://assets.codepen.io/652/photo-1520174691701-bc555a3404ca.jpeg" alt="a Reuben sandwich on wax paper." />
+          <img src="./assets/images/service2.png" alt="a Reuben sandwich on wax paper." />
           <span class="card_price"><span>$</span>18</span>
         </div>
         <div class="card_content">
@@ -210,7 +210,7 @@ hr {
       <div class="card">
         <div class="card_image">
           <span class="note">Seasonal</span>
-          <img src="https://assets.codepen.io/652/photo-1544510808-91bcbee1df55.jpeg" alt="A side view of a plate of figs and berries." />
+          <img src="./assets/images/service3.png" alt="A side view of a plate of figs and berries." />
           <span class="card_price"><span>$</span>16</span>
         </div>
         <div class="card_content">
@@ -236,7 +236,7 @@ hr {
     <li class="cards_item">
       <div class="card">
         <div class="card_image">
-          <img src="https://assets.codepen.io/652/photo-1468777675496-5782faaea55b.jpeg" alt="mixed vegetable salad in a mason jar." />
+          <img src="./assets/images/service4.png" alt="mixed vegetable salad in a mason jar." />
           <span class="card_price"><span>$</span>9</span>
         </div>
         <div class="card_content">
@@ -257,7 +257,7 @@ hr {
     <li class="cards_item">
       <div class="card">
         <div class="card_image">
-          <img src="https://assets.codepen.io/652/photo-1520174691701-bc555a3404ca.jpeg" alt="a Reuben sandwich on wax paper." />
+          <img src="./assets/images/service5.png" alt="a Reuben sandwich on wax paper." />
           <span class="card_price"><span>$</span>18</span>
         </div>
         <div class="card_content">
@@ -283,8 +283,6 @@ hr {
     
   </ul>
 </div>
-
-
 
 
 <?php require "includes/footer.php"; ?>
