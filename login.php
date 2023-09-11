@@ -19,7 +19,7 @@ function sendMail($email, $verification_code) // Mail sending function starts
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
     $mail->Username   = 'yourgmail@gmail.com';                     //SMTP username
-    $mail->Password   = 'youtAppPassword';                               //SMTP password
+    $mail->Password   = 'youAppPassword';                               //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -34,7 +34,7 @@ function sendMail($email, $verification_code) // Mail sending function starts
     $mail->Body    = "<b style='color:blue'>Thanks for verification !</b><br>
     Click the verify button below to Verify your email address<br>
     <a href='http://localhost/taaza/verify.php?email=$email&verification_code=$verification_code'>Verify</a>
-    <br><p style='color:red'>Enjoy our services, hearty welcom efrom Taaza</p>
+    <br><p style='color:red'>Enjoy our services, hearty welcome from Taaza</p>
    ";
    // Disable SSL certificate verification, because error occured for me
    $mail->SMTPOptions = array(
