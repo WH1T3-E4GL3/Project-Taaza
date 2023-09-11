@@ -24,7 +24,7 @@ function sendMail($email, $verification_code) // Mail sending function starts
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('taaza0restaurant@gmail.com', 'Taaza Restaurant');
+    $mail->setFrom('yourgmail@gmail.com', 'Taaza Restaurant');
     $mail->addAddress($email);     //Add a recipient
 
 
