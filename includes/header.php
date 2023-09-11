@@ -65,7 +65,16 @@ define("APPURL", "http://localhost/taaza");
             </li>
 
             <li>
-              <a href="login.php" class="nav-link">Login</a>
+              <?php
+              if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true)
+              {
+                echo'<a href="logout.php" class="nav-link">Logout</a>';
+              }
+              else{
+                echo'<a href="login.php" class="nav-link">Login</a>';
+              }
+            ?>
+              
             </li>
 
           </ul>
