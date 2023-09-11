@@ -18,13 +18,13 @@ function sendMail($email, $verification_code) // Mail sending function starts
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'YourGmail@gmail.com';                     //SMTP username
-    $mail->Password   = 'yourSecretAppPasswordFromGoogleSmtp';                               //SMTP password
+    $mail->Username   = 'taaza0restaurant@gmail.com';                     //SMTP username
+    $mail->Password   = 'sgdatimhzgwhcljg';                               //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('Yourmail@gmail.com', 'Taaza Restaurant');
+    $mail->setFrom('taaza0restaurant@gmail.com', 'Taaza Restaurant');
     $mail->addAddress($email);     //Add a recipient
 
 
@@ -83,7 +83,7 @@ $query = "INSERT INTO `registered_users` (`name`, `email`, `password`, `gender`,
       if(mysqli_query($conn, $query) && sendMail($_POST['email'],$verification_code)) // send query along with email function and verification code
       {
         echo"
-          <script>alert('registration successfull');
+          <script>alert('registration successfull, Check your email for verification');
           window.location.href='new-login.php';
           </script>
           ";
@@ -91,7 +91,7 @@ $query = "INSERT INTO `registered_users` (`name`, `email`, `password`, `gender`,
       else
       {
         echo"
-        <script>alert('CAN NOT RUN REQUEST: server may down');
+        <script>alert('UNKNOWN ISSUE: cannot run your request');
         window.location.href='login.php';
         </script>alert
         ";
@@ -101,7 +101,7 @@ $query = "INSERT INTO `registered_users` (`name`, `email`, `password`, `gender`,
   else
   {
     echo"
-    <script>alert('Cannot run query');
+    <script>alert('UNKNOWN ISSUE: cannot run your request');
     window.location.href='login.php';
     </script>alert
     ";
