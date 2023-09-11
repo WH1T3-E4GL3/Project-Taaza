@@ -23,7 +23,7 @@ if(isset($_GET['email']) && isset($_GET['verification_code']))
                 {
                     echo "
                         <script>
-                            alert('Email verification successful');
+                            alert('Email verification successful, now you can login');
                             window.location.href='new-login.php';
                         </script>
                     ";
