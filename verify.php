@@ -32,7 +32,7 @@ if(isset($_GET['email']) && isset($_GET['verification_code']))
                 {
                     echo "
                         <script>
-                            alert('Cannot run request!');
+                            alert('UNKNOWN ISSUE: cannot run request!');
                             window.location.href='new-login.php';
                         </script>
                     ";
@@ -53,7 +53,7 @@ if(isset($_GET['email']) && isset($_GET['verification_code']))
     {
         echo "
             <script>
-                alert('Cannot run request!');
+                alert('UNKNOWN ISSUE: cannot run request!');
                 window.location.href='login.php';
             </script>
         ";
