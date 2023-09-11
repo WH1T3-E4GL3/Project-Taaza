@@ -2,55 +2,72 @@
 session_start();
 
 require_once "includes/connection.php";
-$login_error = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate and sanitize form inputs
-    $email = isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : "";
-    $password = isset($_POST["password"]) ? $_POST["password"] : "";
+if(isset($_POST['login']))
+{
+  $query = "SELECT * FROM registered_users WHERE email='{$_POST['email']}'";
+  $result=mysqli_query($conn, $query);
 
-    // Check if the email exists in the database
-    $stmt = $conn->prepare("SELECT password FROM registered_users WHERE email = ?");
-    if (!$stmt) {
-        die("Error: " . $conn->error);
+  if($result)
+  {
+    if(mysqli_num_rows($result)==1)
+    {
+      $result_fetch=mysqli_fetch_assoc($result);
+      if($result_fetch['is_verified']==1) //login only if user is verified
+      {
+        if(password_verify($_POST['password'], $result_fetch['password']))
+      {
+        $_SESSION['logged_in']=true;  // Created session variable named username
+        $_SESSION['username']=$result_fetch['email'];
+
+        echo"
+        <script>alert('Login Success');
+        window.location.href='dashboard.php';
+        </script>
+        ";
+      }
+      else
+      {
+        echo"
+      <script>alert('Incorrect email or password');
+      window.location.href='new-login.php';
+      </script>
+      ";
+      }
+      }
+      else
+      {
+        echo"
+      <script>alert('Email not Verified! please verify yor email and try again');
+      window.location.href='new-login.php';
+      </script>
+      ";
+      }
+      
     }
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($hashedPassword);
-        $stmt->fetch();
-
-        // Verify the password
-        if (password_verify($password, $hashedPassword)) {
-            // Password is correct, set session or do any other action
-            $_SESSION["loggedin"] = true;
-            $_SESSION["email"] = $email;
-            // Check if "Remember Me" is checked
-            if (isset($_POST["remember_me"]) && $_POST["remember_me"] === "1") {
-                $cookie_name = "remember_me_cookie";
-                $cookie_value = $email;
-                $cookie_expiry = time() + (86400 * 30); // 30 days (86400 seconds per day)
-                setcookie($cookie_name, $cookie_value, $cookie_expiry, "/");
-            }
-            // login success
-            echo '<script>alert("Success");</script>';
-            header("Location: dashboard.php");
-            exit();
-        } else {
-            echo '<script>alert("Incorrect email or password. Please try again.");</script>';
-        }
-    } else {
-        echo '<script>alert("Incorrect email or password. Please try again.");</script>';
+    else
+    {
+      echo"
+      <script>alert('Email not registered! Please register first');
+      window.location.href='new-login.php';
+      </script>
+      ";
     }
-    $stmt->close();
+  }
+  else
+  {
+    echo"
+    <script>
+    alert('UNKNOWN ISSUE: cannot run you request!');
+    window.location.href='new-login.php';
+    </script>
+    ";
+  }
 }
 ?>
 
 <?php require "includes/header.php"; ?>
 
-      <!-- #HOME SECTION -->
 
       <section class="home" id="home">
         <div class="home-left">
@@ -84,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <input type="checkbox" id="remember_me" name="remember_me" value="1">
                 </div>
 
-                  <button type="submit" class="login-btn">Login</button>
+                  <button type="submit" name="login" class="login-btn">Login</button>
                 </form>
                 <br><center>
                 <div class="form-question"><h3>New Member? <u><a href="login.php" style="display: inline; color: #216aca;" onmouseover="this.style.color='#03d9ff'" onmouseout="this.style.color='#216aca'">Register Here</h3></a></u></div>
