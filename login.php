@@ -1,63 +1,116 @@
 <?php
 require_once "includes/connection.php";
+session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate and sanitize form inputs
-    $full_name = isset($_POST["full-name"]) ? htmlspecialchars($_POST["full-name"]) : "";
-    $email = isset($_POST["email"]) ? htmlspecialchars($_POST["email"]) : "";
-    $password = isset($_POST["password"]) ? $_POST["password"] : "";
-    $confirm_password = isset($_POST["confirm-password"]) ? $_POST["confirm-password"] : "";
-    $gender = isset($_POST["gender"]) ? htmlspecialchars($_POST["gender"]) : "";
-    $state = isset($_POST["state"]) ? htmlspecialchars($_POST["state"]) : "";
-    $district = isset($_POST["district"]) ? htmlspecialchars($_POST["district"]) : "";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
-    if ($password !== $confirm_password) {
-        echo '<script>alert("Password and Confirm Password do not match.");</script>';
-        echo '<script>window.location.href = "login.php";</script>';
-        exit(); // Exit the script to prevent further execution
+function sendMail($email, $verification_code) // Mail sending function starts
+{
+  require ("PHPMailer/PHPMailer.php");
+  require ("PHPMailer/SMTP.php");
+  require ("PHPMailer/Exception.php");
+
+  $mail = new PHPMailer(true);
+
+  try {
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'YourGmail@gmail.com';                     //SMTP username
+    $mail->Password   = 'yourSecretAppPasswordFromGoogleSmtp';                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+    //Recipients
+    $mail->setFrom('Yourmail@gmail.com', 'Taaza Restaurant');
+    $mail->addAddress($email);     //Add a recipient
+
+
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Email Verification - Taaza';
+    $mail->Body    = "<b style='color:blue'>Thanks for verification !</b><br>
+    Click the verify button below to Verify your email address<br>
+    <a href='http://localhost/taaza/verify.php?email=$email&verification_code=$verification_code'>Verify</a>
+    <br><p style='color:red'>Enjoy our services, hearty welcom efrom Taaza</p>
+   ";
+   // Disable SSL certificate verification, because error occured for me
+   $mail->SMTPOptions = array(
+    'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+        )
+      );
+
+
+    $mail->send();
+    return true;
+} catch (Exception $e) {
+    return false;
+}
+} // Mail sending function ends
+
+if(isset($_POST['register']))
+{
+  $user_exist_query="SELECT * FROM registered_users WHERE `email`='$_POST[email]'";
+
+  $result=mysqli_query($conn, $user_exist_query);
+
+  if($result)
+  {
+    if(mysqli_num_rows($result)>0)
+    {
+      $result_fetch=mysqli_fetch_assoc($result);
+      if($result_fetch['email']==$_POST['email'])
+      {
+        echo"
+        <script>
+        alert('Email already registered');
+        window.location.href='login.php';
+        </script>
+        ";
+      }
     }
+    else
+    {
+     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+     $verification_code=bin2hex(random_bytes(16));
+$query = "INSERT INTO `registered_users` (`name`, `email`, `password`, `gender`, `state`, `district`, `verification_code`, `is_verified`) VALUES ('{$_POST['full-name']}','{$_POST['email']}','{$password}','{$_POST['gender']}','{$_POST['state']}','{$_POST['district']}', '{$verification_code}', '0')";
 
-    // Check if email already exists
-    $check_email_stmt = $conn->prepare("SELECT * FROM registered_users WHERE email = ?");
-    $check_email_stmt->bind_param("s", $email);
-    $check_email_stmt->execute();
-    $check_email_result = $check_email_stmt->get_result();
-
-    if ($check_email_result->num_rows > 0) {
-        echo '<script>alert("A user with that email already exists.");</script>';
-        $check_email_stmt->close();
-        echo '<script>window.location.href = "login.php";</script>';
-        exit(); // Exit the script to prevent further execution
+      if(mysqli_query($conn, $query) && sendMail($_POST['email'],$verification_code)) // send query along with email function and verification code
+      {
+        echo"
+          <script>alert('registration successfull');
+          window.location.href='new-login.php';
+          </script>
+          ";
+      }
+      else
+      {
+        echo"
+        <script>alert('CAN NOT RUN REQUEST: server may down');
+        window.location.href='login.php';
+        </script>alert
+        ";
+      }
     }
-
-    $check_email_stmt->close();
-
-    // Hash the password securely
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Prepare and execute the SQL query
-    $stmt = $conn->prepare("INSERT INTO registered_users (name, email, password, gender, state, district) VALUES (?, ?, ?, ?, ?, ?)");
-    if (!$stmt) {
-        die("Error: " . $conn->error);
-    }
-    
-    $stmt->bind_param("ssssss", $full_name, $email, $hashed_password, $gender, $state, $district);
-    
-    if ($stmt->execute()) {
-        echo '<script>alert("Registration successful!");</script>';
-        echo '<script>window.location.href = "new-login.php";</script>';
-    } else {
-        echo '<script>alert("Error during registration.");</script>';
-    }
-   
-    $stmt->close();
+  }
+  else
+  {
+    echo"
+    <script>alert('Cannot run query');
+    window.location.href='login.php';
+    </script>alert
+    ";
+  }
 }
 ?>
 
 
 <?php require "includes/header.php"; ?>
-
-      <!-- #HOME SECTION -->
 
       <section class="home" id="home">
         <div class="home-left">
@@ -77,8 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       <label for="email">EMAIL</label>
                       <input type="email" id="email" name="email" required>
                     </div>
-                    
-                    
+                                       
                     <div class="form-field">
                       <label for="password">PASSWORD</label>
                       <input type="password" id="password" name="password" required>
@@ -117,7 +169,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       <input type="password" id="confirm-password" name="confirm-password" required>
                     </div>
 
-                  <button type="submit" class="login-btn">Register</button>
+                  <button type="submit" name="register" class="login-btn">Register</button>
                 </form>
                 <br><center>
                 <div class="form-question"><h3>Already Registered? <u><a href="new-login.php" style="display: inline; color: #216aca;" onmouseover="this.style.color='#03d9ff'" onmouseout="this.style.color='#216aca'">Login Here</h3></a></u></div>
