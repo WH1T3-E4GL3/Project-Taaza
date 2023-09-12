@@ -97,8 +97,9 @@ if(isset($_POST['login']))
                   </div>
 
                 <div class="form-field">
-                <label for="remember_me">Remember Me:</label>
-                  <input type="checkbox" id="remember_me" name="remember_me" value="1">
+                
+                  <input type="checkbox" id="remember_me" name="remember_me" value="1"><label for="remember_me">Remember Me:</label>
+                  <a href="forgot.php">Forgot password?</a>
                 </div>
 
                   <button type="submit" name="login" class="login-btn">Login</button>
