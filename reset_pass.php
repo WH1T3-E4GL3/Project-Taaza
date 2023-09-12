@@ -27,7 +27,11 @@ if(isset($_GET['email']) && isset($_GET['reset_token']))
                             </div>
                             <div class="form-section">                                       
                             </div>
-                            <div class="form-section">                              
+                            <div class="form-section">
+                                <div class="form-field">
+                                    <label for="confirm_password">CONFIRM PASSWORD</label>
+                                    <input type="password" id="confirm_password" name="ConfirmPassword" required>
+                                </div>
                             </div>
                             <div class="form-field">                             
                             </div>
@@ -38,6 +42,36 @@ if(isset($_GET['email']) && isset($_GET['reset_token']))
             </div>
         </section>
         </center>
+
+        <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirm_password");
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    passwordInput.addEventListener("input", function() {
+        const password = this.value;
+        const isValid = passwordPattern.test(password);
+
+        if (!isValid) {
+            this.setCustomValidity("Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.");
+        } else {
+            this.setCustomValidity("");
+        }
+    });
+
+    confirmPasswordInput.addEventListener("input", function() {
+        const confirmPassword = this.value;
+        const password = passwordInput.value;
+
+        if (password !== confirmPassword) {
+            this.setCustomValidity("Passwords do not match.");
+        } else {
+            this.setCustomValidity("");
+        }
+    });
+});
+</script>
         ';
     }
     else
