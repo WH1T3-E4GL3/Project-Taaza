@@ -261,7 +261,7 @@ hr {
           <span class="card_price"><span>$</span>18</span>
         </div>
         <div class="card_content">
-          <h2 class="card_title"><a href="table-booking.php">Lent Us A Hand</a></h2>
+          <h2 class="card_title"><a href="table-booking.php">Lend Us A Hand</a></h2>
           <div class="card_text">
             <p>As food enthusiasts we know the importance and value of food for everyone in our society. We donate food for the needed ones
             </p>
