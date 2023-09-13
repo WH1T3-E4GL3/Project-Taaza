@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <?php require "includes/header.php"; ?>
     <main>
 
@@ -162,9 +165,9 @@
       </section>
       <center>
       <button class="btn btn-secondary btn-icon">
-        <a href="login.php" style="color: black;">
+        <a href="services.php" style="color: black;">
           <img src="./assets/images/arrow.svg" alt="menu icon">
-          Login to enjoy our services
+          Explore our services
           </a>
       </button>
     </center>
