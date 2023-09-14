@@ -482,7 +482,7 @@ session_start();
             </div>
           
             <p class="testimonials-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis fugiat totam nobis quas unde excepturi
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis fugiat totam nobis quias unde excepturi
               inventore possimus
               laudantium provident, rem eligendi velit. Aut molestias, ipsa itaque laborum, natus
               tempora, ut soluta animi ducimus dignissimos deserunt doloribus in reprehenderit rem accusamus! Quibusdam
