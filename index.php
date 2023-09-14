@@ -453,7 +453,7 @@ session_start();
             <p class="testimonials-text">
               Lorem ipsum dolor sit amet, consectetur wdwd adipisicing elit. Quis fugiat totam nobis quas unde excepturi
               inventore possimus
-              laudantium provident, rem eligendi velit. Aut molestias, ipsa itaque laborum, natus
+              laudantium provident, rem eligendi velit. Aut molestias, ipsa itaque ghj laborum, natus
               tempora, ut soluta animi ducimus dignissimos deserunt doloribus in reprehenderit rem accusamus! Quibusdam
               labore,
               aliquam dolor harum!
