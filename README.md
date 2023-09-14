@@ -35,7 +35,6 @@ Please read the full license text at [http://creativecommons.org/licenses/by-nc/
 # Don't just copy, hit the star also😊
 
 
-
 # Taaza - The website for restaurant.
 This include front end design and backend code for a restaurant based website
 
