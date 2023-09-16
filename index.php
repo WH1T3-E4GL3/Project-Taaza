@@ -6,7 +6,6 @@ session_start();
 
 
       <!-- #HOME SECTION -->
-
       <section class="home" id="home">
 
         <div class="home-left">
