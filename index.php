@@ -450,7 +450,7 @@ session_start();
             </div>
 
             <p class="testimonials-text">
-              Lorem ipsum dolor sit amet, consectetur wdwd adipisicing elit. Quis fugiat totam nobis quas unde excepturi
+              Lorem ipsum dolor sit amet, consectetur wdwd adipisicing elit. Quis fugiait totam nobis quas unde excepturi
               inventore possimus
               laudantium provident, rem eligendi velit. Aut molestias, ia itaque ghj laborum, natus
               tempora, ut soluta animi ducimus dignissimos deserunt doloribus in reprehenderit rem accusamus! Quibusdam
