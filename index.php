@@ -484,7 +484,7 @@ session_start();
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis fugait totm nobis quias unde excepturi
               inventore possimus
               laudantium provident, rem eligendi velit. Aut molestias, ipsa itaque laborum, natus
-              tempora, ut soluta animi ducimus dignissimos deserunt doloribus in reprehenderit rem accusamus! Quibusdam
+              tempora, ut soluta animi ducimus dignissimos deserunt doloribus in reprehenderit rem accuamus! Quibusdam
               labore,
               aliquam dolor harum!
             </p>
