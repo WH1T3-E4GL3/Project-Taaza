@@ -1,6 +1,7 @@
 <?php
 define("APPURL", "http://localhost/taaza");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +22,32 @@ define("APPURL", "http://localhost/taaza");
   <link
     href="https://fonts.googleapis.com/css2?family=Monoton&family=Rubik:wght@300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
+<style>
+  .remove-button {
+    background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
 
+.remove-button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #f44336;
+}
+
+.remove-button1:hover {
+  background-color: #f44336;
+  color: white;
+}
+</style>
 </head>
 
 <body>
@@ -80,11 +106,23 @@ define("APPURL", "http://localhost/taaza");
           </ul>
         </b>
 
+        <!--Cart count badge checker -->
+        <?php
+          if(isset($_SESSION['cart']))
+          {
+            $count=count($_SESSION['cart']);
+          }
+          else
+          {
+            $count=0;
+          }
+        ?>
+
           <div class="navbar-btn-group">
 
             <button class="shopping-cart-btn">
               <img src="./assets/images/cart.svg" alt="shopping cart icon" width="18">
-              <span class="count">5</span>
+              <span class="count"><?php echo $count ?></span>
             </button>
 
             <button class="menu-toggle-btn">
@@ -99,6 +137,8 @@ define("APPURL", "http://localhost/taaza");
 
       </nav>
 
+
+      
       <div class="cart-box">
 
         <ul class="cart-box-ul">
@@ -112,74 +152,41 @@ define("APPURL", "http://localhost/taaza");
                   loading="lazy">
               </div>
 
-              <h5 class="product-name">Veg Salad</h5>
+              <h5 class="product-name">
+                <?php
+                $total=0;
+                if(isset($_SESSION['cart']))
+                  {
+                  foreach($_SESSION['cart'] as $key => $value)
+                    {
+                      $total=$total+$value['price'];           
+                      echo"
+                      <tr>
+                        <td>$value[Item_name]<br></td>
+                        <td>$value[price]₹</td>
+                        <td><input type='number' value=$value[Quantity] min='1' max='10' placeholder='Quantity'></td>
+                        <td>
+                        <form action='manage_cart.php' method='POST'>
+                        <button name='remove_item' class='remove-button remove-button1'>Remove</button>
+                        <input type='hidden' name='Item_name' value='$value[Item_name]'>
+                        </form></td><br>
+                      </tr>";
+                    }
+                    }
+                ?>
+              </h5>
               <p class="product-price">
-                <span class="small">$</span>9
-              </p>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="cart-item">
-              <div class="img-box">
-                <img src="./assets/images/menu2.jpg" alt="product image" class="product-img" width="50" height="50"
-                  loading="lazy">
-              </div>
-
-              <h5 class="product-name">Chevrefried with honey</h5>
-              <p class="product-price">
-                <span class="small">$</span>14
-              </p>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="cart-item">
-              <div class="img-box">
-                <img src="./assets/images/menu3.jpg" alt="product image" class="product-img" width="50" height="50"
-                  loading="lazy">
-              </div>
-
-              <h5 class="product-name">Crispy fish</h5>
-              <p class="product-price">
-                <span class="small">$</span>4
-              </p>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="cart-item">
-              <div class="img-box">
-                <img src="./assets/images/menu4.jpg" alt="product image" class="product-img" width="50" height="50"
-                  loading="lazy">
-              </div>
-
-              <h5 class="product-name">Special Biriyani</h5>
-              <p class="product-price">
-                <span class="small">$</span>11
-              </p>
-            </a>
-          </li>
-
-          <li>
-            <a href="#" class="cart-item">
-              <div class="img-box">
-                <img src="./assets/images/menu5.jpg" alt="product image" class="product-img" width="50" height="50"
-                  loading="lazy">
-              </div>
-
-              <h5 class="product-name">Sea bream carpaccio</h5>
-              <p class="product-price">
-                <span class="small">$</span>19
+                <span class="small">₹</span><?php echo $total ?>
               </p>
             </a>
           </li>
 
         </ul>
         <div class="cart-btn-group">
-          <button class="btn btn-secondary">View order</button>
           <button class="btn btn-primary">Checkout</button>
         </div>
       </div>
+          
+  
     </header>
     <main>
