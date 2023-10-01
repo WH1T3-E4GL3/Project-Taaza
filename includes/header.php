@@ -71,7 +71,7 @@ define("APPURL", "http://localhost/taaza");
                 echo'<a href="logout.php" class="nav-link">Logout</a>';
               }
               else{
-                echo'<a href="login.php" class="nav-link">Login</a>';
+                echo'<a href="login.php" class="nav-link">Register/Login</a>';
               }
             ?>
               
