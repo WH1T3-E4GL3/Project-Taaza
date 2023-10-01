@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <?php require "includes/header.php"; ?>
 
       <style type="text/css">
@@ -14,8 +17,24 @@
       body {
         font-family: "Space Grotesk", sans-serif;
         color: var(--dark);
-        margin-top: 100px;
+        margin-top: 150px;
       }
+      .veg{
+        background-color:#a4ebbe;
+      }
+      .non-veg{
+        background-color:#eba4a9;
+      }
+      .local-taste{
+        background-color:#a4b1eb;
+      }
+      .sea-foods{
+        background-color:#8ee4ed;
+      }
+      .chineese{
+        background-color:#945d60;
+      }
+
       h3 {
         font-size: 1.5em;
         font-weight: 700;
@@ -128,6 +147,7 @@
         background: transparent;
         box-shadow: 0px 0px 0px 1px black inset;
         transition: background 0.4s ease;
+        width: 100%;
       }
       .button:hover {
         background: var(--purple);
@@ -207,7 +227,125 @@
       }
 
       </style>
+<div class="veg"><br>
+<center><h3>VEGITARIAN</h3></center>
+<div class="wrap">
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu/veg/1.png" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Masala Dosa</h3>
+        <p class="user-follow-info">100 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+  <form action="manage_cart.php" method="POST">
+    <button type="submit" name="Add_To_Cart" class="button">Buy</button>
+    <input type="hidden" name="Item_name" value="Masala dosa">
+    <input type="hidden" name="price" value="100" >
+  </form>
+  </div>
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu/veg/2.png" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">veg Biriyani</h3>
+        <p class="user-follow-info">150 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+  <form action="manage_cart.php" method="POST">
+    <button type="submit" name="Add_To_Cart" class="button">Buy</button>
+    <input type="hidden" name="Item_name" value="veg biriyani">
+    <input type="hidden" name="price" value="150" >
+  </form>
+  </div>
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu/veg/3.png" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Chilli Gobi</h3>
+        <p class="user-follow-info">130 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+  <form action="manage_cart.php" method="POST">
+    <button type="submit" name="Add_To_Cart" class="button">Buy</button>
+    <input type="hidden" name="Item_name" value="chilli gobi">
+    <input type="hidden" name="price" value="130" >
+  </form>
+  </div>
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu/veg/4.png" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Butter Nan</h3>
+        <p class="user-follow-info">100 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+  <form action="manage_cart.php" method="POST">
+    <button type="submit" name="Add_To_Cart" class="button">Buy</button>
+    <input type="hidden" name="Item_name" value="butter nan">
+    <input type="hidden" name="price" value="100" >
+  </form>
+  </div>
+</div>
 
+
+<div class="wrap">
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Al Fahm</h3>
+        <p class="user-follow-info">750 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+    <a href="#" class="button">Buy Now</a>
+  </div>
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Al Fahm</h3>
+        <p class="user-follow-info">750 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+    <a href="#" class="button">Buy Now</a>
+  </div>
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Al Fahm</h3>
+        <p class="user-follow-info">750 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+    <a href="#" class="button">Buy Now</a>
+  </div>
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Al Fahm</h3>
+        <p class="user-follow-info">750 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+    <a href="#" class="button">buy Now</a>
+  </div>
+</div>
+</div>
+
+
+<br><hr><br>
+
+<div class="non-veg"><br>
+<center><h3>NON-VEGITARIAN</h3></center>
 <div class="wrap">
   <div class="box">
     <div class="box-top">
@@ -302,8 +440,12 @@
     <a href="#" class="button">buy Now</a>
   </div>
 </div>
+</div>
 
+<br><hr><br>
 
+<div class="local-taste"><br>
+<center><h3>Local Taste</h3></center>
 <div class="wrap">
   <div class="box">
     <div class="box-top">
@@ -398,8 +540,13 @@
     <a href="#" class="button">buy Now</a>
   </div>
 </div>
+</div>
 
 
+<br><hr><br>
+
+<div class="sea-foods"><br>
+<center><h3>Sea Foods</h3></center>
 <div class="wrap">
   <div class="box">
     <div class="box-top">
@@ -494,6 +641,58 @@
     <a href="#" class="button">buy Now</a>
   </div>
 </div>
+</div>
+
+<br><hr><br>
+
+<div class="chineese"><br>
+<center><h3>chineese</h3></center>
+<div class="wrap">
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Al Fahm</h3>
+        <p class="user-follow-info">750 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+    <a href="#" class="button">Buy Now</a>
+  </div>
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Al Fahm</h3>
+        <p class="user-follow-info">750 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+    <a href="#" class="button">Buy Now</a>
+  </div>
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Al Fahm</h3>
+        <p class="user-follow-info">750 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+    <a href="#" class="button">Buy Now</a>
+  </div>
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Al Fahm</h3>
+        <p class="user-follow-info">750 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+    <a href="#" class="button">buy Now</a>
+  </div>
+</div>
 
 
 <div class="wrap">
@@ -542,5 +741,8 @@
     <a href="#" class="button">buy Now</a>
   </div>
 </div>
+</div>
+
+<br>
 
 <?php require "includes/footer.php"; ?>
