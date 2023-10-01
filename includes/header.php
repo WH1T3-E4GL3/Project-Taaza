@@ -137,7 +137,6 @@ define("APPURL", "http://localhost/taaza");
 
       </nav>
 
-
       
       <div class="cart-box">
 
@@ -185,8 +184,7 @@ define("APPURL", "http://localhost/taaza");
         <div class="cart-btn-group">
           <button class="btn btn-primary">Checkout</button>
         </div>
-      </div>
-          
+      </div>          
   
     </header>
     <main>
