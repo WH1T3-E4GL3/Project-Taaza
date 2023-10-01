@@ -6,6 +6,7 @@ session_start();
 
 
       <!-- #HOME SECTION -->
+
       <section class="home" id="home">
 
         <div class="home-left">
@@ -450,9 +451,9 @@ session_start();
             </div>
 
             <p class="testimonials-text">
-              Lorem ipsum dolor sit amet, consectetur wdwd adipisicing elit. Quis fugait toam nobis quas unde excepturi
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis fugiat totam nobis quas unde excepturi
               inventore possimus
-              laudantium provident, rem eligendi velit. Aut molestias, ia itaque ghj laborum, natus
+              laudantium provident, rem eligendi velit. Aut molestias, ipsa itaque laborum, natus
               tempora, ut soluta animi ducimus dignissimos deserunt doloribus in reprehenderit rem accusamus! Quibusdam
               labore,
               aliquam dolor harum!
@@ -481,10 +482,10 @@ session_start();
             </div>
           
             <p class="testimonials-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis fugait totm nobis quias unde excepturi
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis fugiat totam nobis quas unde excepturi
               inventore possimus
               laudantium provident, rem eligendi velit. Aut molestias, ipsa itaque laborum, natus
-              tempora, ut soluta animi ducimus dignissimos deserunt doloribus in reprehenderit rem accuamus! Quibusdam
+              tempora, ut soluta animi ducimus dignissimos deserunt doloribus in reprehenderit rem accusamus! Quibusdam
               labore,
               aliquam dolor harum!
             </p>
