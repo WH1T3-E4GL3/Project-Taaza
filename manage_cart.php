@@ -52,6 +52,19 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 				}
 			}
 		}
+		if(isset($_POST['Mod_Quantity']))
+		{
+			foreach($_SESSION['cart'] as $key => $value)
+			{
+				if($value['Item_name']==$_POST['Item_name'])
+				{
+					$_SESSION['cart'][$key]['Quantity']=$_POST['Mod_Quantity'];
+				echo"<script>
+				window.location.href='menu.php';
+				</script>";
+				}
+			}
+		}
 }
 
 ?>
