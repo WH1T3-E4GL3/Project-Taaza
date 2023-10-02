@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <?php require "includes/header.php"; ?>
 
 <section class="contact-section" id="home">
