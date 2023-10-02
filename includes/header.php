@@ -24,7 +24,7 @@ define("APPURL", "http://localhost/taaza");
     rel="stylesheet">
 <style>
   .remove-button {
-    background-color: #4CAF50; /* Green */
+  background-color: #4CAF50; /* Green */
   border: none;
   color: white;
   padding: 16px 32px;
@@ -48,22 +48,17 @@ define("APPURL", "http://localhost/taaza");
   color: white;
 }
 </style>
+
 </head>
 
 <body>
-
   <!-- main container -->
-
   <div class="container">
 
     <!-- #HEADER -->
-
     <header>
-
       <nav class="navbar">
-
         <div class="navbar-wrapper">
-
           <a href="#">
             <img src="./assets/images/logo.png" alt="logo" width="130">
           </a>
@@ -99,11 +94,11 @@ define("APPURL", "http://localhost/taaza");
               else{
                 echo'<a href="login.php" class="nav-link">Register/Login</a>';
               }
-            ?>
-              
+            ?>             
             </li>
 
           </ul>
+
         </b>
 
         <!--Cart count badge checker -->
@@ -119,7 +114,6 @@ define("APPURL", "http://localhost/taaza");
         ?>
 
           <div class="navbar-btn-group">
-
             <button class="shopping-cart-btn">
               <img src="./assets/images/cart.svg" alt="shopping cart icon" width="18">
               <span class="count"><?php echo $count ?></span>
@@ -130,61 +124,69 @@ define("APPURL", "http://localhost/taaza");
               <span class="line two"></span>
               <span class="line three"></span>
             </button>
-
           </div>
 
         </div>
-
       </nav>
-
       
       <div class="cart-box">
-
         <ul class="cart-box-ul">
+    <h4 class="cart-h4">Your order.</h4>
+    <?php
+    if (isset($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $key => $value) {
+            $sr = $key + 1; // Fixing the $sr value
+            echo "
+            <li class='cart-item'>
+                <div class='img-box'>
+                    <img src='./assets/images/menu1.jpg' alt='product image' class='product-img' width='50' height='50' loading='lazy'>
+                </div>
+                $value[Item_name]<br>
+                $value[price]₹<input type='hidden' class='iprice' value='$value[price]' id='iprice_$sr'>
+                <input class='iquantity' onchange='subTotal()' type='number' value='$value[Quantity]' min='1' max='10' placeholder='Quantity'>
+                <span class='itotal'></span>
+                <form action='manage_cart.php' method='POST'>
+                    <button name='remove_item' class='remove-button remove-button1'>Remove</button>
+                    <input type='hidden' name='Item_name' value='$value[Item_name]'>
+                </form>
+            </li>";
+        }
+    }
+    ?>
+    <p class="product-price">
+        <span class="small" id='gtotal'></span>
+    </p>
+</ul>
 
-          <h4 class="cart-h4">Your order.</h4>
 
-          <li>
-            <a href="#" class="cart-item">
-              <div class="img-box">
-                <img src="./assets/images/menu1.jpg" alt="product image" class="product-img" width="50" height="50"
-                  loading="lazy">
-              </div>
-
-              <h5 class="product-name">
-                <?php
-                $total=0;
-                if(isset($_SESSION['cart']))
-                  {
-                  foreach($_SESSION['cart'] as $key => $value)
-                    {
-                      $total=$total+$value['price'];           
-                      echo"
-                      <tr>
-                        <td>$value[Item_name]<br></td>
-                        <td>$value[price]₹</td>
-                        <td><input type='number' value=$value[Quantity] min='1' max='10' placeholder='Quantity'></td>
-                        <td>
-                        <form action='manage_cart.php' method='POST'>
-                        <button name='remove_item' class='remove-button remove-button1'>Remove</button>
-                        <input type='hidden' name='Item_name' value='$value[Item_name]'>
-                        </form></td><br>
-                      </tr>";
-                    }
-                    }
-                ?>
-              </h5>
-              <p class="product-price">
-                <span class="small">₹</span><?php echo $total ?>
-              </p>
-            </a>
-          </li>
-
-        </ul>
-        <div class="cart-btn-group">
-          <button class="btn btn-primary">Checkout</button>
-        </div>
-      </div>          
+  <div class="cart-btn-group">
+    <button class="btn btn-primary">Checkout</button>
+  </div>
+  </div>
+          
   
     </header>
     <main>
+
+<script>
+function subTotal() {
+    console.log("Running subTotal()");
+    var gt = 0;
+    var iprice = document.getElementsByClassName('iprice');
+    var iquantity = document.getElementsByClassName('iquantity');
+    var itotal = document.getElementsByClassName('itotal');
+    var gtotal = document.getElementById('gtotal');
+
+    for (var i = 0; i < iprice.length; i++) {
+        var price = parseFloat(iprice[i].value);
+        var quantity = parseInt(iquantity[i].value);
+        var total = price * quantity;
+        itotal[i].innerText = total + '₹'; // Show the total for each item
+        gt += total;
+    }
+
+    gtotal.innerText = 'Total: ' + gt + '₹'; // Show the grand total
+}
+
+subTotal();
+</script>
