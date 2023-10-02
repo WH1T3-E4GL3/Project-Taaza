@@ -228,23 +228,36 @@ session_start();
 
       </style>
 <div class="veg"><br>
-<center><h3>VEGITARIAN</h3></center>
-<div class="wrap">
-  <div class="box">
-    <div class="box-top">
-      <img class="box-image" src="./assets/images/menu/veg/1.png" alt="Girl Eating Pizza">
-      <div class="title-flex">
-        <h3 class="box-title">Masala Dosa</h3>
-        <p class="user-follow-info">100 ₹</p>
+    <center>
+      <h3>VEGITARIAN</h3>
+    </center>
+    <div class="wrap">
+      
+      <!-- Masala Dosa -->
+      <div class="box">
+        <div class="box-top">
+          <img class="box-image" src="./assets/images/menu/veg/1.png" alt="Girl Eating Pizza">
+          <div class="title-flex">
+            <h3 class="box-title">Masala Dosa</h3>
+            <p class="user-follow-info">100 ₹</p>
+          </div>
+          <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+        </div>
+        <form action="manage_cart.php" method="POST">
+          <?php
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true)
+            {
+              echo '<button type="submit" name="Add_To_Cart" class="button">Buy</button>';
+            }
+            else
+            {
+              echo '<a href="new-login.php" class="button">Login to Add to Cart</a>';
+            }
+          ?>
+          <input type='hidden' name='Item_name' value='Masala dosa'>
+          <input type='hidden' name='price' value='100'>
+        </form>
       </div>
-      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
-    </div>
-  <form action="manage_cart.php" method="POST">
-    <button type="submit" name="Add_To_Cart" class="button">Buy</button>
-    <input type="hidden" name="Item_name" value="Masala dosa">
-    <input type="hidden" name="price" value="100" >
-  </form>
-  </div>
   <div class="box">
     <div class="box-top">
       <img class="box-image" src="./assets/images/menu/veg/2.png" alt="Girl Eating Pizza">
@@ -255,7 +268,16 @@ session_start();
       <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
     </div>
   <form action="manage_cart.php" method="POST">
-    <button type="submit" name="Add_To_Cart" class="button">Buy</button>
+          <?php
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true)
+            {
+              echo '<button type="submit" name="Add_To_Cart" class="button">Buy</button>';
+            }
+            else
+            {
+              echo '<a href="new-login.php" class="button">Login to Add to Cart</a>';
+            }
+          ?>
     <input type="hidden" name="Item_name" value="veg biriyani">
     <input type="hidden" name="price" value="150" >
   </form>
@@ -270,7 +292,16 @@ session_start();
       <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
     </div>
   <form action="manage_cart.php" method="POST">
-    <button type="submit" name="Add_To_Cart" class="button">Buy</button>
+          <?php
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true)
+            {
+              echo '<button type="submit" name="Add_To_Cart" class="button">Buy</button>';
+            }
+            else
+            {
+              echo '<a href="new-login.php" class="button">Login to Add to Cart</a>';
+            }
+          ?>
     <input type="hidden" name="Item_name" value="chilli gobi">
     <input type="hidden" name="price" value="130" >
   </form>
@@ -285,62 +316,125 @@ session_start();
       <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
     </div>
   <form action="manage_cart.php" method="POST">
-    <button type="submit" name="Add_To_Cart" class="button">Buy</button>
+          <?php
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true)
+            {
+              echo '<button type="submit" name="Add_To_Cart" class="button">Buy</button>';
+            }
+            else
+            {
+              echo '<a href="new-login.php" class="button">Login to Add to Cart</a>';
+            }
+          ?>
     <input type="hidden" name="Item_name" value="butter nan">
     <input type="hidden" name="price" value="100" >
   </form>
   </div>
 </div>
 
+<!--###################################################################################################################################################################-->
 
 <div class="wrap">
   <div class="box">
     <div class="box-top">
-      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
+      <img class="box-image" src="./assets/images/menu/veg/5.png" alt="Girl Eating Pizza">
       <div class="title-flex">
-        <h3 class="box-title">Al Fahm</h3>
-        <p class="user-follow-info">750 ₹</p>
-      </div>
-      <p class="description">Al Fahm Arabian roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
-    </div>
-    <a href="#" class="button">Buy Now</a>
-  </div>
-  <div class="box">
-    <div class="box-top">
-      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
-      <div class="title-flex">
-        <h3 class="box-title">Al Fahm</h3>
-        <p class="user-follow-info">750 ₹</p>
+        <h3 class="box-title">Gobi Manjuri</h3>
+        <p class="user-follow-info">220 ₹</p>
       </div>
       <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
     </div>
-    <a href="#" class="button">Buy Now</a>
+    <form action="manage_cart.php" method="POST">
+          <?php
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true)
+            {
+              echo '<button type="submit" name="Add_To_Cart" class="button">Buy</button>';
+            }
+            else
+            {
+              echo '<a href="new-login.php" class="button">Login to Add to Cart</a>';
+            }
+          ?>
+    <input type="hidden" name="Item_name" value="Gobi Manjuri">
+    <input type="hidden" name="price" value="220" >
+  </form>
   </div>
   <div class="box">
     <div class="box-top">
-      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
+      <img class="box-image" src="./assets/images/menu/veg/6.png" alt="Girl Eating Pizza">
       <div class="title-flex">
-        <h3 class="box-title">Al Fahm</h3>
-        <p class="user-follow-info">750 ₹</p>
+        <h3 class="box-title">Paneer Masala</h3>
+        <p class="user-follow-info">100 ₹</p>
       </div>
       <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
     </div>
-    <a href="#" class="button">Buy Now</a>
+    <form action="manage_cart.php" method="POST">
+          <?php
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true)
+            {
+              echo '<button type="submit" name="Add_To_Cart" class="button">Buy</button>';
+            }
+            else
+            {
+              echo '<a href="new-login.php" class="button">Login to Add to Cart</a>';
+            }
+          ?>
+    <input type="hidden" name="Item_name" value="Paneer Masala">
+    <input type="hidden" name="price" value="100" >
+  </form>
   </div>
   <div class="box">
     <div class="box-top">
-      <img class="box-image" src="./assets/images/menu2.jpg" alt="Girl Eating Pizza">
+      <img class="box-image" src="./assets/images/menu/veg/7.png" alt="Girl Eating Pizza">
       <div class="title-flex">
-        <h3 class="box-title">Al Fahm</h3>
-        <p class="user-follow-info">750 ₹</p>
+        <h3 class="box-title">Alu porotta</h3>
+        <p class="user-follow-info">120 ₹</p>
       </div>
       <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
     </div>
-    <a href="#" class="button">buy Now</a>
+    <form action="manage_cart.php" method="POST">
+          <?php
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true)
+            {
+              echo '<button type="submit" name="Add_To_Cart" class="button">Buy</button>';
+            }
+            else
+            {
+              echo '<a href="new-login.php" class="button">Login to Add to Cart</a>';
+            }
+          ?>
+    <input type="hidden" name="Item_name" value="Alu porotta">
+    <input type="hidden" name="price" value="120" >
+  </form>
+  </div>
+  <div class="box">
+    <div class="box-top">
+      <img class="box-image" src="./assets/images/menu/veg/8.png" alt="Girl Eating Pizza">
+      <div class="title-flex">
+        <h3 class="box-title">Garlic Nan</h3>
+        <p class="user-follow-info">110 ₹</p>
+      </div>
+      <p class="description">Al Fahm Arabian Whipped steamed roast cream beans macchiato skinny grinder café. Iced grinder go mocha steamed grounds cultivar panna aroma.</p>
+    </div>
+    <form action="manage_cart.php" method="POST">
+          <?php
+            if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true)
+            {
+              echo '<button type="submit" name="Add_To_Cart" class="button">Buy</button>';
+            }
+            else
+            {
+              echo '<a href="new-login.php" class="button">Login to Add to Cart</a>';
+            }
+          ?>
+    <input type="hidden" name="Item_name" value="Garlic Nan">
+    <input type="hidden" name="price" value="110" >
+  </form>
   </div>
 </div>
 </div>
 
+<!--###################################################################################################################################################################-->
 
 <br><hr><br>
 
@@ -393,6 +487,7 @@ session_start();
   </div>
 </div>
 
+<!--###################################################################################################################################################################-->
 
 <div class="wrap">
   <div class="box">
@@ -442,6 +537,7 @@ session_start();
 </div>
 </div>
 
+<!--###################################################################################################################################################################-->
 <br><hr><br>
 
 <div class="local-taste"><br>
@@ -493,6 +589,7 @@ session_start();
   </div>
 </div>
 
+<!--###################################################################################################################################################################-->
 
 <div class="wrap">
   <div class="box">
@@ -542,6 +639,7 @@ session_start();
 </div>
 </div>
 
+<!--###################################################################################################################################################################-->
 
 <br><hr><br>
 
@@ -594,6 +692,7 @@ session_start();
   </div>
 </div>
 
+<!--###################################################################################################################################################################-->
 
 <div class="wrap">
   <div class="box">
@@ -643,6 +742,7 @@ session_start();
 </div>
 </div>
 
+<!--###################################################################################################################################################################-->
 <br><hr><br>
 
 <div class="chineese"><br>
@@ -694,6 +794,7 @@ session_start();
   </div>
 </div>
 
+<!--###################################################################################################################################################################-->
 
 <div class="wrap">
   <div class="box">
