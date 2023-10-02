@@ -131,52 +131,61 @@ define("APPURL", "http://localhost/taaza");
       </nav>
       
       <div class="cart-box">
-        <ul class="cart-box-ul">
-    <h4 class="cart-h4">Your order.</h4>
-    <?php
-    if (isset($_SESSION['cart'])) {
-        foreach ($_SESSION['cart'] as $key => $value) {
-            $sr = $key + 1; // Fixing the $sr value
-            echo "
-            <li class='cart-item'>
-                <div class='img-box'>
-                    <img src='./assets/images/menu1.jpg' alt='product image' class='product-img' width='50' height='50' loading='lazy'>
-                </div>
-                $value[Item_name]<br>
-                $value[price]₹<input type='hidden' class='iprice' value='$value[price]' id='iprice_$sr'>
-                <form action='manage_cart.php' method='POST'>
-                <input class='iquantity' name='Mod_Quantity' onchange='this.form.submit();' type='number' value='$value[Quantity]' min='1' max='10' placeholder='Quantity'>
-                <input type='hidden' name='Item_name' value='$value[Item_name]'>
-                </form>              
-                <span class='itotal'></span>
-                <form action='manage_cart.php' method='POST'>
-                    <button name='remove_item' class='remove-button remove-button1'>Remove</button>
-                    <input type='hidden' name='Item_name' value='$value[Item_name]'>
-                </form>
-            </li>";
+    <ul class="cart-box-ul">
+        <h4 class="cart-h4">Your order.</h4>
+        <?php
+        if (isset($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as $key => $value) {
+                $sr = $key + 1; // Fixing the $sr value
+                echo "
+                <li class='cart-item'>
+                    <div class='img-box'>
+                        <img src='./assets/images/menu1.jpg' alt='product image' class='product-img' width='50' height='50' loading='lazy'>
+                    </div>
+                    $value[Item_name]<br>
+                    $value[price]₹<input type='hidden' class='iprice' value='$value[price]' id='iprice_$sr'>
+                    <form action='manage_cart.php' method='POST'>
+                        <input class='iquantity' name='Mod_Quantity' onchange='this.form.submit();' type='number' value='$value[Quantity]' min='1' max='10' placeholder='Quantity'>
+                        <input type='hidden' name='Item_name' value='$value[Item_name]'>
+                    </form>
+                    <span class='itotal'></span>
+                    <form action='manage_cart.php' method='POST'>
+                        <button name='remove_item' class='remove-button remove-button1'>Remove</button>
+                        <input type='hidden' name='Item_name' value='$value[Item_name]'>
+                    </form>
+                </li>";
+            }
         }
+        ?>
+        <p class="product-price">
+            <span class="small" id='gtotal'></span>
+        </p>
+    </ul>
+
+    <?php
+    if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0)
+    {
+    ?>
+    <form action="checkout.php" method="POST">
+        <?php
+        // Add hidden input fields for Item_name, price, Quantity
+        foreach ($_SESSION['cart'] as $key => $value) {
+            
+            echo "
+            <input type='hidden' name='Item_name[]' value='$value[Item_name]'>
+            <input type='hidden' name='price[]' value='$value[price]'>
+            <input type='hidden' name='Quantity[]' value='$value[Quantity]'>";
+        }
+        ?>
+        <div class="cart-btn-group">
+            <button name='checkout' class="btn btn-primary">Checkout</button>
+        </div>
+    </form>
+    <?php
     }
     ?>
-    <p class="product-price">
-        <span class="small" id='gtotal'></span>
-    </p>
-</ul>
+</div>
 
-<form action="checkout.php" method="POST">
-  <?php
-    if(isset($_SESSION['cart']) && count($_SESSION['cart'])>0)
-    {
-      #we place our button in if block to display only if cart has some contents
-  ?>
-  
-  <div class="cart-btn-group">
-    <button name='checkout' class="btn btn-primary">Checkout</button>
-  </div>
-  <?php
-    }
-  ?>
-</form>
-  </div>
           
   
     </header>
