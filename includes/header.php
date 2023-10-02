@@ -35,6 +35,7 @@ define("APPURL", "http://localhost/taaza");
   margin: 4px 2px;
   transition-duration: 0.4s;
   cursor: pointer;
+  width: 130px;
 }
 
 .remove-button1 {
@@ -143,7 +144,10 @@ define("APPURL", "http://localhost/taaza");
                 </div>
                 $value[Item_name]<br>
                 $value[price]₹<input type='hidden' class='iprice' value='$value[price]' id='iprice_$sr'>
-                <input class='iquantity' onchange='subTotal()' type='number' value='$value[Quantity]' min='1' max='10' placeholder='Quantity'>
+                <form action='manage_cart.php' method='POST'>
+                <input class='iquantity' name='Mod_Quantity' onchange='this.form.submit();' type='number' value='$value[Quantity]' min='1' max='10' placeholder='Quantity'>
+                <input type='hidden' name='Item_name' value='$value[Item_name]'>
+                </form>              
                 <span class='itotal'></span>
                 <form action='manage_cart.php' method='POST'>
                     <button name='remove_item' class='remove-button remove-button1'>Remove</button>
@@ -158,10 +162,20 @@ define("APPURL", "http://localhost/taaza");
     </p>
 </ul>
 
-
+<form action="checkout.php" method="POST">
+  <?php
+    if(isset($_SESSION['cart']) && count($_SESSION['cart'])>0)
+    {
+      #we place our button in if block to display only if cart has some contents
+  ?>
+  
   <div class="cart-btn-group">
-    <button class="btn btn-primary">Checkout</button>
+    <button name='checkout' class="btn btn-primary">Checkout</button>
   </div>
+  <?php
+    }
+  ?>
+</form>
   </div>
           
   
