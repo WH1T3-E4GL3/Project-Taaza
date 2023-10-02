@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <?php require "includes/header.php"; ?>
 
 <style>
@@ -283,6 +286,8 @@ hr {
     
   </ul>
 </div>
+
+
 
 
 <?php require "includes/footer.php"; ?>
