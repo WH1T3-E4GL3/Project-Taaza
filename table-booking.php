@@ -181,6 +181,7 @@ session_start();
           </div>
 
           <br>
+
           <!-- Add date and time input fields with JavaScript to populate them automatically -->
           <div class="box">
             <div class="form-field">
@@ -189,22 +190,28 @@ session_start();
             </div>
             <div class="form-field">
               <label for="time">Time:</label>
-              <input type="text" id="time" name="time" required>
+              <input type="text" id="time" name="time" placeholder="eg: 01:30 pm" pattern="^(0[1-9]|1[0-2]):[0-5][0-9] [apAP][mM]$" title="Enter a valid time (hh:mm am/pm)" required>
             </div>
           </div>
 
           <br>
           <center><input type="submit" class="button" value="Book Tables"></center>
+          <br>
+          <center><button class="button"><a href="payment-verification.php" style="color:white">Your Bookings</a></button></center>
+          <button>
           <br><hr><br>
         </form>
       </section>
     </div>
 
     <figure class="hero-banner">
-    <center><h2 style="color:#0d5215">Blue Print</h2></center><br>
+    <center><h2 style="color:#0d5215">Ground Floor</h2></center><br>
       <img width='600' src="assets/images/table-book/blue_print.png" alt='Blue print image [load error]'>
-      <hr>
+      <hr><br>
+      <center><h2 style="color:#0d5215">First Floor [VIP]</h2></center><br>
       <img width='600' src="assets/images/table-book/first-floor.png" alt='Blue print image [load error]'>
+      <br>
+      <center><button class="button"><a href="vip-booking.php" style="color:white">VIP Booking Section</a></button></center>
     </figure>
   </div>
 </section>
