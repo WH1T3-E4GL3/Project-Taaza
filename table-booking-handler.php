@@ -65,7 +65,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Retrieve other form data
         $date = $_POST['date'];
         $time = $_POST['time'];
-        $payment = isset($_POST['payment']) ? 1 : 0;
+        $time = strtolower($time);
+        $payment = 0;
 
         // Insert data into the table as a single query
         $sql = "INSERT INTO table_booking_ground (name, email, section, seat, date, time, payment) 
@@ -74,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($conn->query($sql) === TRUE) {
             // Redirect to a success page or handle success
             echo "<script>alert('Table Booked Successfully');
-            window.location.href = 'table-booking.php';
+            window.location.href = 'payment-verification.php';
             </script>";
 
             exit();
