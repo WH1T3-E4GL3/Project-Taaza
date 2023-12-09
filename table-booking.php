@@ -56,248 +56,157 @@ session_start();
   }
 
   .box {
-  border: 5px solid #ccc; /* Border color and thickness */
-  padding: 10px; /* Padding inside the box */
-  border-radius: 10px; /* Rounded corners */
-  background-color: #f9f9f9; /* Background color */
-  max-width: 600px; /* Adjust the maximum width as per your preference */
-  margin: auto; /* Center the box */
-  color: grey;
+    border: 5px solid #ccc; /* Border color and thickness */
+    padding: 10px; /* Padding inside the box */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #f9f9f9; /* Background color */
+    max-width: 600px; /* Adjust the maximum width as per your preference */
+    margin: auto; /* Center the box */
+    color: grey;
+  }
+
+  .button {
+    background-image: linear-gradient(to right, #0d5215, green);
+    color: white;
+    max-width: 600px;
+    font-size: var(--fs-7);
+    text-transform: uppercase;
+    padding: 20px 30px;
+    text-align: center;
+    border-radius: 7px;
+  }
+
+  .hero-banner img {
+    max-width: 100%; /* Make images responsive */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Remove extra space under the image */
+    margin: auto; /* Center the image */
+    margin-top: 13px; /* Add margin-top to move the image downward */
+}
+
+@media screen and (max-width: 1000px) {
+    .hero-banner img {
+        max-width: 100%;
+        margin-top: 10px;
+    }
 }
 
 </style>
 
+
 <section class="contact-section" id="home">
   <div class="contact-container">
     <div class="contact-content">
-      <img src="assets/images/logo.png" alt="ICON" width="70" height="70">
-      <br>
-      <h2>Restaurant Map</h2>
 
+      <section>
+        <form action="table-booking-handler.php" method="post">
+          <center><h2 style="color:#0d5215">Ground Floor</h2></center><br>
+
+          <!-- Family Section -->
+          <div class="box">
+            <div class="content">
+              <center><h3>Family section</h3></center>
+              <hr>
+
+              <!-- Use dropdowns for seat selection -->
+              <div class="form-field">
+                <label for="family_seat">Select Seat:</label>
+                <select id="family_seat" name='section[family][]'>
+                  <option value="NONE">None</option>
+                  <option value="f1">F1</option>
+                  <option value="f2">F2</option>
+                  <option value="f3">F3</option>
+                  <option value="f4">F4</option>
+                  <option value="f5">F5</option>
+                  <option value="f6">F6</option>
+                  <option value="f7">F7</option>
+                  <option value="f8">F8</option>
+                  <option value="f9">F9</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+          <br>
+
+          <!-- Normal Section -->
+          <div class="box">
+            <div class="content">
+              <center><h3>Normal section</h3></center>
+              <hr>
+              <!-- Use dropdowns for seat selection -->
+              <div class="form-field">
+                <label for="normal_seat">Select Seat:</label>
+                <select id="normal_seat" name='section[normal][]'>
+                  <option value="NONE">None</option>
+                  <option value="n1">N1</option>
+                  <option value="n2">N2</option>
+                  <option value="n3">N3</option>
+                  <option value="n4">N4</option>
+                  <option value="n5">N5</option>
+                  <option value="n6">N6</option>
+                  <option value="n7">N7</option>
+                  <option value="n8">N8</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+          <br>
+
+          <!-- Special Section -->
+          <div class="box">
+            <div class="content">
+              <center><h3>Special section</h3></center>
+              <hr>
+
+              <!-- Use dropdowns for seat selection -->
+              <div class="form-field">
+                <label for="special_seat">Select Seat:</label>
+                <select id="special_seat" name='section[special][]'>
+                  <option value="NONE">None</option>
+                  <option value="s1">S1</option>
+                  <option value="s2">S2</option>
+                  <option value="s3">S3</option>
+                  <option value="s4">S4</option>
+                  <option value="s5">S5</option>
+                  <option value="s6">S6</option>
+                  <option value="s7">S7</option>
+                  <option value="s8">S8</option>
+                  <!-- Add options for other special seats -->
+                </select>
+              </div>
+
+            </div>
+          </div>
+
+          <br>
+          <!-- Add date and time input fields with JavaScript to populate them automatically -->
+          <div class="box">
+            <div class="form-field">
+              <label for="date">Date:</label>
+              <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-field">
+              <label for="time">Time:</label>
+              <input type="text" id="time" name="time" required>
+            </div>
+          </div>
+
+          <br>
+          <center><input type="submit" class="button" value="Book Tables"></center>
+          <br><hr><br>
+        </form>
+      </section>
     </div>
+
     <figure class="hero-banner">
-      <img width='900' src="assets/images/table-book/blue_print.png" alt='Blue print image [load error]'>
+    <center><h2 style="color:#0d5215">Blue Print</h2></center><br>
+      <img width='600' src="assets/images/table-book/blue_print.png" alt='Blue print image [load error]'>
+      <hr>
+      <img width='600' src="assets/images/table-book/first-floor.png" alt='Blue print image [load error]'>
     </figure>
   </div>
-  <hr>
 </section>
 
-<section>
-
-<div class="box">
-    <div class="content">
-      <center><h3>family section</h3></center>
-      <hr>
-    <label class="checkBox">
-      <input type="checkbox" id="ch1" name='ch1'>
-      <div class="transition"></div>
-      <span>F1</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch2" name='ch2'>
-      <div class="transition"></div>
-      <span>F2</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch3" name='ch3'>
-      <div class="transition"></div>
-      <span>F3</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch4" name='ch4'>
-      <div class="transition"></div>
-      <span>F4</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch5" name='ch5'>
-      <div class="transition"></div>
-      <span>F5</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch6" name='ch6'>
-      <div class="transition"></div>
-      <span>F6</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch7" name='ch7'>
-      <div class="transition"></div>
-      <span>F7</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch8" name='ch8'>
-      <div class="transition"></div>
-      <span>F8</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch9" name='ch9'>
-      <div class="transition"></div>
-      <span>F9</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-  </div>
-</div>
-
-<center><hr style="width:300px"></center>
-
-
-<div class="box">
-    <div class="content">
-      <center><h3>family section</h3></center>
-      <hr>
-    <label class="checkBox">
-      <input type="checkbox" id="ch1" name='ch1'>
-      <div class="transition"></div>
-      <span>F1</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch2" name='ch2'>
-      <div class="transition"></div>
-      <span>F2</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch3" name='ch3'>
-      <div class="transition"></div>
-      <span>F3</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch4" name='ch4'>
-      <div class="transition"></div>
-      <span>F4</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch5" name='ch5'>
-      <div class="transition"></div>
-      <span>F5</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch6" name='ch6'>
-      <div class="transition"></div>
-      <span>F6</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch7" name='ch7'>
-      <div class="transition"></div>
-      <span>F7</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch8" name='ch8'>
-      <div class="transition"></div>
-      <span>F8</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch9" name='ch9'>
-      <div class="transition"></div>
-      <span>F9</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-  </div>
-</div>
-
-
-<center><hr style="width:300px"></center>
-
-
-<div class="box">
-    <div class="content">
-      <center><h3>family section</h3></center>
-      <hr>
-    <label class="checkBox">
-      <input type="checkbox" id="ch1" name='ch1'>
-      <div class="transition"></div>
-      <span>F1</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch2" name='ch2'>
-      <div class="transition"></div>
-      <span>F2</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch3" name='ch3'>
-      <div class="transition"></div>
-      <span>F3</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch4" name='ch4'>
-      <div class="transition"></div>
-      <span>F4</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch5" name='ch5'>
-      <div class="transition"></div>
-      <span>F5</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch6" name='ch6'>
-      <div class="transition"></div>
-      <span>F6</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch7" name='ch7'>
-      <div class="transition"></div>
-      <span>F7</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch8" name='ch8'>
-      <div class="transition"></div>
-      <span>F8</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-
-    <label class="checkBox">
-      <input type="checkbox" id="ch9" name='ch9'>
-      <div class="transition"></div>
-      <span>F9</span>
-    </label>
-    &nbsp;&nbsp;&nbsp;&nbsp; <!--Adding some space charecters-->
-  </div>
-</div>
-
-<br><br>
-</section>
 <?php require "includes/footer.php"; ?>
