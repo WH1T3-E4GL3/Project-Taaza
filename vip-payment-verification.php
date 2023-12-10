@@ -55,8 +55,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                                     <p>Name: <?php echo $userName; ?></p>
                                     <p>Email: <?php echo $userEmail; ?></p>
                                     <p>Payment Status: <span style="color: <?php echo ($vipBookingData['payment'] == 0) ? 'red' : 'green'; ?>"><?php echo ($vipBookingData['payment'] == 0) ? 'Not Paid [Your VIP table is not ready for you yet]' : 'Paid [Your VIP table is ready for you]'; ?></span></p>
-                                    <p>Sections [In order]: <?php echo $vipBookingData['section']; ?></p>
-                                    <p>Seats [In order]: <?php echo $vipBookingData['seat']; ?></p>
+                                    <p>Section: <?php echo $vipBookingData['section']; ?></p>
+                                    <p>Seat: <?php echo $vipBookingData['seat']; ?></p>
                                     <?php
                                     // Display 'Pay Now' button for unpaid VIP bookings
                                     if ($vipBookingData['payment'] == 0) {
