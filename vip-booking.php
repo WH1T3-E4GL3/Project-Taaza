@@ -1,12 +1,6 @@
 <?php
 session_start();
-?>
-<?php require "includes/header.php"; ?>
-
-
-<?php
-session_start();
-
+require_once "includes/header.php";
 require_once "includes/connection.php";
 
 // Check if the user is logged in
@@ -23,7 +17,70 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
             $userData = mysqli_fetch_assoc($result);
             $userName = $userData['name'];
 
-            // Now $userName contains the user's name
+            // Continue with the rest of your booking script
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                // Retrieve and process form data
+                $name = $userName; // Use the fetched name
+                $email = $userEmail;
+
+                // Check if 'section' is set in $_POST
+                if (isset($_POST['section'])) {
+                    $sectionArray = $_POST['section'];
+
+                    // Initialize arrays to store sections, seats, and decor
+                    $sections = [];
+                    $seats = [];
+                    $decor = [];
+
+                    // Iterate through sections and seats
+                    foreach ($sectionArray as $sectionName => $seatsArray) {
+                        // Check if the seat is set, otherwise set a default value
+                        $selectedSeat = (isset($seatsArray[0])) ? $seatsArray[0] : 'NONE';
+
+                        // Concatenate seats for each section
+                        $seats[] = $selectedSeat;
+                        $sections[] = $sectionName;
+
+                        // Check if decor is set, otherwise set a default value
+                        $selectedDecor = (isset($seatsArray[1])) ? $seatsArray[1] : 'NONE';
+
+                        // Concatenate decor for each section
+                        $decor[] = $selectedDecor;
+                    }
+
+                    // Concatenate sections, seats, and decor as comma-separated strings
+                    $sectionsString = implode(",", $sections);
+                    $seatsString = implode(",", $seats);
+                    $decorString = implode(",", $decor);
+
+                    // Retrieve other form data
+                    $date = $_POST['date'];
+                    $time = $_POST['time'];
+                    $time = strtolower($time);
+                    $payment = 0;
+
+                    // Insert data into the VIP table
+                    $table = 'table_booking_vip';
+
+                    $sql = "INSERT INTO $table (name, email, section, seat, decor, date, time, payment) 
+                            VALUES ('$name', '$email', '$sectionsString', '$seatsString', '$decorString', '$date', '$time', $payment)";
+
+                    if ($conn->query($sql) === TRUE) {
+                        // Redirect to a success page or handle success
+                        echo "<script>alert('VIP Table Booked Successfully');
+                            window.location.href = 'vip-payment-verification.php';
+                            </script>";
+
+                        exit();
+                    } else {
+                        // Handle errors
+                        echo "<script>alert('ERROR in VIP table Booking');</script>";
+                    }
+                } else {
+                    // Handle the case where 'section' is not set in $_POST
+                    echo "<script>alert('No section data received');</script>";
+                }
+            }
         } else {
             // Handle the case where the email is not found in the database
             echo "<script>alert('Email not registered');</script>";
@@ -32,7 +89,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
         }
     } else {
         // Handle database query error
-        echo "<script>alert('ERROR in proccessing your request');</script>";
+        echo "<script>alert('ERROR in processing your request');</script>";
         exit();
     }
 } else {
@@ -40,63 +97,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
     echo "<script>alert('Log in to access VIP booking');</script>";
     echo "<script>window.location.href='new-login.php';</script>";
     exit();
-}
-
-// Continue with the rest of your booking script
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve and process form data
-    $name = $userName; // Use the fetched name
-    $email = $userEmail;
-
-    // Check if 'section' is set in $_POST
-    if (isset($_POST['section'])) {
-        $sectionArray = $_POST['section'];
-
-        // Initialize arrays to store sections and seats
-        $sections = [];
-        $seats = [];
-
-        // Iterate through sections and seats
-        foreach ($sectionArray as $sectionName => $seatsArray) {
-            // Check if the seat is set, otherwise set a default value
-            $selectedSeat = (isset($seatsArray[0])) ? $seatsArray[0] : 'NONE';
-
-            // Concatenate seats for each section
-            $seats[] = $selectedSeat;
-            $sections[] = $sectionName;
-        }
-
-        // Concatenate sections and seats as comma-separated strings
-        $sectionsString = implode(",", $sections);
-        $seatsString = implode(",", $seats);
-
-        // Retrieve other form data
-        $date = $_POST['date'];
-        $time = $_POST['time'];
-        $time = strtolower($time);
-        $payment = 0;
-
-        // Insert data into the VIP table
-        $table = 'table_booking_vip';
-
-        $sql = "INSERT INTO $table (name, email, section, seat, date, time, payment) 
-                VALUES ('$name', '$email', '$sectionsString', '$seatsString', '$date', '$time', $payment)";
-
-        if ($conn->query($sql) === TRUE) {
-            // Redirect to a success page or handle success
-            echo "<script>alert('VIP Table Booked Successfully');
-            window.location.href = 'vip-payment-verification.php';
-            </script>";
-
-            exit();
-        } else {
-            // Handle errors
-            echo "<script>alert('ERROR in VIP table Booking');</script>";
-        }
-    } else {
-        // Handle the case where 'section' is not set in $_POST
-        echo "<script>alert('No section data received');</script>";
-    }
 }
 
 $conn->close();
@@ -219,6 +219,17 @@ $conn->close();
                   <option value="v4">V4</option>
                   <option value="v5">V5</option>
                   <option value="v6">V6</option>
+                </select>
+              </div>
+
+              <!-- Use dropdowns for customize selection -->
+              <div class="form-field">
+                <label for="family_seat">Select decor:</label>
+                <select id="family_seat" name='section[VIP][]'>
+                  <option value="NONE">None</option>
+                  <option value="Candle light">Candle light</option>
+                  <option value="Special live rose flower pot">Special live rose flower pot</option>
+                  <option value="Chandeliers">Chandeliers</option>
                 </select>
               </div>
 
