@@ -20,17 +20,19 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
             // Now $userName contains the user's name
         } else {
             // Handle the case where the email is not found in the database
-            echo "<script>alert('Email not found in the database');</script>";
+            echo "<script>alert('Email not registered');</script>";
+            echo "<script>window.location.href='login.php';</script>";
             exit();
         }
     } else {
         // Handle database query error
-        echo "<script>alert('Error querying the database');</script>";
+        echo "<script>alert('ERROR proccessing your request');</script>";
         exit();
     }
 } else {
     // Handle the case where the user is not logged in
-    echo "<script>alert('User not logged in');</script>";
+    echo "<script>alert('Login to book tables.');</script>";
+    echo "<script>window.location.href='new-login.php';</script>";
     exit();
 }
 
