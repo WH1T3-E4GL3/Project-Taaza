@@ -165,7 +165,6 @@ hr {
       <div class="card">
         <div class="card_image">
           <img src="./assets/images/service1.png" alt="mixed vegetable salad in a mason jar." />
-          <span class="card_price"><span>$</span>9</span>
         </div>
         <div class="card_content">
           <h2 class="card_title"><a href="menu.php">Order Food Now</a></h2>
@@ -174,9 +173,8 @@ hr {
               explore our full menu and just select your favourite and place order.
             </p>
             <hr />
-            <p>Served with your choice of dressing on the side: <strong>housemade ranch</strong>, <strong>cherry balsamic
-                vinaigrette</strong>, <strong>creamy chipotle</strong>, <strong>avocado green goddess</strong>, or <strong>honey mustard</strong>. Add your choice
-              of protein for $2 more.
+            <p>The menu is divided into veg, non veg, local taste, sea food, and chinese and you can easly navigate through it to find your favourate food. You can simply login and order food align-items
+              from our menu and that will be added to your cart. You can checkout your food from there.
             </p>
           </div>
         </div>
@@ -187,22 +185,15 @@ hr {
       <div class="card">
         <div class="card_image">
           <img src="./assets/images/service2.png" alt="a Reuben sandwich on wax paper." />
-          <span class="card_price"><span>$</span>18</span>
         </div>
         <div class="card_content">
           <h2 class="card_title"><a href="table-booking.php">Book A Table</a></h2>
           <div class="card_text">
             <p>you can prebook a table in our restaurent.  We will reserve it for you and when you come it will be free for you.
             </p>
-            <p>Every element of this extraordinary blah blah blah...
-            </p>
             <hr />
-            <p>This unforgettable sandwich has all of the classic Reuben elements: <strong>corned beef</strong>, <strong>rye
-                bread</strong>, <strong>creamy Russian dressing</strong>, <strong>sauerkraut</strong>, plus a <strong>sweet gherkin pickle</strong>.
-              No substitions please!
-            </p>
-            <p>Add a side of <strong>french fries</strong> or <strong>sweet potato fries</strong> for $2 more, or our
-              <strong>housemade pub chips</strong> for $1.
+            <p>The rooms for table booking is divided into <strong>normal section </strong>and<strong>VIP section</strong>. You need to book these two sections differently. vip section have its 
+            own advantages including telivision, ac, customizable table, moreover your privacy and more.
             </p>
           </div>
         </div>
@@ -212,9 +203,7 @@ hr {
     <li class="cards_item">
       <div class="card">
         <div class="card_image">
-          <span class="note">Seasonal</span>
           <img src="./assets/images/service3.png" alt="A side view of a plate of figs and berries." />
-          <span class="card_price"><span>$</span>16</span>
         </div>
         <div class="card_content">
           <h2 class="card_title"><a href="event-booking.php">Boook Us For An Event</a></h2>
@@ -240,7 +229,6 @@ hr {
       <div class="card">
         <div class="card_image">
           <img src="./assets/images/service4.png" alt="mixed vegetable salad in a mason jar." />
-          <span class="card_price"><span>$</span>9</span>
         </div>
         <div class="card_content">
           <h2 class="card_title"><a href="premium.php">Become Our Premium Member</a></h2>
@@ -261,7 +249,6 @@ hr {
       <div class="card">
         <div class="card_image">
           <img src="./assets/images/service5.png" alt="a Reuben sandwich on wax paper." />
-          <span class="card_price"><span>$</span>18</span>
         </div>
         <div class="card_content">
           <h2 class="card_title"><a href="table-booking.php">Lend Us A Hand</a></h2>
