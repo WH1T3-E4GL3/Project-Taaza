@@ -69,19 +69,21 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                 }
             } else {
                 // Handle booking query error
-                echo "<script>alert('Error querying bookings');</script>";
+                echo "<script>alert('ERROR in proccessing your request');</script>";
             }
         } else {
             // Handle the case where the email is not found in the database
-            echo "<script>alert('Email not found in the database');</script>";
+            echo "<script>alert('Email not registered');</script>";
+            echo "<script>window.location.href='login.php';</script>";
         }
     } else {
         // Handle database query error
-        echo "<script>alert('Error querying the database');</script>";
+        echo "<script>alert('ERROR in proccessing your request');</script>";
     }
 } else {
     // Handle the case where the user is not logged in
-    echo "<script>alert('User not logged in');</script>";
+    echo "<script>alert('Not logged in !');</script>";
+    echo "<script>window.location.href='new-login.php';</script>";
 }
 ?>
             
