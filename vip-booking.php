@@ -26,17 +26,19 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
             // Now $userName contains the user's name
         } else {
             // Handle the case where the email is not found in the database
-            echo "<script>alert('Email not found in the database');</script>";
+            echo "<script>alert('Email not registered');</script>";
+            echo "<script>window.location.href='login.php';</script>";
             exit();
         }
     } else {
         // Handle database query error
-        echo "<script>alert('Error querying the database');</script>";
+        echo "<script>alert('ERROR in proccessing your request');</script>";
         exit();
     }
 } else {
     // Handle the case where the user is not logged in
-    echo "<script>alert('User not logged in');</script>";
+    echo "<script>alert('Log in to access VIP booking');</script>";
+    echo "<script>window.location.href='new-login.php';</script>";
     exit();
 }
 
@@ -236,9 +238,9 @@ $conn->close();
             </div>
           </div>
           <br>
-          <center><input type="submit" class="button" value="Book Tables"></center>
+          <center><input type="submit" class="button" value="Book VIP Tables"></center>
           <br>
-          <center><button class="button"><a href="payment-verification.php" style="color:white">Your Bookings</a></button></center>
+          <center><button class="button"><a href="vip-payment-verification.php" style="color:white">Your VIP Bookings</a></button></center>
           <button>
           <br><hr><br>
         </form>
