@@ -110,7 +110,7 @@ session_start();
 
               <!-- Use dropdowns for seat selection -->
               <div class="form-field">
-                <label for="family_seat">Select Seat:</label>
+                <label for="family_seat">Select Seat accodring to the blueprint provided:</label>
                 <select id="family_seat" name='section[family][]'>
                   <option value="NONE">None</option>
                   <option value="f1">F1</option>
@@ -136,7 +136,7 @@ session_start();
               <hr>
               <!-- Use dropdowns for seat selection -->
               <div class="form-field">
-                <label for="normal_seat">Select Seat:</label>
+                <label for="normal_seat">Select Seat accodring to the blueprint provided::</label>
                 <select id="normal_seat" name='section[normal][]'>
                   <option value="NONE">None</option>
                   <option value="n1">N1</option>
@@ -162,7 +162,7 @@ session_start();
 
               <!-- Use dropdowns for seat selection -->
               <div class="form-field">
-                <label for="special_seat">Select Seat:</label>
+                <label for="special_seat">Select Seat accodring to the blueprint provided::</label>
                 <select id="special_seat" name='section[special][]'>
                   <option value="NONE">None</option>
                   <option value="s1">S1</option>
