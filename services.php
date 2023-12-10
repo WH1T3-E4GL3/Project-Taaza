@@ -206,7 +206,7 @@ hr {
           <img src="./assets/images/service3.png" alt="A side view of a plate of figs and berries." />
         </div>
         <div class="card_content">
-          <h2 class="card_title"><a href="event-booking.php">Boook Us For An Event</a></h2>
+          <h2 class="card_title"><a href="event-booking/event-booking.php">Boook Us For An Event</a></h2>
           <div class="card_text">
             <p>Our restaurent offers catering service and you can book bulk food for events like wedding.
             </p>
