@@ -252,7 +252,6 @@ $conn->close();
           <br>
           <button>
           <br><hr><br>
-        </form>
       </section>
     </div>
     <figure class="hero-banner">
@@ -261,7 +260,7 @@ $conn->close();
       <br>
       <center><input type="submit" class="button" value="Book VIP Tables" style="float:left"></center>
       <center><button class="button"><a href="vip-payment-verification.php" style="color:white">Your VIP Bookings</a></button></center>
-
+      </form>
     </figure>
   </div>
 </section>
