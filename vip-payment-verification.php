@@ -52,12 +52,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                             while ($vipBookingData = mysqli_fetch_assoc($vipBookingResult)) {
                             ?>
                                 <div class="booking-details">
-                                    <p>Name: <?php echo $userName; ?></p>
-                                    <p>Email: <?php echo $userEmail; ?></p>
-                                    <p>Payment Status: <span style="color: <?php echo ($vipBookingData['payment'] == 0) ? 'red' : 'green'; ?>"><?php echo ($vipBookingData['payment'] == 0) ? 'Not Paid [Your VIP table is not ready for you yet]' : 'Paid [Your VIP table is ready for you]'; ?></span></p>
-                                    <p>Section: <?php echo $vipBookingData['section']; ?></p>
-                                    <p>Seat: <?php echo $vipBookingData['seat']; ?></p>
-                                    <p>Decor: <?php echo $vipBookingData['decor']; ?></p>
+                                    <p><b>Name:</b> <?php echo $userName; ?></p>
+                                    <p><b>Email:</b> <?php echo $userEmail; ?></p>
+                                    <p><b>Payment Status:</b> <span style="color: <?php echo ($vipBookingData['payment'] == 0) ? 'red' : 'green'; ?>"><?php echo ($vipBookingData['payment'] == 0) ? 'Not Paid [Your VIP table is not ready for you yet]' : 'Paid [Your VIP table is ready for you]'; ?></span></p>
+                                    <p><b>Section:</b> <?php echo $vipBookingData['section']; ?></p>
+                                    <p><b>Seat:</b> <?php echo $vipBookingData['seat']; ?></p>
+                                    <p><b>Decor:</b> <?php echo $vipBookingData['decor']; ?></p>
+                                    <p><b>Date & Time:</b> <?php echo $vipBookingData['date']; ?> | <?php echo $vipBookingData['time']; ?></p>
                                     <?php
                                     // Display 'Pay Now' button for unpaid VIP bookings
                                     if ($vipBookingData['payment'] == 0) {
@@ -91,14 +92,11 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                         </div>
                         <figure class="hero-banner">
                             <div class="home-right">
-
                                 <img src="./assets/images/food1.png" alt="food image" class="food-img food-1" width="200" loading="lazy">
                                 <img src="./assets/images/food2.png" alt="food image" class="food-img food-2" width="200" loading="lazy">
                                 <img src="./assets/images/food3.png" alt="food image" class="food-img food-3" width="200" loading="lazy">
-
                                 <img src="./assets/images/dialog-1.svg" alt="dialog" class="dialog dialog-1" width="230">
                                 <img src="./assets/images/dialog-2.svg" alt="dialog" class="dialog dialog-2" width="230">
-
                                 <img src="./assets/images/circle.svg" alt="circle shape" class="shape shape-1" width="25">
                                 <img src="./assets/images/circle.svg" alt="circle shape" class="shape shape-2" width="15">
                                 <img src="./assets/images/circle.svg" alt="circle shape" class="shape shape-3" width="30">
@@ -118,5 +116,5 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                     }
                 </script>
 <?php
-                $conn->close();
+    $conn->close();
 ?>
