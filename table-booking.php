@@ -93,8 +93,10 @@ session_start();
 
 </style>
 
-
+<center><button class="button" style="width:100%; padding-top:8em"><a href="vip-booking.php" style="color:white"> Go To VIP Booking Section</a></button></center>
 <section class="contact-section" id="home">
+  <br><br>
+<center><u><h2 style="color:#0d5215">Normal Booking [Ground Floor]</h2></u></center><br>
   <div class="contact-container">
     <div class="contact-content">
 
@@ -124,7 +126,6 @@ session_start();
                   <option value="f9">F9</option>
                 </select>
               </div>
-
             </div>
           </div>
           <br>
@@ -153,33 +154,6 @@ session_start();
             </div>
           </div>
           <br>
-
-          <!-- Special Section -->
-          <div class="box">
-            <div class="content">
-              <center><h3>Special section</h3></center>
-              <hr>
-
-              <!-- Use dropdowns for seat selection -->
-              <div class="form-field">
-                <label for="special_seat">Select Seat accodring to the blueprint provided::</label>
-                <select id="special_seat" name='section[special][]'>
-                  <option value="NONE">None</option>
-                  <option value="s1">S1</option>
-                  <option value="s2">S2</option>
-                  <option value="s3">S3</option>
-                  <option value="s4">S4</option>
-                  <option value="s5">S5</option>
-                  <option value="s6">S6</option>
-                  <option value="s7">S7</option>
-                  <option value="s8">S8</option>
-                  <!-- Add options for other special seats -->
-                </select>
-              </div>
-
-            </div>
-          </div>
-
           <br>
 
           <!-- Add date and time input fields with JavaScript to populate them automatically -->
@@ -193,27 +167,19 @@ session_start();
               <input type="text" id="time" name="time" placeholder="eg: 01:30 pm" pattern="^(0[1-9]|1[0-2]):[0-5][0-9] [apAP][mM]$" title="Enter a valid time (hh:mm am/pm)" required>
             </div>
           </div>
-
-          <br>
-          <center><input type="submit" class="button" value="Book Tables"></center>
-          <br>
-          <center><button class="button"><a href="payment-verification.php" style="color:white">Your Bookings</a></button></center>
-          <button>
-          <br><hr><br>
-        </form>
       </section>
     </div>
 
     <figure class="hero-banner">
     <center><h2 style="color:#0d5215">Ground Floor</h2></center><br>
-      <img width='600' src="assets/images/table-book/blue_print.png" alt='Blue print image [load error]'>
-      <hr><br>
-      <center><h2 style="color:#0d5215">First Floor [VIP]</h2></center><br>
-      <img width='600' src="assets/images/table-book/first-floor.png" alt='Blue print image [load error]'>
-      <br>
-      <center><button class="button"><a href="vip-booking.php" style="color:white">VIP Booking Section</a></button></center>
+      <img width='600' src="assets/images/table-book/blue_print.png" alt='Blue print image [load error]'><br>
+      <center>
+        <input type="submit" class="button" value="Book Tables" style="float:left">
+        <button class="button" style="margin-right:0"><a href="payment-verification.php" style="color:white">Your Bookings</a></button>
+      </center>
     </figure>
   </div>
+  </form>
 </section>
 
 <?php require "includes/footer.php"; ?>
