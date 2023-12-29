@@ -193,14 +193,15 @@ $conn->close();
 
 </style>
 
-
+<center><button class="button" style="width:100%; padding-top:8em"><a href="table-booking.php" style="color:white"> Go To Normal Booking Section</a></button></center>
+<section class="contact-section" id="home">
 <section class="contact-section" id="home">
   <div class="contact-container">
     <div class="contact-content">
 
       <section>
         <form action="" method="post">
-          <center><h2 style="color:#0d5215">Ground Floor</h2></center><br>
+          <center><h2 style="color:#0d5215">First Floor [VIP]</h2></center><br>
 
           <!-- Family Section -->
           <div class="box">
@@ -249,9 +250,6 @@ $conn->close();
             </div>
           </div>
           <br>
-          <center><input type="submit" class="button" value="Book VIP Tables"></center>
-          <br>
-          <center><button class="button"><a href="vip-payment-verification.php" style="color:white">Your VIP Bookings</a></button></center>
           <button>
           <br><hr><br>
         </form>
@@ -261,7 +259,9 @@ $conn->close();
       <center><h2 style="color:#0d5215">First Floor [VIP]</h2></center><br>
       <img width='600' src="assets/images/table-book/first-floor.png" alt='Blue print image [load error]'>
       <br>
-      <center><button class="button"><a href="table-booking.php" style="color:white">Normal Section</a></button></center>
+      <center><input type="submit" class="button" value="Book VIP Tables" style="float:left"></center>
+      <center><button class="button"><a href="vip-payment-verification.php" style="color:white">Your VIP Bookings</a></button></center>
+
     </figure>
   </div>
 </section>
