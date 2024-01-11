@@ -33,6 +33,21 @@ If you choose to adapt this template for your own needs, you must share your ada
 Please read the full license text at [http://creativecommons.org/licenses/by-nc/4.0/](http://creativecommons.org/licenses/by-nc/4.0/) for more details.
 
 
+# How to run
+Create a database, tables, and columns with following details:
+
+    Database name: taaza_db
+    Table names: ⦿ orders
+                    ↳colum names:  order_id ,name, email, address, item, quantity, total_price
+
+                 ⦿ registered_users
+                     ↳colum names: name, email, password, gender, state, district, verification_code, is_verified, resettoken, resettokenexpire 
+
+                 ⦿ table_booking_ground
+                     ↳colum names: id, name, email, section, seat, date, time, payment 
+
+                 ⦿ table_booking_vip
+                     ↳colum names:  id, name, email, section, seat, decor, date, time, payment 	
 
 # Don't just copy, hit the star also😊
 
