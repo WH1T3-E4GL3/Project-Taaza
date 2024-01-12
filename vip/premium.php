@@ -1,6 +1,9 @@
 <?php
 session_start();
 define("APPURL", "http://localhost/taaza");
+include_once '../includes/connection.php';
+$conn = new mysqli("localhost", "root", "", "taaza_db");
+
 ?>
 
 <!DOCTYPE html>
@@ -172,6 +175,24 @@ define("APPURL", "http://localhost/taaza");
             transform: translateX(0) translateY(0%);
             opacity: 1;
         }
+
+        .vip-button {
+  background-image: linear-gradient(to right, #0d5215 , green);
+  color: white;
+  width: 100%;
+  font-size: var(--fs-7);
+  text-transform: uppercase;
+  padding: 20px 30px;
+  text-align: center;
+  border-radius: 7px;
+        }
+
+        .form-field {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
     </style>
 
 </head>
@@ -304,9 +325,42 @@ define("APPURL", "http://localhost/taaza");
                         <h2 style="font-size:30px;">Become our VIP member</h2>
                         <br>
                         <p>
-                            Become our VIP member to unlock features such as discount and many more
+                            Become our premium member and avail exciting offers and discounts only for you !
                         </p>
                         <br>
+
+                        <!-- Form for entering the VIP activation amount -->
+    <form action="vip-activator.php" method="POST">
+    <label for="activationAmount">Enter activation amount (Rs):</label>
+    <input class="form-field" type="number" name="activationAmount" id="activationAmount" required>
+    <button type="submit" class="vip-button" name="activateVip">Activate VIP</button>
+</form>
+
+<?php
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+    echo "<h2>Hey $_SESSION[username], ";
+
+    $userId = $_SESSION['username'];
+    // Check if the user is already a VIP
+    $checkVipQuery = "SELECT is_vip FROM registered_users WHERE email = ?";
+    $checkVipStmt = $conn->prepare($checkVipQuery);
+
+    if ($checkVipStmt) {
+        $checkVipStmt->bind_param("s", $userId);
+        $checkVipStmt->execute();
+        $checkVipStmt->bind_result($isVip);
+        $checkVipStmt->fetch();
+        $checkVipStmt->close();
+
+        if ($isVip == 1) {
+            echo "You are already our VIP member</h2>";
+        } else {
+            echo "You are not yet our VIP member</h2>";
+        }
+    }
+}
+?>
+
 
                     </div>
                     <figure class="hero-banner">
