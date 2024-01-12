@@ -41,7 +41,7 @@ Create a database, tables, and columns with following details:
                     ↳colum names:  order_id ,name, email, address, item, quantity, total_price
 
                  ⦿ registered_users
-                     ↳colum names: name, email, password, gender, state, district, verification_code, is_verified, resettoken, resettokenexpire 
+                     ↳colum names: name, email, password, gender, state, district, verification_code, is_verified, resettoken, resettokenexpire, is_vip
 
                  ⦿ table_booking_ground
                      ↳colum names: id, name, email, section, seat, date, time, payment 
