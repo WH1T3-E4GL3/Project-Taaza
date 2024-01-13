@@ -1,6 +1,41 @@
 <?php
 session_start();
 include_once 'includes/connection.php';
+require('fpdf/fpdf.php'); 
+
+function generateBillPDF($order) {
+    // Create a new PDF instance
+    $pdf = new PDF();
+
+    // Add a page to the PDF
+    $pdf->AddPage();
+
+    // Set font
+    $pdf->SetFont('Arial', '', 12);
+
+    // Add order details to the PDF
+    $pdf->Cell(0, 10, 'Order ID: ' . $order['order_id'], 0, 1);
+    $pdf->Cell(0, 10, 'Name: ' . $order['name'], 0, 1);
+    $pdf->Cell(0, 10, 'Email: ' . $order['email'], 0, 1);
+    $pdf->Cell(0, 10, 'Address: ' . $order['address'], 0, 1);
+    $pdf->Cell(0, 10, 'Item: ' . $order['item'], 0, 1);
+    $pdf->Cell(0, 10, 'Quantity: ' . $order['quantity'], 0, 1);
+    $pdf->Cell(0, 10, 'Total Price: ₹' . $order['total_price'], 0, 1);
+
+    // Output the PDF (you can choose to save or display)
+    $pdf->Output('Order_Bill_' . $order['order_id'] . '.pdf', 'D');
+}
+
+
+$orderDetails = array(
+    'order_id' => '123',
+    'name' => 'John Doe',
+    'email' => 'john@example.com',
+    'address' => '123 Main St',
+    'item' => 'Product XYZ',
+    'quantity' => 2,
+    'total_price' => 50.00
+);
 ?>
 
 <style>
@@ -185,6 +220,8 @@ if ($selectUserStmt) {
                     echo "<p class='order-info'><strong>Item:</strong> " . $order['item'] . "</p>";
                     echo "<p class='order-info'><strong>Quantity:</strong> " . $order['quantity'] . "</p>";
                     echo "<p class='order-info'><strong>Total Price:</strong> ₹" . $order['total_price'] . "</p>";
+
+                    echo "<a href='#' class='print-bill' onclick='generateBillPDF(" . json_encode($order) . "); return false;'>Print Bill</a>";
                     echo "</div><br>";
 
                 }
@@ -199,6 +236,19 @@ if ($selectUserStmt) {
         }
         ?>
     </div>
+    <hr>
+
+ <div class="feedback-container">
+    <h2>Feedback</h2>
+    <form action="dashboard/feedback.php" method="POST">
+        <textarea class="form-field" id="feedbackText" name="feedbackText" rows="4" required placeholder="Type your feedback here and submit"></textarea>
+        <br>
+
+        <button class="button" type="submit">Submit Feedback</button>
+    </form>
+</div>
+
+
 </div>
 
 
@@ -206,6 +256,13 @@ if ($selectUserStmt) {
 
 
 <?php require "includes/footer.php"; ?>
+
+<script>
+    function generateBillPDF(order) {
+        // You can customize the URL or adjust the logic based on your needs
+        window.location.href = 'dashboard/generate-bill.php?order=' + JSON.stringify(order);
+    }
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -227,4 +284,5 @@ if ($selectUserStmt) {
             }
         });
     });
+
 </script>
