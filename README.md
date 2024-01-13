@@ -37,7 +37,7 @@ Please read the full license text at [http://creativecommons.org/licenses/by-nc/
 Create a database, tables, and columns with following details:
 
     Database name: taaza_db
-    Table names: ⦿ feedback
+    Table names: ⦿ admin
                      ↳colum names:  id, email, name, password, resettoken, resettokenexpire 	
                          
                  ⦿ feedback
