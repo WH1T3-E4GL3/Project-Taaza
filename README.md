@@ -37,8 +37,11 @@ Please read the full license text at [http://creativecommons.org/licenses/by-nc/
 Create a database, tables, and columns with following details:
 
     Database name: taaza_db
-    Table names: ⦿ orders
-                    ↳colum names:  order_id ,name, email, address, item, quantity, total_price
+    Table names: ⦿ feedback
+                     ↳colum names:  feedback_id, user_email, feedback_text, timestamp
+                
+                 ⦿ orders
+                    ↳colum names:  order_id ,name, email, address, item, quantity, total_price 	
 
                  ⦿ registered_users
                      ↳colum names: name, email, password, gender, state, district, verification_code, is_verified, resettoken, resettokenexpire, is_vip
