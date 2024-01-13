@@ -38,6 +38,9 @@ Create a database, tables, and columns with following details:
 
     Database name: taaza_db
     Table names: ⦿ feedback
+                     ↳colum names:  id, email, name, password, resettoken, resettokenexpire 	
+                         
+                 ⦿ feedback
                      ↳colum names:  feedback_id, user_email, feedback_text, timestamp
                 
                  ⦿ orders
