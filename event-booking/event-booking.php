@@ -308,11 +308,11 @@ define("APPURL", "http://localhost/taaza");
                   <a>Marriage</a>
                   <menux>
                     <menuitemx>
-                      <a href="../assets/images/event-book/sample.pdf">Silver</a>
+                      <a href="../assets/images/event-book/MSILVER.pdf">Silver</a>
                     </menuitemx>
-                    <menuitemx><a href="../assets/images/event-book/sample.pdf">Gold</a></menuitemx>
+                    <menuitemx><a href="../assets/images/event-book/MGOLD.pdf">Gold</a></menuitemx>
                     <menuitemx id="demo2x">
-                      <a href="../assets/images/event-book/sample.pdf">Platinum</a>
+                      <a href="../assets/images/event-book/MPLATINUM.pdf">Platinum</a>
                     </menuitemx>
                   </menux>
                 </menuitemx>
@@ -322,11 +322,11 @@ define("APPURL", "http://localhost/taaza");
                   <a>Birthday</a>
                   <menux>
                     <menuitemx>
-                      <a href="../assets/images/event-book/sample.pdf">Silver</a>
+                      <a href="../assets/images/event-book/BSILVER.pdf">Silver</a>
                     </menuitemx>
-                    <menuitemx><a href="../assets/images/event-book/sample.pdf">Gold</a></menuitemx>
+                    <menuitemx><a href="../assets/images/event-book/BGOLD.pdf">Gold</a></menuitemx>
                     <menuitemx id="demo2x">
-                      <a href="../assets/images/event-book/sample.pdf">Platinum</a>
+                      <a href="../assets/images/event-book/BPLATINUM.pdf">Platinum</a>
                     </menuitemx>
                   </menux>
                 </menuitemx>
@@ -336,11 +336,11 @@ define("APPURL", "http://localhost/taaza");
                   <a>House Warming</a>
                   <menux>
                     <menuitemx>
-                      <a href="../assets/images/event-book/sample.pdf">Silver</a>
+                      <a href="../assets/images/event-book/HSILVER.pdf">Silver</a>
                     </menuitemx>
-                    <menuitemx><a href="../assets/images/event-book/sample.pdf">Gold</a></menuitemx>
+                    <menuitemx><a href="../assets/images/event-book/HGOLD.pdf">Gold</a></menuitemx>
                     <menuitemx id="demo2x">
-                      <a href="../assets/images/event-book/sample.pdf">Platinum</a>
+                      <a href="../assets/images/event-book/HPLATINUM.pdf">Platinum</a>
                     </menuitemx>
                   </menux>
                 </menuitemx>
