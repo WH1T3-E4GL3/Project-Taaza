@@ -85,7 +85,7 @@ $orderDetails = array(
     color: #0a5e10;
   }
   .form-field:disabled {
-    background-color: #deddd9; /* Set the desired gray background color */
+    background-color: #e9e9ed; /* Set the desired gray background color */
     color: #666; /* Set a color that provides sufficient contrast */
 }
 .order-container {
@@ -107,8 +107,10 @@ $orderDetails = array(
     }
 
     .label {
-        font-weight: bold;
-        margin-right: 5px;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #787878;
     }
 
 </style>
@@ -143,22 +145,22 @@ if ($selectUserStmt) {
     <br>
     <div>
         <form action="dashboard/profile-update.php" method="POST">
-            <label for="editEmail">Email:</label>
+            <label class="label" for="editEmail">Email:</label>
             <input class="form-field" type="email" id="editEmail" name="editEmail" value="<?php echo $userDetails['email']; ?>" required disabled>
             <br>
-            <label for="editName">Name:</label>
+            <label class="label" for="editName">Name:</label>
             <input class="form-field" type="text" id="editName" name="editName" value="<?php echo $userDetails['name']; ?>" required>
             <br>
-            <label for="editGender">Gender:</label>
+            <label class="label" for="editGender">Gender:</label>
             <input class="form-field" type="text" id="editGender" name="editGender" value="<?php echo $userDetails['gender']; ?>" required>
             <br>
-            <label for="editState">State:</label>
+            <label class="label" for="editState">State:</label>
             <input class="form-field" type="text" id="editState" name="editState" value="<?php echo $userDetails['state']; ?>" required>
             <br>
-            <label for="editDistrict">District:</label>
+            <label class="label" for="editDistrict">District:</label>
             <input class="form-field" type="text" id="editDistrict" name="editDistrict" value="<?php echo $userDetails['district']; ?>" required>
             <br>
-            <label for="vipStatus">VIP Status:</label>
+            <label class="label" for="vipStatus">VIP Status:</label>
             <input class="form-field" type="text" id="vipStatus" name="vipStatus" 
                    value="<?php echo ($userDetails['is_vip'] == 1) ? 'You are VIP' : 'Not VIP'; ?>" 
                    style="color: <?php echo ($userDetails['is_vip'] == 1) ? 'green' : '#bf9900'; ?>" 
@@ -173,15 +175,15 @@ if ($selectUserStmt) {
         <h2>Update your password</h2>
         <br>
 <form action="dashboard/password-update.php" method="POST" id="passwordResetForm">
-    <label for="oldPassword">Old Password:</label>
+    <label class="label" for="oldPassword">Old Password:</label>
     <input class="form-field" type="password" id="oldPassword" name="oldPassword" required>
     <br>
 
-    <label for="newPassword">New Password:</label>
+    <label class="label" for="newPassword">New Password:</label>
     <input class="form-field" type="password" id="newPassword" name="newPassword" required>
     <br>
 
-    <label for="confirmNewPassword">Confirm New Password:</label>
+    <label class="label" for="confirmNewPassword">Confirm New Password:</label>
     <input class="form-field" type="password" id="confirmNewPassword" name="confirmNewPassword" required>
     <br>
 
@@ -253,7 +255,7 @@ if ($selectUserStmt) {
 
 
 </section>
-
+<br>
 
 <?php require "includes/footer.php"; ?>
 
