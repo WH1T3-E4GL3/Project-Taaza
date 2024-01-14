@@ -3,247 +3,539 @@ session_start();
 
 // Check if admin is not logged in
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    // Redirect to admin-login.php
+    // If not edirect to admin-login.php
     echo"
-        <script>alert('Login as admin first to access admin page !');
+        <script>
+        alert('Login as admin first to access admin page !');
         window.location.href='admin-login.php';
         </script>
         ";
     exit(); // Ensure script stops here
 }
-?>
-<?php
+
 include_once '../includes/connection.php';
 define("APPURL", "http://localhost/taaza");
 ?>
 
+<?php
+$userId = $_SESSION['admin_username'];
+$selectUserQuery = "SELECT * FROM admin WHERE email = ?";
+$selectUserStmt = $conn->prepare($selectUserQuery);
+if ($selectUserStmt) {
+  $selectUserStmt->bind_param("s", $userId);
+  $selectUserStmt->execute();
+  $result = $selectUserStmt->get_result();
+  $userDetails = $result->fetch_assoc();
+  $selectUserStmt->close();
+} else {
+  // Handle the error
+  die("Error preparing statement: " . $conn->error);
+}
+?>
 
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taaza</title>
-    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.png">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- custom css link -->
-    <link rel="stylesheet" href="../assets/css/taaza.css">
-    <link rel="stylesheet" href="../assets/css/media_query.css">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-    <!-- google font link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Monoton&family=Rubik:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <style>
-        .remove-button {
-            background-color: #4CAF50;
-            /* Green */
-            border: none;
-            color: white;
-            padding: 16px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            transition-duration: 0.4s;
-            cursor: pointer;
-            width: 130px;
-        }
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA==" crossorigin="anonymous" />
 
-
-        .remove-button1 {
-            background-color: white;
-            color: black;
-            border: 2px solid #f44336;
-        }
-
-        .remove-button1:hover {
-            background-color: #f44336;
-            color: white;
-        }
-    </style>
-
+    <title>Admin pannel - Taaza</title>
 </head>
 
 <body>
-    <!-- main container -->
-    <div class="container">
-        <!-- #HEADER -->
-        <header>
-            <nav class="navbar">
-                <div class="navbar-wrapper">
-                    <a href="#">
-                        <img src="../assets/images/logo.png" alt="logo" width="130">
-                        <a href="#" class="nav-link">Admin Section</a>
-                    </a>
-                    <b>
-                        <ul class="navbar-nav">
 
-                        <li>
-                                <?php
-                                    if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] == true) {
-                                        echo '<a href="admin.php" class="nav-link">Admin Dashboard</a>';
-                                    }
-                                    ?>
-                            </li>
+    <!-- Optional JavaScript -->
+    <!-- Popper.js first, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-md-10 col-11 mx-auto">
+                <div aria-label="breadcrumb mb-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb d-flex justify-content-center align-items-center">
+                            <li class="breadcrumb-item"><a href="../index.php">Taaza</a></li>
+                            <li class="breadcrumb-item"><a href="admin-login.php">Admin pannel</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Admin</li>
+                           <li style="margin-left: auto;" class="btn btn-outline-primary"><a href="admin-logout.php" class="text-decoration-none">Logout</a></li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 d-md-block">
+                        <div class="card bg-common card-left">
+                            <div class="card-body">
+                                <nav class="nav d-md-block d-none">
+                                    <a data-toggle='tab' class="nav-link" href="#profile"><i class="fas fa-user"></i> &nbsp;Profile Settings</a>
+                                    <a data-toggle='tab' class="nav-link" href="#account"><i class="fas fa-user-cog"></i> &nbsp;User Orders</a>
+                                    <a data-toggle='tab' class="nav-link" href="#security"><i class="fas fa-user-shield"></i> &nbsp;User Feedbacks</a>
+                                    <a data-toggle='tab' class="nav-link" href="#notification"><i class="fas fa-bell"></i> &nbsp;Registered Users</a>
+                                    <a data-toggle='tab' class="nav-link" href="#billings"><i class="fas fa-money-check-alt"></i> &nbsp;Table Bookings</a>
+                                </nav>
+                            </div>
+                        </div>
 
-                            <li>
+                    </div>
+                    <div class="col-lg-9 col-md-8">
+                        <div class="card d-md-none">
+                            <div class="card-header border-bottom  mb-3">
+                                <ul class="nav nav-tabs card-header-tabs nav-fill">
+                                    <li class="nav-item">
+                                        <a data-toggle='tab' class="nav-link active" href="#profile"><i class="fas fa-user"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-toggle='tab' class="nav-link" href="#account"><i class="fas fa-user-cog"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-toggle='tab' class="nav-link" href="#security"><i class="fas fa-user-shield"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-toggle='tab' class="nav-link" href="#notification"><i class="fas fa-bell"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-toggle='tab' class="nav-link" href="#billings"><i class="fas fa-money-check-alt"></i></a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class=" card card-body tab-content border-12">
+                            <div class="tab-pane active" id="profile">
+                                <h5>YOUR PROFILE INFORMATION</h5>
+                                <hr>
+                                <form id="adminForm" action="functions/update-admin.php" method="POST">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Id</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $userDetails['id']; ?>" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Email</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $userDetails['email']; ?>" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Name</label>
+                                        <input name="editName" type="location" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<?php echo $userDetails['name']; ?>">
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-outline-info" name="action" value="update">
+                                        Update profile
+                                    </button>
+                                </form>
+
+                                <!-- Add new admin form -->
+                                <div class="mt-4">
+                                    <h5>Add New Admin</h5>
+                                    <hr>
+                                    <form action="functions/add-admin.php" method="POST">
+                                        <div class="form-group">
+                                            <label for="newAdminEmail">Email</label>
+                                            <input type="email" class="form-control" id="newAdminEmail" name="newAdminEmail" aria-describedby="emailHelp" placeholder="Enter new admin's email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="newAdminName">Name</label>
+                                            <input type="text" class="form-control" id="newAdminName" name="newAdminName" placeholder="Enter new admin's name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="newAdminPassword">Password</label>
+                                            <input type="password" class="form-control" id="newAdminPassword" name="newAdminPassword" placeholder="Enter new admin's password">
+                                        </div>
+                                        <br>
+                                        <button type="submit" class="btn btn-outline-info" type="button">
+                                            Add Admin
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- List of admins -->
+                                <div class="mt-4">
+                                    <h5>List of Admins</h5>
+                                    <hr>
+                                    <ul class="list-group">
+                                        <?php
+                                        // Fetch all admins from the database
+                                        $selectAdminsQuery = "SELECT * FROM admin";
+                                        $result = $conn->query($selectAdminsQuery);
+
+                                        if ($result && $result->num_rows > 0) {
+                                            while ($admin = $result->fetch_assoc()) {
+                                                echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        ID: ' . $admin['id'] . ' | Email: ' . $admin['email'] . ' | Name: ' . $admin['name'] . '
+                                                        <form action="functions/delete-admin.php" method="post" style="margin-bottom: 0;">
+                                                            <input type="hidden" name="adminId" value="' . $admin['id'] . '">
+                                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Are you sure you want to delete this admin?\')">Delete</button>
+                                                        </form>
+                                                    </li>';
+                                            }
+                                        } else {
+                                            echo '<li class="list-group-item">No admins found</li>';
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+
+                                
+                            </div>
+                            <div class="tab-pane " id="account">
                                 <?php
-                                    if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] == true) {
-                                        echo '<a href="admin-logout.php" class="nav-link">Logout</a>';
+                                // Assuming you have a database connection established
+
+                                // Fetch orders from the database
+                                $ordersQuery = "SELECT `order_id`, `name`, `email`, `address`, `item`, `quantity`, `total_price`, `timestamp` FROM `orders` WHERE 1";
+                                $ordersResult = mysqli_query($conn, $ordersQuery);
+
+                                if ($ordersResult) {
+                                    // Check if there are orders
+                                    $totalOrders = mysqli_num_rows($ordersResult);
+                                    if ($totalOrders > 0) {
+                                        echo '<div class="tab-pane" id="orders">
+                                                <h5>USER ORDERS</h5>';
+
+                                        // Display the total number of orders
+                                        echo '<p>Total Orders: ' . $totalOrders . '</p>';
+
+                                        echo '<hr>
+                                                <form>
+                                                    <div class="form-group">
+                                                        <ul class="list-group">';
+
+                                        // Iterate through orders and display them
+                                        while ($orderRow = mysqli_fetch_assoc($ordersResult)) {
+                                            echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <h6> Order ID: ' . $orderRow['order_id'] . '</h6>
+                                                        <p>Name: ' . $orderRow['name'] . '</p>
+                                                        <p>Email: ' . $orderRow['email'] . '</p>
+                                                        <p>Item: ' . $orderRow['item'] . '</p>
+                                                        <p>Quantity: ' . $orderRow['quantity'] . '</p>
+                                                        <p>Total Price: ' . $orderRow['total_price'] . '</p>
+                                                        <small class="text-muted">Timestamp: ' . $orderRow['timestamp'] . '</small>
+                                                    </div>
+                                                    <button type="button" class="btn btn-danger" onclick="confirmDelete(' . $orderRow['order_id'] . ')">Delete</button>
+                                                </li>';
+                                        }
+
+                                        echo '</ul></div></form></div>';
                                     } else {
-                                        echo '<a href="admin-login.php" class="nav-link">Login</a>';
+                                        echo '<p>No orders available.</p>';
                                     }
+
+                                    // Free result set
+                                    mysqli_free_result($ordersResult);
+                                } else {
+                                    // Handle the error
+                                    echo "Error: " . mysqli_error($conn);
+                                }
+
+                                // Close the connection
+                                // mysqli_close($conn); // commented because it affect next block
                                 ?>
-                            </li>
-                        </ul>
-                    </b>
 
-                    <!--Cart count badge checker -->
-                    <?php
-                    if (isset($_SESSION['cart'])) {
-                        $count = count($_SESSION['cart']);
-                    } else {
-                        $count = 0;
-                    }
-                    ?>
+                                <script>
+                                    function confirmDelete(orderId) {
+                                        var confirmation = confirm("Are you sure you want to delete this order?");
+                                        if (confirmation) {
+                                            deleteOrder(orderId);
+                                        }
+                                    }
 
-                    <div class="navbar-btn-group">
-                        </button>
-                        <button class="menu-toggle-btn">
-                            <span class="line one"></span>
-                            <span class="line two"></span>
-                            <span class="line three"></span>
-                        </button>
+                                    function deleteOrder(orderId) {
+                                        // Using vanilla JavaScript to send a request
+                                        var xhr = new XMLHttpRequest();
+                                        xhr.open('POST', 'functions/delete-order.php', true);
+                                        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                                        xhr.onload = function () {
+                                            if (xhr.status >= 200 && xhr.status < 300) {
+                                                var response = JSON.parse(xhr.responseText);
+                                                alert(response.message);
+                                                if (response.success) {
+                                                    // Reload the page after successful deletion
+                                                    location.reload();
+                                                }
+                                            } else {
+                                                console.error(xhr.statusText);
+                                            }
+                                        };
+                                        xhr.onerror = function () {
+                                            console.error('Network error');
+                                        };
+                                        xhr.send('orderId=' + orderId);
+                                    }
+                                </script>
+
+
+
+                            </div>
+                            <div class="tab-pane" id="security">
+                            <?php
+                            // Assuming you have a database connection established
+
+                            // Fetch feedbacks from the database
+                            $feedbackQuery = "SELECT * FROM feedback";
+                            $feedbackResult = mysqli_query($conn, $feedbackQuery);
+
+                            if ($feedbackResult) {
+                                // Check if there are feedbacks
+                                if (mysqli_num_rows($feedbackResult) > 0) {
+                                    echo '<div class="tab-pane" id="security">
+                                            <h5>USER FEEDBACKS</h5>
+                                            <hr>
+                                            <form>
+                                                <div class="form-group">
+                                                    <ul class="list-group">';
+
+                                    // Iterate through feedbacks and display them
+                                    while ($feedbackRow = mysqli_fetch_assoc($feedbackResult)) {
+                                        echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <h6> User: ' . $feedbackRow['user_email'] . '</h6>
+                                                    <small class="text-muted">Feedback: ' . $feedbackRow['feedback_text'] . '</small><br>
+                                                    <small class="text-muted">Timestamp: ' . $feedbackRow['timestamp'] . '</small>
+                                                </div>
+                                                <button type="button" class="btn btn-danger" onclick="deleteFeedback(' . $feedbackRow['feedback_id'] . ')">Delete</button>
+                                            </li>';
+                                    }
+
+                                    echo '</ul></div></form></div>';
+                                } else {
+                                    echo '<p>No feedbacks available.</p>';
+                                }
+
+                                // Free result set
+                                mysqli_free_result($feedbackResult);
+                            } else {
+                                // Handle the error
+                                echo "Error: " . mysqli_error($conn);
+                            }
+
+                            // Close the connection
+                            // mysqli_close($conn); // commentted because it affects next block
+                            ?>
+
+                            <script>
+                                function deleteFeedback(feedbackId) {
+                                    // Using vanilla JavaScript to send a request
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('POST', 'functions/delete-feedback.php', true);
+                                    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                                    xhr.onload = function() {
+                                        if (xhr.status >= 200 && xhr.status < 300) {
+                                            var response = JSON.parse(xhr.responseText);
+                                            alert(response.message);
+                                            if (response.success) {
+                                                // Reload the page after successful deletion
+                                                location.reload();
+                                            }
+                                        } else {
+                                            console.error(xhr.statusText);
+                                        }
+                                    };
+                                    xhr.onerror = function() {
+                                        console.error('Network error');
+                                    };
+                                    xhr.send('feedbackId=' + feedbackId);
+                                }
+                            </script>
+
+                        </div>
+
+
+                            <div class="tab-pane " id="notification">
+                                <?php
+                                // Assuming you have a database connection established
+
+                                // Fetch registered users from the database
+                                $usersQuery = "SELECT `name`, `email`, `gender`, `state`, `district`, `is_verified`, `is_vip` FROM `registered_users` WHERE 1";
+                                $usersResult = mysqli_query($conn, $usersQuery);
+
+                                if ($usersResult) {
+                                    // Check if there are registered users
+                                    if (mysqli_num_rows($usersResult) > 0) {
+                                        echo '<div class="tab-pane" id="users">
+                                                <h5>REGISTERED USERS</h5>
+                                                <hr>
+                                                <form>
+                                                    <div class="form-group">
+                                                        <ul class="list-group">';
+
+                                        // Iterate through registered users and display them
+                                        while ($userRow = mysqli_fetch_assoc($usersResult)) {
+                                            echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <h6> Name: ' . $userRow['name'] . '</h6>
+                                                        <p>Email: ' . $userRow['email'] . '</p>
+                                                        <p>Gender: ' . $userRow['gender'] . '</p>
+                                                        <p>State: ' . $userRow['state'] . '</p>
+                                                        <p>District: ' . $userRow['district'] . '</p>
+                                                        <p>Verified: ' . ($userRow['is_verified'] ? 'Yes' : 'No') . '</p>
+                                                        <p>VIP: ' . ($userRow['is_vip'] ? 'Yes' : 'No') . '</p>
+                                                    </div>
+                                                    <button type="button" class="btn btn-danger" onclick="deleteUser(\'' . $userRow['email'] . '\')">Delete</button>
+                                                </li>';
+                                        }
+
+                                        echo '</ul></div></form></div>';
+                                    } else {
+                                        echo '<p>No registered users available.</p>';
+                                    }
+
+                                    // Free result set
+                                    mysqli_free_result($usersResult);
+                                } else {
+                                    // Handle the error
+                                    echo "Error: " . mysqli_error($conn);
+                                }
+
+                                // Close the connection
+                                // mysqli_close($conn); // commented because it affects next block
+                                ?>
+
+                                <script>
+                                    function deleteUser(userEmail) {
+                                        // JavaScript confirmation dialog
+                                        var confirmation = confirm("Are you sure you want to delete this user?");
+                                        
+                                        if (confirmation) {
+                                            // Using vanilla JavaScript to send a request
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.open('POST', 'functions/delete-user.php', true);
+                                            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                                            xhr.onload = function() {
+                                                if (xhr.status >= 200 && xhr.status < 300) {
+                                                    var response = JSON.parse(xhr.responseText);
+                                                    alert(response.message);
+                                                    if (response.success) {
+                                                        // Reload the page after successful deletion
+                                                        location.reload();
+                                                    }
+                                                } else {
+                                                    console.error(xhr.statusText);
+                                                }
+                                            };
+                                            xhr.onerror = function() {
+                                                console.error('Network error');
+                                            };
+                                            xhr.send('userEmail=' + userEmail);
+                                        }
+                                    }
+                                </script>
+
+                            </div>
+                            <div class="tab-pane " id="billings">
+                                <?php
+                                // Assuming you have a database connection established
+
+                                // Fetch table bookings from ground section
+                                $groundBookingsQuery = "SELECT `id`, `name`, `email`, `section`, `seat`, `date`, `time`, `payment`, NULL AS `decor` FROM `table_booking_ground` WHERE 1";
+                                
+                                // Fetch table bookings from VIP section
+                                $vipBookingsQuery = "SELECT `id`, `name`, `email`, `section`, `seat`, NULL AS `decor`, `date`, `time`, `payment` FROM `table_booking_vip` WHERE 1";
+
+                                // Combine the results using UNION
+                                $bookingsQuery = "($groundBookingsQuery) UNION ($vipBookingsQuery)";
+
+                                $bookingsResult = mysqli_query($conn, $bookingsQuery);
+
+                                if ($bookingsResult) {
+                                    // Check if there are table bookings
+                                    if (mysqli_num_rows($bookingsResult) > 0) {
+                                        echo '<div class="tab-pane" id="tableBookings">
+                                                <h5>TABLE BOOKINGS</h5>
+                                                <hr>
+                                                <form>
+                                                    <div class="form-group">
+                                                        <ul class="list-group">';
+
+                                        // Iterate through table bookings and display them
+                                        while ($bookingRow = mysqli_fetch_assoc($bookingsResult)) {
+                                            // Check if it's a VIP booking to set different background color
+                                            $backgroundColor = ($bookingRow['section'] === 'VIP') ? 'background-color: #f8d7da;' : '';
+
+                                            echo '<li class="list-group-item d-flex justify-content-between align-items-center" style="' . $backgroundColor . '">
+                                                    <div>
+                                                        <h6> Name: ' . $bookingRow['name'] . '</h6>
+                                                        <p>Email: ' . $bookingRow['email'] . '</p>
+                                                        <p>Section: ' . $bookingRow['section'] . '</p>
+                                                        <p>Seat: ' . $bookingRow['seat'] . '</p>';
+                                                        
+                                            // Check if it's a VIP booking to display additional details
+                                            if (isset($bookingRow['decor'])) {
+                                                echo '<p>Decor: ' . $bookingRow['decor'] . '</p>';
+                                            }
+
+                                            echo '<p>Date: ' . $bookingRow['date'] . '</p>
+                                                <p>Time: ' . $bookingRow['time'] . '</p>
+                                                <p>Payment: ' . $bookingRow['payment'] . '</p>
+                                                </div>
+                                                <button type="button" class="btn btn-danger" onclick="deleteBooking(' . $bookingRow['id'] . ')">Delete</button>
+                                            </li>';
+                                        }
+
+                                        echo '</ul></div></form></div>';
+                                    } else {
+                                        echo '<p>No table bookings available.</p>';
+                                    }
+
+                                    // Free result set
+                                    mysqli_free_result($bookingsResult);
+                                } else {
+                                    // Handle the error
+                                    echo "Error: " . mysqli_error($conn);
+                                }
+
+                                // Close the connection
+                                mysqli_close($conn);
+                            ?>
+
+                            <script>
+                                function deleteBooking(bookingId) {
+                                    // JavaScript confirmation dialog
+                                    var confirmation = confirm("Are you sure you want to delete this table booking?");
+                                    
+                                    if (confirmation) {
+                                        // Using vanilla JavaScript to send a request
+                                        var xhr = new XMLHttpRequest();
+                                        xhr.open('POST', 'functions/delete-booking.php', true);
+                                        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                                        xhr.onload = function() {
+                                            if (xhr.status >= 200 && xhr.status < 300) {
+                                                var response = JSON.parse(xhr.responseText);
+                                                alert(response.message);
+                                                if (response.success) {
+                                                    // Reload the page after successful deletion
+                                                    location.reload();
+                                                }
+                                            } else {
+                                                console.error(xhr.statusText);
+                                            }
+                                        };
+                                        xhr.onerror = function() {
+                                            console.error('Network error');
+                                        };
+                                        xhr.send('bookingId=' + bookingId);
+                                    }
+                                }
+                            </script>
+
+                            </div>
+
+                        </div>
+
+
                     </div>
 
                 </div>
-            </nav>
-
-            <div class="cart-box">
-                <ul class="cart-box-ul">
-                    <h4 class="cart-h4">Your order.</h4>
-                    <?php
-                    if (isset($_SESSION['cart'])) {
-                        foreach ($_SESSION['cart'] as $key => $value) {
-                            $sr = $key + 1; // Fixing the $sr value
-                            echo "
-                <li class='cart-item'>
-                    <div class='img-box'>
-                        <img src='../assets/images/menu1.jpg' alt='product image' class='product-img' width='50' height='50' loading='lazy'>
-                    </div>
-                    $value[Item_name]<br>
-                    $value[price]₹<input type='hidden' class='iprice' value='$value[price]' id='iprice_$sr'>
-                    <form action='../manage_cart.php' method='POST'>
-                        <input class='iquantity' name='Mod_Quantity' onchange='this.form.submit();' type='number' value='$value[Quantity]' min='1' max='10' placeholder='Quantity'>
-                        <input type='hidden' name='Item_name' value='$value[Item_name]'>
-                    </form>
-                    <span class='itotal'></span>
-                    <form action='../manage_cart.php' method='POST'>
-                        <button name='remove_item' class='remove-button remove-button1'>Remove</button>
-                        <input type='hidden' name='Item_name' value='$value[Item_name]'>
-                    </form>
-                </li>";
-                        }
-                    }
-                    ?>
-                    <p class="product-price">
-                        <span class="small" id='gtotal'></span>
-                    </p>
-                </ul>
-
-                <?php
-                if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
-                    ?>
-                    <form action="../checkout.php" method="POST">
-                        <?php
-                        // Add hidden input fields for Item_name, price, Quantity
-                        foreach ($_SESSION['cart'] as $key => $value) {
-                            echo "
-            <input type='hidden' name='Item_name[]' value='$value[Item_name]'>
-            <input type='hidden' name='price[]' value='$value[price]'>
-            <input type='hidden' name='Quantity[]' value='$value[Quantity]'>";
-                        }
-                        ?>
-                        <div class="cart-btn-group">
-                            <button name='checkout' class="btn btn-primary">Checkout</button>
-                        </div>
-                    </form>
-                    <?php
-                }
-                ?>
             </div>
-        </header>
-        <main>
-
-            <s<section class="contact-section" id="home">
-                <div class="contact-container">
-                    <div class="contact-content">
-                        <div class="form-container1">
-                <div class="form-title"><b>Admin</b></div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia architecto distinctio ducimus harum animi veniam tenetur, maxime delectus sint aut. Rerum ea ut animi repudiandae aliquid delectus corporis, eos beatae nesciunt asperiores cumque iusto consectetur accusamus reprehenderit magni deserunt perspiciatis necessitatibus dolorem ipsum minus tenetur ullam praesentium illum. Blanditiis, vel.
-              </div>
-            </div>
-
-            <figure class="hero-banner">
-            <div class="home-right" style="margin-top: 1cm;">
-
-          <img src="../assets/images/food1.png" alt="food image" class="food-img food-1" width="200" loading="lazy">
-          <img src="../assets/images/food2.png" alt="food image" class="food-img food-2" width="200" loading="lazy">
-          <img src="../assets/images/food3.png" alt="food image" class="food-img food-3" width="200" loading="lazy">
-
-          <img src="../assets/images/dialog-1.svg" alt="dialog" class="dialog dialog-1" width="230">
-          <img src="../assets/images/dialog-2.svg" alt="dialog" class="dialog dialog-2" width="230">
-
-          <img src="../assets/images/circle.svg" alt="circle shape" class="shape shape-1" width="25">
-          <img src="../assets/images/circle.svg" alt="circle shape" class="shape shape-2" width="15">
-          <img src="../assets/images/circle.svg" alt="circle shape" class="shape shape-3" width="30">
-          <img src="../assets/images/ring.svg" alt="ring shape" class="shape shape-4" width="60">
-          <img src="../assets/images/ring.svg" alt="ring shape" class="shape shape-5" width="40">
-
         </div>
-                </figure>
-                </div>
-                </section>
-
-                <footer>
-                    <div class=" footer-wrapper">
-                        <a href="#">
-                            <img src="../assets/images/logo.png" alt="logo" class="footer-brand" width="150">
-                        </a>
-                        <div class="social-link">
-
-                            <a href="https://twitter.com/Annabel07785340">
-                                <ion-icon name="logo-twitter"></ion-icon>
-                            </a>
-
-                            <a href="https://www.instagram.com/whxite.exe/">
-                                <ion-icon name="logo-instagram"></ion-icon>
-                            </a>
-
-                            <a href="https://www.facebook.com/andro.pool.54/">
-                                <ion-icon name="logo-facebook"></ion-icon>
-                            </a>
-
-                            <a href="https://youtu.be/OTQqj3-Zqi8?si=tT2NfC3Sh7p_UaSS">
-                                <ion-icon name="logo-youtube"></ion-icon>
-                            </a>
-                        </div>
-                        <p class="copyright">&copy; Copyright 2024 Taaza. All Rights Reserved.</p>
-                    </div>
-                </footer>
     </div>
 
-    <!--custom js link -->
-    <script src="../assets/js/taaza.js"></script>
-
-    <!-- ionicon link -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
 </body>
+</html>
