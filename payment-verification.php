@@ -41,6 +41,32 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
     text-align: center;
     border-radius: 7px;
     }
+
+    .print-bill {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.print-bill {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #04AA6D;
+}
+
+.print-bill:hover {
+  background-color: #04AA6D;
+  color: white;
+}
+
 </style>
 
 <section class="contact-section" id="home">
@@ -51,21 +77,28 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
             while ($bookingData = mysqli_fetch_assoc($bookingResult)) {
             ?>
                 <div class="booking-details">
-                    <p><b>Name:</b> <?php echo $userName; ?></p>
-                    <p><b>Email:</b> <?php echo $userEmail; ?></p>
-                    <p><b>Payment Status:</b> <span style="color: <?php echo ($bookingData['payment'] == 0) ? 'red' : 'green'; ?>"><?php echo ($bookingData['payment'] == 0) ? 'Not Paid [Your table is not ready for you yet]' : 'Paid [Your table is ready for you]'; ?></span></p>
-                    <p><b>Sections [In order]:</b> <?php echo $bookingData['section']; ?></p>
-                    <p><b>Seats [In order]:</b> <?php echo $bookingData['seat']; ?></p>
-                    <p><b>Date & Time:</b> <?php echo $bookingData['date']?> | <?php echo $bookingData['time']?></p> 
-                    <?php
+                <p><b>Name:</b> <?php echo $userName; ?></p>
+                <p><b>Email:</b> <?php echo $userEmail; ?></p>
+                <p><b>Payment Status:</b> <span style="color: <?php echo ($bookingData['payment'] == 0) ? 'red' : 'green'; ?>"><?php echo ($bookingData['payment'] == 0) ? 'Not Paid [Your table is not ready for you yet]' : 'Paid [Your table is ready for you]'; ?></span></p>
+                <p><b>Sections [In order]:</b> <?php echo $bookingData['section']; ?></p>
+                <p><b>Seats [In order]:</b> <?php echo $bookingData['seat']; ?></p>
+                <p><b>Date & Time:</b> <?php echo $bookingData['date']?> | <?php echo $bookingData['time']?></p> 
+
+                <?php
+                if ($bookingData['payment'] == 0) {
                     // Display 'Pay Now' button for unpaid bookings
-                    if ($bookingData['payment'] == 0) {
-                    ?>
-                        <button class="button" onclick="payNow('<?php echo $bookingData['date']; ?>', '<?php echo $bookingData['time']; ?>')">Pay Now</button>
-                    <?php
-                    }
-                    ?>
-                </div>
+                ?>
+                    <button class="button" onclick="payNow('<?php echo $bookingData['date']; ?>', '<?php echo $bookingData['time']; ?>')">Pay Now</button>
+                <?php
+                } else {
+                    // Display 'Generate Bill' button for paid bookings
+                    echo "<a href='dashboard/table-bill.php?order=" . urlencode(json_encode($bookingData)) . "' class='print-bill'>Print Bill</a>";
+                ?>
+                <?php
+                }
+                ?>
+            </div>
+
             <?php
                 }
             } else {
@@ -104,11 +137,14 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 <img src="./assets/images/ring.svg" alt="ring shape" class="shape shape-5" width="40">
 
 </div>
-        </figure>
+</figure>
     </div>
+
 </section>
 
 <?php require "includes/footer.php"; ?>
+
+
 <script>
     function payNow(date, time) {
         // Implement the logic for processing payment or redirect to payment page
