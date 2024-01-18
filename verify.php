@@ -1,6 +1,5 @@
 <?php
 require("includes/connection.php");
-
 if(isset($_GET['email']) && isset($_GET['verification_code']))
 {
     $email = mysqli_real_escape_string($conn, $_GET['email']);
