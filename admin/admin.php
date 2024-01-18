@@ -80,6 +80,7 @@ if ($selectUserStmt) {
                                     <a data-toggle='tab' class="nav-link" href="#security"><i class="fas fa-user-shield"></i> &nbsp;User Feedbacks</a>
                                     <a data-toggle='tab' class="nav-link" href="#notification"><i class="fas fa-bell"></i> &nbsp;Registered Users</a>
                                     <a data-toggle='tab' class="nav-link" href="#billings"><i class="fas fa-money-check-alt"></i> &nbsp;Table Bookings</a>
+                                    <a data-toggle='tab' class="nav-link" href="#tocontact"><i class="fas fa-money-check-alt"></i> &nbsp;To Contact</a>
                                 </nav>
                             </div>
                         </div>
@@ -103,6 +104,9 @@ if ($selectUserStmt) {
                                     </li>
                                     <li class="nav-item">
                                         <a data-toggle='tab' class="nav-link" href="#billings"><i class="fas fa-money-check-alt"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-toggle='tab' class="nav-link" href="#tocontact"><i class="fas fa-money-check-alt"></i></a>
                                     </li>
 
                                 </ul>
@@ -492,7 +496,7 @@ if ($selectUserStmt) {
                                 }
 
                                 // Close the connection
-                                mysqli_close($conn);
+                                // mysqli_close($conn); // commented because it affects next block
                             ?>
 
                             <script>
@@ -524,6 +528,86 @@ if ($selectUserStmt) {
                                     }
                                 }
                             </script>
+
+                            </div>
+
+                            <div class="tab-pane " id="tocontact">
+                                <?php
+                                    // Assuming you have a database connection established
+
+                                    // Fetch feedbacks from the database
+                                    $feedbackQuery = "SELECT * FROM contact";
+                                    $feedbackResult = mysqli_query($conn, $feedbackQuery);
+
+                                    if ($feedbackResult) {
+                                        // Check if there are feedbacks
+                                        if (mysqli_num_rows($feedbackResult) > 0) {
+                                            echo '<div class="tab-pane" id="security">
+                                                    <h5>USERS TO CONTACT</h5>
+                                                    <hr>
+                                                    <form>
+                                                        <div class="form-group">
+                                                            <ul class="list-group">';
+
+                                            // Iterate through feedbacks and display them
+                                            while ($feedbackRow = mysqli_fetch_assoc($feedbackResult)) {
+                                                echo '<li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <div>
+                                                            <h6> User: ' . $feedbackRow['email'] . '</h6>
+                                                            <small class="text-muted">Timestamp: ' . $feedbackRow['timestamp'] . '</small>
+                                                        </div>
+                                                        <button type="button" class="btn btn-danger" onclick="deletecontact(\'' . $feedbackRow['email'] . '\')">Delete</button>
+                                                    </li>';
+                                            }
+
+                                            echo '</ul></div></form></div>';
+                                        } else {
+                                            echo '<p>No feedbacks available.</p>';
+                                        }
+
+                                        // Free result set
+                                        mysqli_free_result($feedbackResult);
+                                    } else {
+                                        // Handle the error
+                                        echo "Error: " . mysqli_error($conn);
+                                    }
+
+                                    // Close the connection
+                                    // mysqli_close($conn); // commentted because it affects next block
+                                    ?>
+
+
+                                <script>
+                                    function deletecontact(userEmail) {
+                                        // JavaScript confirmation dialog
+                                        var confirmation = confirm("Are you sure you want to delete this user?");
+                                        
+                                        if (confirmation) {
+                                            // Using vanilla JavaScript to send a request
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.open('POST', 'functions/delete_contact.php', true);
+                                            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+                                            xhr.onload = function() {
+                                                if (xhr.status >= 200 && xhr.status < 300) {
+                                                    var response = JSON.parse(xhr.responseText);
+                                                    alert(response.message);
+                                                    if (response.success) {
+                                                        // Reload the page after successful deletion
+                                                        window.location.reload();
+                                                    }
+                                                } else {
+                                                    console.error(xhr.statusText);
+                                                }
+                                            };
+                                            xhr.onerror = function() {
+                                                console.error('Network error');
+                                            };
+                                            // Pass the userEmail parameter correctly
+                                            xhr.send('userEmail=' + userEmail);
+                                        }
+                                    }
+                                </script>
+
 
                             </div>
 
