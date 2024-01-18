@@ -127,5 +127,6 @@ if(isset($_POST['login']))
         </div>
       </section>
 </header>
+<br><br><br><br>
 
 <?php require "includes/footer.php"; ?>
