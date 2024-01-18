@@ -369,6 +369,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                     </figure>
                 </div>
                 </section>
+                <br><br><br><br>
 
                 <footer>
                     <div class=" footer-wrapper">
