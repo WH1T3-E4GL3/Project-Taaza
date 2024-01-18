@@ -148,6 +148,14 @@ session_start();
                   <option value="n6">N6</option>
                   <option value="n7">N7</option>
                   <option value="n8">N8</option>
+                  <option value="n9">N9</option>
+                  <option value="n10">N10</option>
+                  <option value="n11">N11</option>
+                  <option value="n12">N12</option>
+                  <option value="n13">N13</option>
+                  <option value="n14">N14</option>
+                  <option value="n15">N15</option>
+                  <option value="n16">N16</option>
                 </select>
               </div>
 
