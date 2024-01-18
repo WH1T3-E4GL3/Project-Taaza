@@ -1,4 +1,6 @@
 <?php
+// payment-verification.php
+
 session_start();
 require_once "includes/connection.php";
 
@@ -21,6 +23,29 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 
             if ($bookingResult) {
 ?>
+<script>
+    function payNow(id, date, time) {
+        // AJAX request to update payment status
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "update-payment.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Check if the payment status was updated successfully
+                if (xhr.responseText.trim() === "Payment status updated successfully") {
+                    // Redirect to payment-verification.php with the id parameter
+                    window.location.href = 'payment-verification.php?id=' + id;
+                } else {
+                    // Handle the case where payment status update failed
+                    alert('Failed to update payment status');
+                }
+            }
+        };
+        xhr.send("id=" + id);
+    }
+</script>
+
+
 
 <?php require "includes/header.php"; ?>
 <style>
@@ -77,6 +102,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
             while ($bookingData = mysqli_fetch_assoc($bookingResult)) {
             ?>
                 <div class="booking-details">
+                <p><b>id:</b> <?php echo $bookingData['id']; ?></p>
                 <p><b>Name:</b> <?php echo $userName; ?></p>
                 <p><b>Email:</b> <?php echo $userEmail; ?></p>
                 <p><b>Payment Status:</b> <span style="color: <?php echo ($bookingData['payment'] == 0) ? 'red' : 'green'; ?>"><?php echo ($bookingData['payment'] == 0) ? 'Not Paid [Your table is not ready for you yet]' : 'Paid [Your table is ready for you]'; ?></span></p>
@@ -88,7 +114,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                 if ($bookingData['payment'] == 0) {
                     // Display 'Pay Now' button for unpaid bookings
                 ?>
-                    <button class="button" onclick="payNow('<?php echo $bookingData['date']; ?>', '<?php echo $bookingData['time']; ?>')">Pay Now</button>
+                    <button class="button" onclick="payNow('<?php echo $bookingData['id']; ?>', '<?php echo $bookingData['date']; ?>', '<?php echo $bookingData['time']; ?>')">Pay Now</button>
+
                 <?php
                 } else {
                     // Display 'Generate Bill' button for paid bookings
@@ -145,12 +172,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 <?php require "includes/footer.php"; ?>
 
 
-<script>
-    function payNow(date, time) {
-        // Implement the logic for processing payment or redirect to payment page
-        alert('Redirect to payment page for Date: ' + date + ', Time: ' + time);
-    }
-</script>
 <?php
     $conn->close();
 ?>
