@@ -1,5 +1,46 @@
 <?php
 session_start();
+
+// Include database connection file
+require_once "includes/connection.php";
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve the email address from the form
+    $email = isset($_POST['email_address']) ? $_POST['email_address'] : '';
+
+    // Validate and sanitize the email address if needed
+
+    // Insert the data into the 'contact' table
+    $query = "INSERT INTO `contact` (`email`, `timestamp`) VALUES (?, NOW())";
+    $insertStmt = $conn->prepare($query);
+
+    if ($insertStmt) {
+    $insertStmt->bind_param("s", $email);
+        $result = $insertStmt->execute();
+
+        if ($result) {
+            // Insertion successful
+            echo "
+            <script>alert('Email submitted successfully!');
+            window.location.href='contact.php';
+            </script>
+            ";
+        } else {
+            // Insertion failed
+            echo "
+            <script>alert('Error in submission!');
+            window.location.href='contact.php';
+            </script>
+            ";
+        }
+
+        $insertStmt->close();
+    } else {
+        // Handle the error
+        die("Error preparing statement: " . $conn->error);
+    }
+}
 ?>
 <?php require "includes/header.php"; ?>
 
@@ -8,18 +49,21 @@ session_start();
     <div class="contact-content">
       <img src="assets/images/logo.png" alt="ICON" width="70" height="70"> 
       <br>
-      <h2>Address</h2>
-      <p class="contact-text">
-        Taaza Restaurant, Palarivattom, Pillar number 535<br>
-        Kochi, Kerala , India<br>
-        Pin 682025
-      </p>
+      <h1 style="font-size:30px;">Contact Us</h1>
       <br>
-      <h2>Contact Details</h2>
-      <p class="contact-text">
-        MOBILE: +91 7558 9513 51 | TELEPHONE: 0484-292674<br>
-        EMAIL : taaza001@gmail.com<br>
-      </p>
+            <h2>Address</h2>
+            <p>
+            Taaza restaurant, Stadium Link Rd, Kathrikadavu<br>
+            Kaloor, Kochi, Ernakulam <br>
+            Kerala 682017
+            </p>
+            <br>
+            <h2 style="font-size:30px">Contact Details</h2>
+            <p class="hero-text">
+            MOBILE: +91 7558 9513 51 | TELEPHONE: 0484-292674<br>
+            EMAIL : taaza0restaurant@gmail.com<br>
+            </p>
+            <br>
       <form action="" class="contact-form" method="POST">
         <input type="email" name="email_address" aria-label="email" placeholder="Your Email Address..." required
           class="email-field">
@@ -31,5 +75,6 @@ session_start();
     </figure>
   </div>
 </section>
+<br><br><br><br>
 
 <?php require "includes/footer.php"; ?>
