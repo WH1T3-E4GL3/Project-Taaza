@@ -26,7 +26,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
         }
     } else {
         // Handle database query error
-        echo "<script>alert('ERROR proccessing your request');</script>";
+        echo "<script>alert('ERROR processing your request');</script>";
         exit();
     }
 } else {
@@ -69,6 +69,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $time = $_POST['time'];
         $time = strtolower($time);
         $payment = 0;
+
+        // Check if the table is already booked for the specified date and time
+        $checkQuery = "SELECT * FROM table_booking_ground WHERE date='$date' AND time='$time'";
+        $checkResult = $conn->query($checkQuery);
+
+        if ($checkResult->num_rows > 0) {
+            // Display an alert that the table is already booked for the selected date and time
+            echo "<script>alert('Table already booked for the selected date and time. Please choose a different date or time.');
+            window.location.href = 'table-booking.php';
+            </script>";
+            exit();
+        }
 
         // Insert data into the table as a single query
         $sql = "INSERT INTO table_booking_ground (name, email, section, seat, date, time, payment) 
