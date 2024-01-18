@@ -19,6 +19,72 @@ session_start();
         color: var(--dark);
         margin-top: 150px;
       }
+
+      .nbutton {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.nbutton1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #04AA6D;
+}
+
+.nbutton1:hover {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.nbutton2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
+.nbutton2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+.nbutton3 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #f44336;
+}
+
+.nbutton3:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.nbutton4 {
+  background-color: white;
+  color: black;
+  border: 2px solid #a4b1eb;
+}
+
+.nbutton4:hover {background-color: #a4b1eb;}
+
+.nbutton5 {
+  background-color: white;
+  color: black;
+  border: 2px solid #945d60;
+}
+
+.nbutton5:hover {
+  background-color: #945d60;
+  color: white;
+}
       .veg{
         background-color:#a4ebbe;
       }
@@ -54,7 +120,6 @@ session_start();
       }
       .wrap {
         display: flex;
-        justify: space-between;
         align-items: stretch;
         width: 100%;
         gap: 24px;
@@ -227,7 +292,15 @@ session_start();
       }
 
       </style>
-<div class="veg"><br>
+
+  <center>
+    <button class="nbutton nbutton1" data-target=".vegan-section">Vegan</button>
+    <button class="nbutton nbutton3" data-target=".non-veg-section">Non-Veg</button>
+    <button class="nbutton nbutton4" data-target=".local-taste-section">Local Taste</button>
+    <button class="nbutton nbutton2" data-target=".sea-foods-section">Sea Food</button>
+    <button class="nbutton nbutton5" data-target=".chinese-section">Chinese</button>
+  </center>
+<div class="veg vegan-section"><br>
     <center>
       <h3>VEGITARIAN</h3>
     </center>
@@ -438,7 +511,7 @@ session_start();
 
 <br><hr><br>
 
-<div class="non-veg"><br>
+<div class="non-veg non-veg-section" ><br>
 <center><h3>NON-VEGITARIAN</h3></center>
 <div class="wrap">
   <div class="box">
@@ -540,7 +613,7 @@ session_start();
 <!--###################################################################################################################################################################-->
 <br><hr><br>
 
-<div class="local-taste"><br>
+<div class="local-taste local-taste-section"><br>
 <center><h3>Local Taste</h3></center>
 <div class="wrap">
   <div class="box">
@@ -643,7 +716,7 @@ session_start();
 
 <br><hr><br>
 
-<div class="sea-foods"><br>
+<div class="sea-foods sea-foods-section" name="sea-foods"><br>
 <center><h3>Sea Foods</h3></center>
 <div class="wrap">
   <div class="box">
@@ -745,7 +818,7 @@ session_start();
 <!--###################################################################################################################################################################-->
 <br><hr><br>
 
-<div class="chineese"><br>
+<div class="chineese chinese-section"><br>
 <center><h3>chineese</h3></center>
 <div class="wrap">
   <div class="box">
@@ -845,5 +918,19 @@ session_start();
 </div>
 
 <br>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var buttons = document.querySelectorAll('button[data-target]');
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var target = document.querySelector(this.getAttribute('data-target'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+    });
+  </script>
 
 <?php require "includes/footer.php"; ?>
