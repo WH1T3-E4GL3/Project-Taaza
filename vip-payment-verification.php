@@ -42,6 +42,31 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                         text-align: center;
                         border-radius: 7px;
                     }
+                    .print-bill {
+                        background-color: #04AA6D; /* Green */
+                        border: none;
+                        color: white;
+                        padding: 16px 32px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 4px 2px;
+                        transition-duration: 0.4s;
+                        cursor: pointer;
+                        }
+
+                        .print-bill {
+                        background-color: white; 
+                        color: black; 
+                        border: 2px solid #04AA6D;
+                        }
+
+                        .print-bill:hover {
+                        background-color: #04AA6D;
+                        color: white;
+                        }
+
                 </style>
 
                 <section class="contact-section" id="home">
@@ -49,25 +74,32 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                         <div class="contact-content">
                             <h2>Your VIP Table Bookings</h2>
                             <?php
-                            while ($vipBookingData = mysqli_fetch_assoc($vipBookingResult)) {
-                            ?>
-                                <div class="booking-details">
-                                    <p><b>Name:</b> <?php echo $userName; ?></p>
-                                    <p><b>Email:</b> <?php echo $userEmail; ?></p>
-                                    <p><b>Payment Status:</b> <span style="color: <?php echo ($vipBookingData['payment'] == 0) ? 'red' : 'green'; ?>"><?php echo ($vipBookingData['payment'] == 0) ? 'Not Paid [Your VIP table is not ready for you yet]' : 'Paid [Your VIP table is ready for you]'; ?></span></p>
-                                    <p><b>Section:</b> <?php echo $vipBookingData['section']; ?></p>
-                                    <p><b>Seat:</b> <?php echo $vipBookingData['seat']; ?></p>
-                                    <p><b>Decor:</b> <?php echo $vipBookingData['decor']; ?></p>
-                                    <p><b>Date & Time:</b> <?php echo $vipBookingData['date']; ?> | <?php echo $vipBookingData['time']; ?></p>
-                                    <?php
-                                    // Display 'Pay Now' button for unpaid VIP bookings
-                                    if ($vipBookingData['payment'] == 0) {
-                                    ?>
-                                        <button class="button" onclick="payNow('<?php echo $vipBookingData['date']; ?>', '<?php echo $vipBookingData['time']; ?>')">Pay Now</button>
-                                    <?php
-                                    }
-                                    ?>
-                                </div>
+                                while ($vipBookingData = mysqli_fetch_assoc($vipBookingResult)) {
+                                ?>
+                                    <div class="booking-details">
+                                        <p><b>Id:</b> <?php echo $vipBookingData['id']; ?></p>
+                                        <p><b>Name:</b> <?php echo $userName; ?></p>
+                                        <p><b>Email:</b> <?php echo $userEmail; ?></p>
+                                        <p><b>Payment Status:</b> <span style="color: <?php echo ($vipBookingData['payment'] == 0) ? 'red' : 'green'; ?>"><?php echo ($vipBookingData['payment'] == 0) ? 'Not Paid [Your VIP table is not ready for you yet]' : 'Paid [Your VIP table is ready for you]'; ?></span></p>
+                                        <p><b>Section:</b> <?php echo $vipBookingData['section']; ?></p>
+                                        <p><b>Seat:</b> <?php echo $vipBookingData['seat']; ?></p>
+                                        <p><b>Decor:</b> <?php echo $vipBookingData['decor']; ?></p>
+                                        <p><b>Date & Time:</b> <?php echo $vipBookingData['date']; ?> | <?php echo $vipBookingData['time']; ?></p>
+
+                                        <?php
+                                        // Display 'Pay Now' button for unpaid VIP bookings
+                                        if ($vipBookingData['payment'] == 0) {
+                                        ?>
+                                            <button class="button" onclick="payNow('<?php echo $vipBookingData['id']; ?>', '<?php echo $vipBookingData['date']; ?>', '<?php echo $vipBookingData['time']; ?>')">Pay Now</button>
+                                        <?php
+                                        } else {
+                                            // Display 'Print Bill' button for paid VIP bookings
+                                        ?>
+                                            <a href='dashboard/vip-table-bill.php?order=" . urlencode(json_encode($bookingData)) . "' class='print-bill'>Print Bill</a>
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
                             <?php
                             }
                             } else {
@@ -110,11 +142,26 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 
                 <?php require "includes/footer.php"; ?>
                 <script>
-                    function payNow(date, time) {
-                        // Implement the logic for processing VIP payment or redirect to VIP payment page
-                        alert('Redirect to VIP payment page for Date: ' + date + ', Time: ' + time);
-                    }
-                </script>
+                function payNow(id, date, time) {
+                    // AJAX request to update payment status
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "update-vip-payment.php", true);
+                    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            // Check if the payment status was updated successfully
+                            if (xhr.responseText.trim() === "Payment status updated successfully") {
+                                // Redirect to payment-verification.php with the id parameter
+                                window.location.href = 'vip-payment-verification.php?id=' + id;
+                            } else {
+                                // Handle the case where payment status update failed
+                                alert('Failed to update payment status');
+                            }
+                        }
+                    };
+                    xhr.send("id=" + id);
+                }
+            </script>
 <?php
     $conn->close();
 ?>
