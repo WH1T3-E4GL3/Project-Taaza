@@ -90,7 +90,7 @@ if ($bookingStmt) {
                 $pdf->SetFont('Arial', 'I', 14);
 
                 // Subtitle
-                $pdf->Cell(0, 10, 'Food Order Bill', 1, 1, 'C');
+                $pdf->Cell(0, 10, 'Table booking Bill', 1, 1, 'C');
 
                 // Line break
                 $pdf->Ln(10);
