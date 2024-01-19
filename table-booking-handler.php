@@ -66,8 +66,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Retrieve other form data
         $date = $_POST['date'];
-        $time = $_POST['time'];
-        $time = strtolower($time);
+
+        // Check if 'time' is set in $_POST
+        if (isset($_POST['hidden_time'])) {
+            $time = $_POST['hidden_time'];
+            $time = strtolower($time);
+        } else {
+            // Log the received POST data for debugging
+            error_log("POST data: " . print_r($_POST, true));
+
+            // Handle the case where 'time' is not set in $_POST
+            echo "<script>alert('Time not received');
+            window.location.href = 'payment-verification.php';
+            </script>";
+            exit();
+        }
+
+
         $payment = 0;
 
         // Check if the table is already booked for the specified date and time
@@ -83,8 +98,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Insert data into the table as a single query
-        $sql = "INSERT INTO table_booking_ground (name, email, section, seat, date, time, payment) 
-                VALUES ('$name', '$email', '$sectionsString', '$seatsString', '$date', '$time', $payment)";
+        $sql = "INSERT INTO table_booking_ground (name, email, section, seat, date, time, payment) VALUES ('$name', '$email', '$sectionsString', '$seatsString', '$date', '$time', $payment)";
+        
+        // Log date and time
+        error_log("Date: $date, Time: $time");
 
         if ($conn->query($sql) === TRUE) {
             // Redirect to a success page or handle success
@@ -95,11 +112,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Handle errors
-            echo "<script>alert('ERROR in table Booking');</script>";
+            echo "<script>alert('ERROR in table Booking');
+            window.location.href = 'payment-verification.php';
+            </script>";
         }
     } else {
         // Handle the case where 'section' is not set in $_POST
-        echo "<script>alert('No section data received');</script>";
+        echo "<script>alert('No section data received');
+        window.location.href = 'payment-verification.php';
+        </script>";
     }
 }
 
