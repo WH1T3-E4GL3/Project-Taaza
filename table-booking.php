@@ -96,34 +96,34 @@ session_start();
 <center><button class="button" style="width:100%; padding-top:8em"><a href="vip-booking.php" style="color:white"> Go To VIP Booking Section</a></button></center>
 <section class="contact-section" id="home">
   <br><br>
-<center><u><h2 style="color:#0d5215">Normal Booking [Ground Floor]</h2></u></center><br>
+<center><u><h2 style="color:#0d5215">Normal Booking [First Floor]</h2></u></center><br>
+<marquee style="color: #0d5215;">The selected seat will be available for you all the time - [Breakfast - 7 am to 11 am, Lunch 11 am to 4 pm, Dinner - 6 pm to 10 pm]</marquee>
   <div class="contact-container">
     <div class="contact-content">
 
       <section>
         <form action="table-booking-handler.php" method="post">
-          <center><h2 style="color:#0d5215">Ground Floor</h2></center><br>
+          <center><h2 style="color:#0d5215">First Floor</h2></center><br>
 
           <!-- Family Section -->
           <div class="box">
             <div class="content">
-              <center><h3>Family section</h3></center>
+              <center><h3>Break Fast</h3></center>
               <hr>
 
               <!-- Use dropdowns for seat selection -->
               <div class="form-field">
                 <label for="family_seat">Select Seat accodring to the blueprint provided:</label>
-                <select id="family_seat" name='section[family][]'>
+                <select id="family_seat" name='section[Breakfast][]' onchange="handleSelectChange(this)">
                   <option value="NONE">None</option>
-                  <option value="f1">F1</option>
-                  <option value="f2">F2</option>
-                  <option value="f3">F3</option>
-                  <option value="f4">F4</option>
-                  <option value="f5">F5</option>
-                  <option value="f6">F6</option>
-                  <option value="f7">F7</option>
-                  <option value="f8">F8</option>
-                  <option value="f9">F9</option>
+                  <option value="f1">B1</option>
+                  <option value="f2">B2</option>
+                  <option value="f3">B3</option>
+                  <option value="f4">B4</option>
+                  <option value="f5">B5</option>
+                  <option value="f6">B6</option>
+                  <option value="f7">B7</option>
+                  <option value="f8">B8</option>
                 </select>
               </div>
             </div>
@@ -133,29 +133,46 @@ session_start();
           <!-- Normal Section -->
           <div class="box">
             <div class="content">
-              <center><h3>Normal section</h3></center>
+              <center><h3>Lunch</h3></center>
               <hr>
               <!-- Use dropdowns for seat selection -->
               <div class="form-field">
                 <label for="normal_seat">Select Seat accodring to the blueprint provided::</label>
-                <select id="normal_seat" name='section[normal][]'>
+                <select id="normal_seat" name='section[Lunch][]' onchange="handleSelectChange(this)">
                   <option value="NONE">None</option>
-                  <option value="n1">N1</option>
-                  <option value="n2">N2</option>
-                  <option value="n3">N3</option>
-                  <option value="n4">N4</option>
-                  <option value="n5">N5</option>
-                  <option value="n6">N6</option>
-                  <option value="n7">N7</option>
-                  <option value="n8">N8</option>
-                  <option value="n9">N9</option>
-                  <option value="n10">N10</option>
-                  <option value="n11">N11</option>
-                  <option value="n12">N12</option>
-                  <option value="n13">N13</option>
-                  <option value="n14">N14</option>
-                  <option value="n15">N15</option>
-                  <option value="n16">N16</option>
+                  <option value="n1">L1</option>
+                  <option value="n2">L2</option>
+                  <option value="n3">L3</option>
+                  <option value="n4">L4</option>
+                  <option value="n5">L5</option>
+                  <option value="n6">L6</option>
+                  <option value="n7">L7</option>
+                  <option value="n8">L8</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+          <br>
+
+          <!-- Dinner Section -->
+          <div class="box">
+            <div class="content">
+              <center><h3>Dinner</h3></center>
+              <hr>
+              <!-- Use dropdowns for seat selection -->
+              <div class="form-field">
+                <label for="normal_seat">Select Seat accodring to the blueprint provided::</label>
+                <select id="dinner_seat" name='section[Dinner][]' onchange="handleSelectChange(this)">
+                  <option value="NONE">None</option>
+                  <option value="d1">D1</option>
+                  <option value="d2">D2</option>
+                  <option value="d3">D3</option>
+                  <option value="d4">D4</option>
+                  <option value="d5">D5</option>
+                  <option value="d6">D6</option>
+                  <option value="d7">D7</option>
+                  <option value="d8">D8</option>
                 </select>
               </div>
 
@@ -164,22 +181,26 @@ session_start();
           <br>
           <br>
 
+          <!-- Add a hidden input field for time -->
+          <input type="hidden" id="hidden_time" name="hidden_time">
+
           <!-- Add date and time input fields with JavaScript to populate them automatically -->
           <div class="box">
-            <div class="form-field">
-              <label for="date">Date:</label>
-              <input type="date" id="date" name="date" required>
-            </div>
-            <div class="form-field">
-              <label for="time">Time:</label>
-              <input type="text" id="time" name="time" placeholder="eg: 01:30 pm" pattern="^(0[1-9]|1[0-2]):[0-5][0-9] [apAP][mM]$" title="Enter a valid time (hh:mm am/pm)" required>
-            </div>
+              <div class="form-field">
+                  <label for="date">Date:</label>
+                  <input type="date" id="date" name="date" required>
+              </div>
+              <div class="form-field">
+                  <label for="time">Time:</label>
+                  <input type="text" id="time" name="hidden_time" placeholder="eg: 01:30 pm" pattern="^(0[1-9]|1[0-2]):[0-5][0-9] [apAP][mM] [tT][oO] (0[1-9]|1[0-2]):[0-5][0-9]$" title="Enter a valid time (hh:mm am/pm)" required oninput="updateHiddenTime()">
+
+              </div>
           </div>
       </section>
     </div>
 
     <figure class="hero-banner">
-    <center><h2 style="color:#0d5215">Ground Floor</h2></center><br>
+    <center><h2 style="color:#0d5215">First Floor</h2></center><br>
       <img width='600' src="assets/images/table-book/blue_print.png" alt='Blue print image [load error]'><br>
       <center>
         <input type="submit" class="button" value="Book Tables" style="float:left">
@@ -188,6 +209,95 @@ session_start();
     </figure>
   </div>
   </form>
+
+  <!--Script to handle disabling of other select boxes--> 
+  <script>
+    function updateHiddenTime() {
+    const visibleTimeInput = document.getElementById('time');
+    const hiddenTimeInput = document.getElementById('hidden_time');
+
+    const timeRegex = /^(0[1-9]|1[0-2]):[0-5][0-9] [apAP][mM] [tT][oO] (0[1-9]|1[0-2]):[0-5][0-9]$/;
+
+    if (visibleTimeInput.value.match(timeRegex)) {
+        hiddenTimeInput.value = visibleTimeInput.value;
+    } else {
+        // Handle invalid time format
+        hiddenTimeInput.value = ''; // Reset hidden time input
+        console.error('Invalid time format');
+    }
+}
+
+
+
+
+  function handleSelectChange(selectedDropdown) {
+    const familyDropdown = document.getElementById('family_seat');
+    const normalDropdown = document.getElementById('normal_seat');
+    const dinnerDropdown = document.getElementById('dinner_seat');
+
+    const timeInput = document.getElementById('time');
+    const hiddenTimeInput = document.getElementById('hidden_time');
+
+    // Disable all dropdowns and the time field initially
+    familyDropdown.disabled = true;
+    normalDropdown.disabled = true;
+    dinnerDropdown.disabled = true;
+    timeInput.disabled = true;
+
+    // Enable the selected dropdown
+    selectedDropdown.disabled = false;
+
+    // If 'NONE' is selected, enable all dropdowns and the time field
+    if (selectedDropdown.value === 'NONE') {
+        familyDropdown.disabled = false;
+        normalDropdown.disabled = false;
+        dinnerDropdown.disabled = false;
+        timeInput.disabled = false;
+    }
+
+    switch (selectedDropdown.value) {
+        case 'f1':
+        case 'f2':
+        case 'f3':
+        case 'f4':
+        case 'f5':
+        case 'f6':
+        case 'f7':
+        case 'f8':
+            timeInput.value = '07:00 am to 11:00 am';
+            break;
+        case 'n1':
+        case 'n2':
+        case 'n3':
+        case 'n4':
+        case 'n5':
+        case 'n6':
+        case 'n7':
+        case 'n8':
+            timeInput.value = '11:00 am to 04:00 pm';
+            break;
+        case 'd1':
+        case 'd2':
+        case 'd3':
+        case 'd4':
+        case 'd5':
+        case 'd6':
+        case 'd7':
+        case 'd8':
+            timeInput.value = '06:00 pm to 10:00 pm';
+            break;
+        default:
+            timeInput.value = ''; // Reset the time field if 'NONE' or invalid option is selected
+            break;
+    }
+
+    // Update hidden time input
+    hiddenTimeInput.value = timeInput.value;
+}
+
+
+</script>
+
 </section>
 
 <?php require "includes/footer.php"; ?>
