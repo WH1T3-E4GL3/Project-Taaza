@@ -79,16 +79,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if the table is already booked for the specified date, time, and section
         $checkQuery = "SELECT * FROM table_booking_ground WHERE date=? AND time=? AND section=? AND seat=?";
         $checkStmt = mysqli_prepare($conn, $checkQuery);
-        mysqli_stmt_bind_param($checkStmt, "ssss", $date, $time, $sectionName, $selectedSeat);
+        mysqli_stmt_bind_param($checkStmt, "ssss", $date, $time, $sectionsString, $seatsString);
         mysqli_stmt_execute($checkStmt);
         $checkResult = mysqli_stmt_get_result($checkStmt);
 
         if ($checkResult->num_rows > 0) {
-            // Display an alert that the specific seat is already booked for the selected date and time
-            echo "<script>alert('Seat $selectedSeat in section $sectionName is already booked for the selected date and time. Please choose a different seat.');
-            window.location.href = 'table-booking.php';
-            </script>";
-            exit();
+            $row = mysqli_fetch_assoc($checkResult);
+            $paymentStatus = $row['payment'];
+
+            if ($paymentStatus == 0) {
+                // Allow booking if the seat is not paid
+                $deleteQuery = "DELETE FROM table_booking_ground WHERE date=? AND time=? AND section=? AND seat=?";
+                $deleteStmt = mysqli_prepare($conn, $deleteQuery);
+                mysqli_stmt_bind_param($deleteStmt, "ssss", $date, $time, $sectionsString, $seatsString);
+                mysqli_stmt_execute($deleteStmt);
+
+                // Continue with booking logic...
+            } else {
+                // Display an alert that the specific seat is already booked and paid
+                echo "<script>alert('Seat $selectedSeat in section $sectionName is already booked and paid for the selected date and time. Please choose a different seat.');
+                window.location.href = 'table-booking.php';
+                </script>";
+                exit();
+            }
         }
 
         // Insert data into the table using prepared statements
