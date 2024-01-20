@@ -613,14 +613,42 @@ if ($selectUserStmt) {
                                 </script>
                             </div>
 
-                        <div class="tab-pane" id="tableupdates">
+                    <div class="tab-pane" id="tableupdates">
+                        <?php
+
+                            // Query to fetch the enable_table_booking status
+                            $query = "SELECT `enable_table_booking` FROM `admin` WHERE 1";
+                            $result = mysqli_query($conn, $query);
+
+                            if ($result) {
+                                // Fetch the result as an associative array
+                                $row = mysqli_fetch_assoc($result);
+
+                                // Check if the row exists and has the enable_table_booking key
+                                if ($row && array_key_exists('enable_table_booking', $row)) {
+                                    $status = $row['enable_table_booking'];
+
+                                    // Display the status with appropriate color
+                                    $statusText = ($status == 1) ? '<p style="color: green;">Current status: Enabled</p>' : '<p style="color: red;">Current status: Disabled</p>';
+                                    echo $statusText;
+                                } else {
+                                    echo '<p>Status not available</p>';
+                                }
+                            } else {
+                                echo '<p>Error fetching status</p>';
+                            }
+
+                            // Close the database connection
+                            // mysqli_close($conn);
+                            ?>
+                        
                             <form method="post" action="functions/disable-tablebooking.php" style="float: left">
                                 <button type="submit" class="btn btn-warning">Disable Table Booking Page</button>
                             </form>
                             <form method="post" action="functions/enable-tablebooking.php" style="float: left; margin-left: 8em;">
                                 <button type="submit" class="btn btn-success">Enable Table Booking Page</button>
                             </form>
-                        </div>
+                    </div>
 
 
 
