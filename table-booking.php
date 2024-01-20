@@ -200,7 +200,7 @@ if ($adminResult) {
                   <option value="D5">D5</option>
                   <option value="D6">D6</option>
                   <option value="D7">D7</option>
-                  <option value=BD8">D8</option>
+                  <option value="D8">D8</option>
                 </select>
               </div>
 
