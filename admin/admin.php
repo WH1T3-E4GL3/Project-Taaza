@@ -47,7 +47,8 @@ if ($selectUserStmt) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA==" crossorigin="anonymous" />
-
+    
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.png">
     <title>Admin pannel - Taaza</title>
 </head>
 
@@ -63,6 +64,7 @@ if ($selectUserStmt) {
                 <div aria-label="breadcrumb mb-3">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb d-flex justify-content-center align-items-center">
+                            <img src="../assets/images/logo.png" alt="logo" width="130">
                             <li class="breadcrumb-item"><a href="../index.php">Taaza</a></li>
                             <li class="breadcrumb-item"><a href="admin-login.php">Admin pannel</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Admin</li>
