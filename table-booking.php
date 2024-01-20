@@ -116,14 +116,14 @@ session_start();
                 <label for="family_seat">Select Seat accodring to the blueprint provided:</label>
                 <select id="family_seat" name='section[Breakfast][]' onchange="handleSelectChange(this)">
                   <option value="NONE">None</option>
-                  <option value="f1">B1</option>
-                  <option value="f2">B2</option>
-                  <option value="f3">B3</option>
-                  <option value="f4">B4</option>
-                  <option value="f5">B5</option>
-                  <option value="f6">B6</option>
-                  <option value="f7">B7</option>
-                  <option value="f8">B8</option>
+                  <option value="B1">B1</option>
+                  <option value="B2">B2</option>
+                  <option value="B3">B3</option>
+                  <option value="B4">B4</option>
+                  <option value="B5">B5</option>
+                  <option value="B6">B6</option>
+                  <option value="B7">B7</option>
+                  <option value="B8">B8</option>
                 </select>
               </div>
             </div>
@@ -140,14 +140,14 @@ session_start();
                 <label for="normal_seat">Select Seat accodring to the blueprint provided::</label>
                 <select id="normal_seat" name='section[Lunch][]' onchange="handleSelectChange(this)">
                   <option value="NONE">None</option>
-                  <option value="n1">L1</option>
-                  <option value="n2">L2</option>
-                  <option value="n3">L3</option>
-                  <option value="n4">L4</option>
-                  <option value="n5">L5</option>
-                  <option value="n6">L6</option>
-                  <option value="n7">L7</option>
-                  <option value="n8">L8</option>
+                  <option value="L1">L1</option>
+                  <option value="L2">L2</option>
+                  <option value="L3">L3</option>
+                  <option value="L4">L4</option>
+                  <option value="L5">L5</option>
+                  <option value="L6">L6</option>
+                  <option value="L7">L7</option>
+                  <option value="L8">L8</option>
                 </select>
               </div>
 
@@ -165,14 +165,14 @@ session_start();
                 <label for="normal_seat">Select Seat accodring to the blueprint provided::</label>
                 <select id="dinner_seat" name='section[Dinner][]' onchange="handleSelectChange(this)">
                   <option value="NONE">None</option>
-                  <option value="d1">D1</option>
-                  <option value="d2">D2</option>
-                  <option value="d3">D3</option>
-                  <option value="d4">D4</option>
-                  <option value="d5">D5</option>
-                  <option value="d6">D6</option>
-                  <option value="d7">D7</option>
-                  <option value="d8">D8</option>
+                  <option value="D1">D1</option>
+                  <option value="D2">D2</option>
+                  <option value="D3">D3</option>
+                  <option value="D4">D4</option>
+                  <option value="D5">D5</option>
+                  <option value="D6">D6</option>
+                  <option value="D7">D7</option>
+                  <option value=BD8">D8</option>
                 </select>
               </div>
 
@@ -256,34 +256,34 @@ session_start();
     }
 
     switch (selectedDropdown.value) {
-        case 'f1':
-        case 'f2':
-        case 'f3':
-        case 'f4':
-        case 'f5':
-        case 'f6':
-        case 'f7':
-        case 'f8':
+        case 'B1':
+        case 'B2':
+        case 'B3':
+        case 'B4':
+        case 'B5':
+        case 'B6':
+        case 'B7':
+        case 'B8':
             timeInput.value = '07:00 am to 11:00 am';
             break;
-        case 'n1':
-        case 'n2':
-        case 'n3':
-        case 'n4':
-        case 'n5':
-        case 'n6':
-        case 'n7':
-        case 'n8':
+        case 'L1':
+        case 'L2':
+        case 'L3':
+        case 'L4':
+        case 'L5':
+        case 'L6':
+        case 'L7':
+        case 'L8':
             timeInput.value = '11:00 am to 04:00 pm';
             break;
-        case 'd1':
-        case 'd2':
-        case 'd3':
-        case 'd4':
-        case 'd5':
-        case 'd6':
-        case 'd7':
-        case 'd8':
+        case 'D1':
+        case 'D2':
+        case 'D3':
+        case 'D4':
+        case 'D5':
+        case 'D6':
+        case 'D7':
+        case 'D8':
             timeInput.value = '06:00 pm to 10:00 pm';
             break;
         default:
