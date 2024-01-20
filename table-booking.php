@@ -1,6 +1,34 @@
 <?php
 session_start();
+require_once "includes/connection.php";
+
+// Fetch the admin data
+$adminQuery = "SELECT `id`, `email`, `name`, `password`, `resettoken`, `resettokenexpire`, `enable_table_booking` FROM `admin` WHERE 1";
+$adminResult = mysqli_query($conn, $adminQuery);
+
+if ($adminResult) {
+    $adminData = mysqli_fetch_assoc($adminResult);
+
+    // Check if the enable_table_booking is 1
+    if ($adminData['enable_table_booking'] == 1) {
+        // Continue loading the page
+    } else {
+        // The table booking is disabled, show an alert and prevent further content rendering
+        echo "<script>
+                alert('Table booking page is unavailable now, Try later [disabled by admin]');
+                window.location.href = 'services.php'; // Redirect to your desired page
+              </script>";
+        exit; // Ensure that the script stops execution after redirecting
+    }
+} else {
+    // Handle the error
+    echo "Error: " . mysqli_error($conn);
+    exit; // Ensure that the script stops execution in case of an error
+}
+
+// Continue with the rest of your page code
 ?>
+
 <?php require "includes/header.php"; ?>
 
 <style>
