@@ -79,8 +79,9 @@ if ($selectUserStmt) {
                                     <a data-toggle='tab' class="nav-link" href="#account"><i class="fas fa-user-cog"></i> &nbsp;User Orders</a>
                                     <a data-toggle='tab' class="nav-link" href="#security"><i class="fas fa-user-shield"></i> &nbsp;User Feedbacks</a>
                                     <a data-toggle='tab' class="nav-link" href="#notification"><i class="fas fa-bell"></i> &nbsp;Registered Users</a>
-                                    <a data-toggle='tab' class="nav-link" href="#billings"><i class="fas fa-money-check-alt"></i> &nbsp;Table Bookings</a>
+                                    <a data-toggle='tab' class="nav-link" href="#billings"><i class="fas fa-money-check-alt"></i> &nbsp;Table Bookings</a>                                   
                                     <a data-toggle='tab' class="nav-link" href="#tocontact"><i class="fas fa-money-check-alt"></i> &nbsp;To Contact</a>
+                                    <a data-toggle='tab' class="nav-link" href="#tableupdates"><i class="fas fa-money-check-alt"></i> &nbsp;Table updates</a>
                                 </nav>
                             </div>
                         </div>
@@ -107,6 +108,9 @@ if ($selectUserStmt) {
                                     </li>
                                     <li class="nav-item">
                                         <a data-toggle='tab' class="nav-link" href="#tocontact"><i class="fas fa-money-check-alt"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-toggle='tab' class="nav-link" href="#tableupdates"><i class="fas fa-money-check-alt"></i></a>
                                     </li>
 
                                 </ul>
@@ -607,9 +611,18 @@ if ($selectUserStmt) {
                                         }
                                     }
                                 </script>
-
-
                             </div>
+
+                        <div class="tab-pane" id="tableupdates">
+                            <form method="post" action="functions/disable-tablebooking.php" style="float: left">
+                                <button type="submit" class="btn btn-warning">Disable Table Booking Page</button>
+                            </form>
+                            <form method="post" action="functions/enable-tablebooking.php" style="float: left; margin-left: 8em;">
+                                <button type="submit" class="btn btn-success">Enable Table Booking Page</button>
+                            </form>
+                        </div>
+
+
 
                         </div>
 
