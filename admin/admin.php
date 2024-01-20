@@ -84,7 +84,8 @@ if ($selectUserStmt) {
                                     <a data-toggle='tab' class="nav-link" href="#billings"><i class="fas fa-money-check-alt"></i> &nbsp;Table Bookings</a>                                   
                                     <a data-toggle='tab' class="nav-link" href="#tocontact"><i class="fas fa-money-check-alt"></i> &nbsp;To Contact</a>
                                     <a data-toggle='tab' class="nav-link" href="#tableupdates"><i class="fas fa-money-check-alt"></i> &nbsp;Table booking page update</a>
-                                </nav>
+                                    <a data-toggle='tab' class="nav-link" href="#menuupdates"><i class="fas fa-money-check-alt"></i> &nbsp;Menu page update</a>
+                            </nav>
                             </div>
                         </div>
 
@@ -113,6 +114,9 @@ if ($selectUserStmt) {
                                     </li>
                                     <li class="nav-item">
                                         <a data-toggle='tab' class="nav-link" href="#tableupdates"><i class="fas fa-money-check-alt"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-toggle='tab' class="nav-link" href="#menuupdates"><i class="fas fa-money-check-alt"></i></a>
                                     </li>
 
                                 </ul>
@@ -650,6 +654,44 @@ if ($selectUserStmt) {
                             </form>
                             <form method="post" action="functions/enable-tablebooking.php" style="float: left; margin-left: 8em;">
                                 <button type="submit" class="btn btn-success">Enable Table Booking Page</button>
+                            </form>
+                    </div>
+
+                    <div class="tab-pane" id="menuupdates">
+                        <h2>Disable or Enable Menu Page</h2><hr>
+                        <?php
+
+                            // Query to fetch the enable_table_booking status
+                            $query = "SELECT `enable_menu_page` FROM `admin` WHERE 1";
+                            $result = mysqli_query($conn, $query);
+
+                            if ($result) {
+                                // Fetch the result as an associative array
+                                $row = mysqli_fetch_assoc($result);
+
+                                // Check if the row exists and has the enable_table_booking key
+                                if ($row && array_key_exists('enable_menu_page', $row)) {
+                                    $status = $row['enable_menu_page'];
+
+                                    // Display the status with appropriate color
+                                    $statusText = ($status == 1) ? '<p style="color: green;">Current status: Enabled</p>' : '<p style="color: red;">Current status: Disabled</p>';
+                                    echo $statusText;
+                                } else {
+                                    echo '<p>Status not available</p>';
+                                }
+                            } else {
+                                echo '<p>Error fetching status</p>';
+                            }
+
+                            // Close the database connection
+                            // mysqli_close($conn);
+                            ?>
+                        
+                            <form method="post" action="functions/disable-menu-page.php" style="float: left">
+                                <button type="submit" class="btn btn-warning">Disable Menu Page</button>
+                            </form>
+                            <form method="post" action="functions/enable-menu-page.php" style="float: left; margin-left: 8em;">
+                                <button type="submit" class="btn btn-success">Enable Menu Page</button>
                             </form>
                     </div>
 
