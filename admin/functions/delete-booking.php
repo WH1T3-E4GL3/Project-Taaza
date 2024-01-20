@@ -1,52 +1,52 @@
 <?php
-// Include your database connection file
+session_start();
 include_once '../../includes/connection.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['bookingId'], $_POST['section'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteBooking'])) {
     // Assuming you have proper validation and sanitation in place for the input values
-    $bookingId = $_POST['bookingId'];
-    $section = $_POST['section'];
+    $adminId = $_POST['deleteBooking'];
 
-    // Sanitize and validate the input (consider using prepared statements)
-    $bookingId = filter_var($bookingId, FILTER_SANITIZE_NUMBER_INT);
-    $section = filter_var($section, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-
-    // Delete booking from the appropriate table based on the section
-    $deleteQuery = "";
-
-    switch ($section) {
-        case 'ground':
-            $deleteQuery = "DELETE FROM table_booking_ground WHERE id = ?";
-            break;
-        case 'vip':
-            $deleteQuery = "DELETE FROM table_booking_vip WHERE id = ?";
-            break;
-        default:
-            echo json_encode(['success' => false, 'message' => 'Invalid section.']);
-            exit();
-    }
+    // Delete query
+    $deleteQuery = "DELETE FROM table_booking_ground WHERE id = ?";
 
     $deleteStmt = $conn->prepare($deleteQuery);
 
     if ($deleteStmt) {
-        $deleteStmt->bind_param("i", $bookingId);
-        $deleteStmt->execute();
+        $deleteStmt->bind_param("i", $adminId);
 
-        // Check if the deletion was successful
-        if ($deleteStmt->affected_rows > 0) {
-            echo json_encode(['success' => true, 'message' => 'Booking deleted successfully.']);
+        if ($deleteStmt->execute()) {
+            // Deletion successful
+            echo "
+            <script>
+                alert('Table booking deleted Successfully!');
+                window.location.href='../admin.php';
+            </script>";
         } else {
-            echo json_encode(['success' => false, 'message' => 'Error: Booking not found or could not be deleted.']);
+            // Error in deletion
+            echo "
+            <script>
+                alert('Error in deleting: " . $conn->error . "');
+                window.location.href='../admin.php';
+            </script>";
         }
 
         $deleteStmt->close();
     } else {
-        echo json_encode(['success' => false, 'message' => 'Error preparing statement: ' . $conn->error]);
+        // Error in preparing delete statement
+        echo "
+        <script>
+            alert('Error in preparing delete statement: " . $conn->error . "');
+            window.location.href='../admin.php';
+        </script>";
     }
-} else {
-    echo json_encode(['success' => false, 'message' => 'Error: bookingId or section not provided.']);
-}
 
-// Close the database connection
-$conn->close();
+    $conn->close();
+} else {
+    // Invalid request
+    echo "
+        <script>
+            alert('UNKNOWN ISSUE: Invalid request!');
+            window.location.href='../admin.php';
+        </script>";
+}
 ?>
