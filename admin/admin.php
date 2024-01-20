@@ -83,7 +83,7 @@ if ($selectUserStmt) {
                                     <a data-toggle='tab' class="nav-link" href="#notification"><i class="fas fa-bell"></i> &nbsp;Registered Users</a>
                                     <a data-toggle='tab' class="nav-link" href="#billings"><i class="fas fa-money-check-alt"></i> &nbsp;Table Bookings</a>                                   
                                     <a data-toggle='tab' class="nav-link" href="#tocontact"><i class="fas fa-money-check-alt"></i> &nbsp;To Contact</a>
-                                    <a data-toggle='tab' class="nav-link" href="#tableupdates"><i class="fas fa-money-check-alt"></i> &nbsp;Table updates</a>
+                                    <a data-toggle='tab' class="nav-link" href="#tableupdates"><i class="fas fa-money-check-alt"></i> &nbsp;Table booking page update</a>
                                 </nav>
                             </div>
                         </div>
@@ -616,6 +616,7 @@ if ($selectUserStmt) {
                             </div>
 
                     <div class="tab-pane" id="tableupdates">
+                        <h2>Disable or Enable Table Booking Page</h2><hr>
                         <?php
 
                             // Query to fetch the enable_table_booking status
