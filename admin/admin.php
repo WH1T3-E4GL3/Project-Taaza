@@ -443,103 +443,59 @@ if ($selectUserStmt) {
                                 </script>
 
                             </div>
-                            <div class="tab-pane " id="billings">
+                            <div class="tab-pane" id="billings">
                                 <?php
                                 // Assuming you have a database connection established
 
                                 // Fetch table bookings from ground section
-                                $groundBookingsQuery = "SELECT `id`, `name`, `email`, `section`, `seat`, `date`, `time`, `payment`, NULL AS `decor` FROM `table_booking_ground` WHERE 1";
-                                
-                                // Fetch table bookings from VIP section
-                                $vipBookingsQuery = "SELECT `id`, `name`, `email`, `section`, `seat`, NULL AS `decor`, `date`, `time`, `payment` FROM `table_booking_vip` WHERE 1";
+                                $groundBookingsQuery = "SELECT `id`, `name`, `email`, `section`, `seat`, `date`, `time`, `payment` FROM `table_booking_ground` WHERE 1";
 
-                                // Combine the results using UNION
-                                $bookingsQuery = "($groundBookingsQuery) UNION ($vipBookingsQuery)";
+                                $groundBookingsResult = mysqli_query($conn, $groundBookingsQuery);
 
-                                $bookingsResult = mysqli_query($conn, $bookingsQuery);
-
-                                if ($bookingsResult) {
-                                    // Check if there are table bookings
-                                    if (mysqli_num_rows($bookingsResult) > 0) {
+                                if ($groundBookingsResult) {
+                                    // Check if there are ground section table bookings
+                                    if (mysqli_num_rows($groundBookingsResult) > 0) {
                                         echo '<div class="tab-pane" id="tableBookings">
-                                                <h5>TABLE BOOKINGS</h5>
+                                                <h5>GROUND SECTION TABLE BOOKINGS</h5>
                                                 <hr>
-                                                <form>
+                                                <form action="functions/delete-booking.php" method="post">
                                                     <div class="form-group">
                                                         <ul class="list-group">';
 
-                                        // Iterate through table bookings and display them
-                                        while ($bookingRow = mysqli_fetch_assoc($bookingsResult)) {
-                                            // Check if it's a VIP booking to set different background color
-                                            $backgroundColor = ($bookingRow['section'] === 'VIP') ? 'background-color: #f8d7da;' : '';
+                                        // Iterate through ground section table bookings and display them
+                                        while ($groundBookingRow = mysqli_fetch_assoc($groundBookingsResult)) {
+                                            // Determine payment status and set color accordingly
+                                            $paymentStatus = ($groundBookingRow['payment'] == 1) ? '<span style="color: green;">Paid</span>' : '<span style="color: red;">Not Paid</span>';
 
-                                            echo '<li class="list-group-item d-flex justify-content-between align-items-center" style="' . $backgroundColor . '">
+                                            echo '<li class="list-group-item">
                                                     <div>
-                                                        <h6> Name: ' . $bookingRow['name'] . '</h6>
-                                                        <p>Email: ' . $bookingRow['email'] . '</p>
-                                                        <p>Section: ' . $bookingRow['section'] . '</p>
-                                                        <p>Seat: ' . $bookingRow['seat'] . '</p>';
-                                                        
-                                            // Check if it's a VIP booking to display additional details
-                                            if (isset($bookingRow['decor'])) {
-                                                echo '<p>Decor: ' . $bookingRow['decor'] . '</p>';
-                                            }
-
-                                            echo '<p>Date: ' . $bookingRow['date'] . '</p>
-                                                <p>Time: ' . $bookingRow['time'] . '</p>
-                                                <p>Payment: ' . $bookingRow['payment'] . '</p>
-                                                </div>
-                                                <button type="button" class="btn btn-danger" onclick="deleteBooking(' . $bookingRow['id'] . ')">Delete</button>
-                                            </li>';
+                                                        <h6>Id: ' . $groundBookingRow['id'] . '</h6>
+                                                        <h6>Name: ' . $groundBookingRow['name'] . '</h6>
+                                                        <p>Email: ' . $groundBookingRow['email'] . '</p>
+                                                        <p>Section: ' . $groundBookingRow['section'] . '</p>
+                                                        <p>Seat: ' . $groundBookingRow['seat'] . '</p>
+                                                        <p>Date: ' . $groundBookingRow['date'] . '</p>
+                                                        <p>Time: ' . $groundBookingRow['time'] . '</p>
+                                                        <p>Payment: ' . $paymentStatus . '</p>
+                                                    </div>
+                                                    <button type="submit" name="deleteBooking" value="' . $groundBookingRow['id'] . '" class="btn btn-danger">Delete</button>
+                                                </li>';
                                         }
 
                                         echo '</ul></div></form></div>';
                                     } else {
-                                        echo '<p>No table bookings available.</p>';
+                                        echo '<p>No table bookings available in the ground section.</p>';
                                     }
 
                                     // Free result set
-                                    mysqli_free_result($bookingsResult);
+                                    mysqli_free_result($groundBookingsResult);
                                 } else {
                                     // Handle the error
                                     echo "Error: " . mysqli_error($conn);
                                 }
-
-                                // Close the connection
-                                // mysqli_close($conn); // commented because it affects next block
-                            ?>
-
-                            <script>
-                                function deleteBooking(bookingId) {
-                                    // JavaScript confirmation dialog
-                                    var confirmation = confirm("Are you sure you want to delete this table booking?");
-                                    
-                                    if (confirmation) {
-                                        // Using vanilla JavaScript to send a request
-                                        var xhr = new XMLHttpRequest();
-                                        xhr.open('POST', 'functions/delete-booking.php', true);
-                                        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-                                        xhr.onload = function() {
-                                            if (xhr.status >= 200 && xhr.status < 300) {
-                                                var response = JSON.parse(xhr.responseText);
-                                                alert(response.message);
-                                                if (response.success) {
-                                                    // Reload the page after successful deletion
-                                                    location.reload();
-                                                }
-                                            } else {
-                                                console.error(xhr.statusText);
-                                            }
-                                        };
-                                        xhr.onerror = function() {
-                                            console.error('Network error');
-                                        };
-                                        xhr.send('bookingId=' + bookingId);
-                                    }
-                                }
-                            </script>
-
+                                ?>
                             </div>
+
 
                             <div class="tab-pane " id="tocontact">
                                 <?php
