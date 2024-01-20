@@ -1,46 +1,54 @@
 <?php
 session_start();
-
 require_once "includes/connection.php";
+
+function redirectTo($location) {
+    echo "<script>window.location.href='$location';</script>";
+    exit();
+}
+
+// Function to sanitize and validate input
+function sanitizeInput($input) {
+    return htmlspecialchars(trim($input));
+}
 
 // Check if the user is logged in
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
     // Retrieve the email from the session
-    $userEmail = $_SESSION['username'];
+    $userEmail = sanitizeInput($_SESSION['username']);
 
     // Fetch the user's name from the database
-    $query = "SELECT * FROM registered_users WHERE email='$userEmail'";
-    $result = mysqli_query($conn, $query);
+    $query = "SELECT * FROM registered_users WHERE email=?";
+    $stmt = mysqli_prepare($conn, $query);
+    mysqli_stmt_bind_param($stmt, "s", $userEmail);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
     if ($result) {
         if (mysqli_num_rows($result) == 1) {
             $userData = mysqli_fetch_assoc($result);
             $userName = $userData['name'];
-
-            // Now $userName contains the user's name
         } else {
             // Handle the case where the email is not found in the database
             echo "<script>alert('Email not registered');</script>";
-            echo "<script>window.location.href='login.php';</script>";
-            exit();
+            redirectTo('login.php');
         }
     } else {
         // Handle database query error
         echo "<script>alert('ERROR processing your request');</script>";
-        exit();
+        redirectTo('error.php');
     }
 } else {
     // Handle the case where the user is not logged in
     echo "<script>alert('Login to book tables.');</script>";
-    echo "<script>window.location.href='new-login.php';</script>";
-    exit();
+    redirectTo('new-login.php');
 }
 
 // Continue with the rest of your booking script
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve and process form data
-    $name = $userName; // Use the fetched name
-    $email = $userEmail;
+    $name = sanitizeInput($userName);
+    $email = sanitizeInput($userEmail);
 
     // Check if 'section' is set in $_POST
     if (isset($_POST['section'])) {
@@ -53,11 +61,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Iterate through sections and seats
         foreach ($sectionArray as $sectionName => $seatsArray) {
             // Check if the seat is set, otherwise set a default value
-            $selectedSeat = (isset($seatsArray[0])) ? $seatsArray[0] : 'NONE';
+            $selectedSeat = (isset($seatsArray[0])) ? sanitizeInput($seatsArray[0]) : 'NONE';
 
             // Concatenate seats for each section
             $seats[] = $selectedSeat;
-            $sections[] = $sectionName;
+            $sections[] = sanitizeInput($sectionName);
         }
 
         // Concatenate sections and seats as comma-separated strings
@@ -65,57 +73,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $seatsString = implode(",", $seats);
 
         // Retrieve other form data
-        $date = $_POST['date'];
+        $date = sanitizeInput($_POST['date']);
+        $time = isset($_POST['hidden_time']) ? sanitizeInput($_POST['hidden_time']) : '';
 
-        // Check if 'time' is set in $_POST
-        if (isset($_POST['hidden_time'])) {
-            $time = $_POST['hidden_time'];
-            $time = strtolower($time);
-        } else {
-            // Log the received POST data for debugging
-            error_log("POST data: " . print_r($_POST, true));
-
-            // Handle the case where 'time' is not set in $_POST
-            echo "<script>alert('Time not received');
-            window.location.href = 'payment-verification.php';
-            </script>";
-            exit();
-        }
-
-
-        $payment = 0;
-
-        // Check if the table is already booked for the specified date and time
-        $checkQuery = "SELECT * FROM table_booking_ground WHERE date='$date' AND time='$time'";
-        $checkResult = $conn->query($checkQuery);
+        // Check if the table is already booked for the specified date, time, and section
+        $checkQuery = "SELECT * FROM table_booking_ground WHERE date=? AND time=? AND section=? AND seat=?";
+        $checkStmt = mysqli_prepare($conn, $checkQuery);
+        mysqli_stmt_bind_param($checkStmt, "ssss", $date, $time, $sectionName, $selectedSeat);
+        mysqli_stmt_execute($checkStmt);
+        $checkResult = mysqli_stmt_get_result($checkStmt);
 
         if ($checkResult->num_rows > 0) {
-            // Display an alert that the table is already booked for the selected date and time
-            echo "<script>alert('Table already booked for the selected date and time. Please choose a different date or time.');
+            // Display an alert that the specific seat is already booked for the selected date and time
+            echo "<script>alert('Seat $selectedSeat in section $sectionName is already booked for the selected date and time. Please choose a different seat.');
             window.location.href = 'table-booking.php';
             </script>";
             exit();
         }
 
-        // Insert data into the table as a single query
-        $sql = "INSERT INTO table_booking_ground (name, email, section, seat, date, time, payment) VALUES ('$name', '$email', '$sectionsString', '$seatsString', '$date', '$time', $payment)";
-        
-        // Log date and time
-        error_log("Date: $date, Time: $time");
+        // Insert data into the table using prepared statements
+        $insertQuery = "INSERT INTO table_booking_ground (name, email, section, seat, date, time, payment) VALUES (?, ?, ?, ?, ?, ?, 0)";
+        $insertStmt = mysqli_prepare($conn, $insertQuery);
+        mysqli_stmt_bind_param($insertStmt, "ssssss", $name, $email, $sectionsString, $seatsString, $date, $time);
 
-        if ($conn->query($sql) === TRUE) {
+        if (mysqli_stmt_execute($insertStmt)) {
             // Redirect to a success page or handle success
             echo "<script>alert('Table Booked Successfully');
             window.location.href = 'payment-verification.php';
             </script>";
-
             exit();
         } else {
             // Handle errors
-            echo "<script>alert('ERROR in table Booking');
+            $errorMessage = mysqli_error($conn);
+            echo "<script>alert('ERROR in table Booking: $errorMessage');
             window.location.href = 'payment-verification.php';
             </script>";
+            exit();
         }
+
     } else {
         // Handle the case where 'section' is not set in $_POST
         echo "<script>alert('No section data received');
@@ -124,5 +119,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$conn->close();
+// Close the database connection
+mysqli_close($conn);
 ?>
