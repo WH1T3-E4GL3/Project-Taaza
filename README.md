@@ -41,8 +41,14 @@ Create a database, tables, and columns with following details:
 
     Database name: taaza_db
     Table names: ⦿ admin
-                     ↳colum names:  id, email, name, password, resettoken, resettokenexpire 	
-                         
+                     ↳colum names:  id, email, name, password, resettoken, resettokenexpire, enable_table_booking, enable_menu_page
+
+                 ⦿ admin_message
+                     ↳colum names:  id, message, enable_meessage
+
+                 ⦿ contact
+                    ↳colum names:  id, email, timestamp 	
+
                  ⦿ feedback
                      ↳colum names:  feedback_id, user_email, feedback_text, timestamp
                 
