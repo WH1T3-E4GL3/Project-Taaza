@@ -10,6 +10,30 @@ session_start();
       <section class="home" id="home">
 
         <div class="home-left">
+          <!-- Php code to decide to display admin message or not -->
+        <?php
+          require_once "includes/connection.php";
+
+          // Fetch the admin message data
+          $adminMessageQuery = "SELECT `id`, `message`, `enable_meessage` FROM `admin_message` WHERE 1";
+          $adminMessageResult = mysqli_query($conn, $adminMessageQuery);
+
+          if ($adminMessageResult) {
+              $adminMessageData = mysqli_fetch_assoc($adminMessageResult);
+
+              // Check if the enable_meessage is 1
+              if ($adminMessageData['enable_meessage'] == 1) {
+                  // Display the message using marquee
+                  echo "<marquee style='color:green'>" . htmlspecialchars($adminMessageData['message']) . "</marquee>";
+              } else {
+                  // If enable_meessage is not 1, do nothing
+              }
+          } else {
+              // Handle the error
+              echo "Error: " . mysqli_error($conn);
+              exit; // Ensure that the script stops execution in case of an error
+          }
+          ?>
 
           <p class="home-subtext">Hi, new friend !</p>
 
