@@ -85,6 +85,7 @@ if ($selectUserStmt) {
                                     <a data-toggle='tab' class="nav-link" href="#tocontact"><i class="fas fa-money-check-alt"></i> &nbsp;To Contact</a>
                                     <a data-toggle='tab' class="nav-link" href="#tableupdates"><i class="fas fa-money-check-alt"></i> &nbsp;Table booking page update</a>
                                     <a data-toggle='tab' class="nav-link" href="#menuupdates"><i class="fas fa-money-check-alt"></i> &nbsp;Menu page update</a>
+                                    <a data-toggle='tab' class="nav-link" href="#displaymessage"><i class="fas fa-money-check-alt"></i> &nbsp;Display message on website</a>
                             </nav>
                             </div>
                         </div>
@@ -117,6 +118,9 @@ if ($selectUserStmt) {
                                     </li>
                                     <li class="nav-item">
                                         <a data-toggle='tab' class="nav-link" href="#menuupdates"><i class="fas fa-money-check-alt"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a data-toggle='tab' class="nav-link" href="#displaymessage"><i class="fas fa-money-check-alt"></i></a>
                                     </li>
 
                                 </ul>
@@ -649,6 +653,55 @@ if ($selectUserStmt) {
                             <form method="post" action="functions/enable-menu-page.php" style="float: left; margin-left: 8em;">
                                 <button type="submit" class="btn btn-success">Enable Menu Page</button>
                             </form>
+                    </div>
+
+
+                    <div class="tab-pane" id="displaymessage">
+                        <h2>Display Admin Message</h2><hr>
+
+                        <?php
+                        // Display success or error messages if any
+                        if(isset($message)){
+                            echo '<p>'.$message.'</p>';
+                        }
+                        ?>
+
+                        <!-- Admin Message Input Form -->
+                        <form method="post" action="functions/insert-admin-message.php" style="display: inline;">
+                            <div class="form-group">
+                                <?php
+                                $adminMessageQuery = "SELECT `id`, `message`, `enable_meessage` FROM `admin_message` WHERE 1";
+                                $adminMessageResult = mysqli_query($conn, $adminMessageQuery);
+
+                                if ($adminMessageResult) {
+                                    $adminMessageData = mysqli_fetch_assoc($adminMessageResult);
+
+                                    echo "<b>Current admin message: </b><p>" . $adminMessageData['message'] . "</p>";
+
+                                    $statusColor = ($adminMessageData['enable_meessage'] == 1) ? 'green' : 'red';
+                                    $statusText = ($adminMessageData['enable_meessage'] == 1) ? 'Enabled' : 'Disabled';
+
+                                    echo "<p style='color: $statusColor;'>Admin Message is currently $statusText</p>";
+
+                                } else {
+                                    // Handle the error
+                                    echo "Error: " . mysqli_error($conn);
+                                    exit; // Ensure that the script stops execution in case of an error
+                                }
+                                ?>
+                                <label for="adminMessage">Admin Message:</label>
+                                <input type="text" class="form-control" id="adminMessage" name="adminMessage" placeholder="Enter admin message" required>
+                            </div><br>
+                            <button type="submit" class="btn btn-success">Insert Admin Message</button>
+                        </form>
+
+                        <!-- Enable/Disable Admin Message Buttons -->
+                        <form method="post" action="functions/enable-admin-message.php" style="display: inline;">
+                            <button type="submit" class="btn btn-warning">Enable Admin Message</button>
+                        </form>
+                        <form method="post" action="functions/disable-admin-message.php" style="display: inline;">
+                            <button type="submit" class="btn btn-danger">Disable Admin Message</button>
+                        </form>
                     </div>
 
 
