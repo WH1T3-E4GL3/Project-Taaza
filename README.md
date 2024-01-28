@@ -51,6 +51,9 @@ Create a database, tables, and columns with following details:
 
                  ⦿ feedback
                      ↳colum names:  feedback_id, user_email, feedback_text, timestamp
+
+                 ⦿ lend_hand
+                     ↳colum names:   id, name, email, amount, timestamp, show_detail 	
                 
                  ⦿ orders
                     ↳colum names:  order_id ,name, email, address, item, quantity, total_price, timestamp 	
