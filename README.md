@@ -67,9 +67,13 @@ Create a database, tables, and columns with following details using phpmyadmin (
                  ⦿ table_booking_vip
                      ↳colum names:  id, name, email, section, seat, decor, date, time, payment 
 
-# Database Formats
+# Database Structure & creating queries [Table By Table]
         
         Database name: taaza_db
+
+        -------------------------
+
+        CREATE DATABASE taaza_db;
         
 ---------------------------------------------------------------     
         == Table structure for table admin
@@ -85,6 +89,8 @@ Create a database, tables, and columns with following details using phpmyadmin (
         |resettokenexpire|date|Yes|NULL
         |enable_table_booking|tinyint|No|
         |enable_menu_page|tinyint|No|
+
+    -----------------------------------------------------
 
     Create 'admin' table Query :
     
@@ -109,6 +115,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         |message|varchar(5000)|No|
         |enable_meessage|tinyint|No|
 
+    -----------------------------------------------------
 
     Create 'admin_message' table Query :
 
@@ -128,6 +135,8 @@ Create a database, tables, and columns with following details using phpmyadmin (
         |id|int|No|
         |email|varchar(90)|No|
         |timestamp|timestamp|No|CURRENT_TIMESTAMP
+        
+    -----------------------------------------------------
 
     Create 'contact' table Query :
 
@@ -149,6 +158,8 @@ Create a database, tables, and columns with following details using phpmyadmin (
         |user_email|varchar(255)|No|
         |feedback_text|text|No|
         |timestamp|timestamp|Yes|CURRENT_TIMESTAMP
+
+    -----------------------------------------------------
 
     Create 'feedback' table Query :
 
@@ -172,7 +183,8 @@ Create a database, tables, and columns with following details using phpmyadmin (
         |amount|int|No|
         |timestamp|timestamp|No|
         |show_detail|tinyint|No|
-        
+
+    -----------------------------------------------------
 
     Create 'lend_hand' table Query :
 
@@ -201,6 +213,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         |total_price|varchar(30)|No|
         |timestamp|timestamp|Yes|CURRENT_TIMESTAMP
 
+    -----------------------------------------------------
 
     Create 'orders' table Query :
 
@@ -234,6 +247,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         |resettokenexpire|date|Yes|NULL
         |is_vip|tinyint|No|
 
+    -----------------------------------------------------
 
     Create 'registered_users' table Query :
 
@@ -266,7 +280,8 @@ Create a database, tables, and columns with following details using phpmyadmin (
         |date|date|No|
         |time|varchar(50)|No|
         |payment|tinyint(1)|No|
-
+        
+    -----------------------------------------------------
 
     Create 'table_booking_ground' table Query :
 
@@ -297,6 +312,8 @@ Create a database, tables, and columns with following details using phpmyadmin (
         |date|date|No|
         |time|varchar(20)|No|
         |payment|tinyint(1)|No|
+        
+    -----------------------------------------------------
 
     Create 'table_booking_vip' table Query :
 
