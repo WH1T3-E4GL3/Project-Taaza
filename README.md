@@ -97,7 +97,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         enable_table_booking TINYINT NOT NULL,
         enable_menu_page TINYINT NOT NULL
     );
-
+---------------------------------------------------------------
         
         
         == Table structure for table admin_message
@@ -118,7 +118,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         enable_message TINYINT NOT NULL
     );
 
-        
+---------------------------------------------------------------
         
         == Table structure for table contact
         
