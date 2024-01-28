@@ -76,7 +76,7 @@ Create a database, tables, and columns with following details:
         |------
         |Column|Type|Null|Default
         |------
-        |//**id**//|int|No|
+        |id|int|No|
         |email|varchar(50)|No|
         |name|varchar(100)|No|
         |password|varchar(190)|No|
@@ -92,7 +92,7 @@ Create a database, tables, and columns with following details:
         |------
         |Column|Type|Null|Default
         |------
-        |//**id**//|int|No|
+        |id|int|No|
         |message|varchar(5000)|No|
         |enable_meessage|tinyint|No|
         
@@ -103,7 +103,7 @@ Create a database, tables, and columns with following details:
         |------
         |Column|Type|Null|Default
         |------
-        |//**id**//|int|No|
+        |id|int|No|
         |email|varchar(90)|No|
         |timestamp|timestamp|No|CURRENT_TIMESTAMP
         
@@ -114,7 +114,7 @@ Create a database, tables, and columns with following details:
         |------
         |Column|Type|Null|Default
         |------
-        |//**feedback_id**//|int|No|
+        |feedback_id|int|No|
         |user_email|varchar(255)|No|
         |feedback_text|text|No|
         |timestamp|timestamp|Yes|CURRENT_TIMESTAMP
@@ -125,7 +125,7 @@ Create a database, tables, and columns with following details:
         |------
         |Column|Type|Null|Default
         |------
-        |//**id**//|int|No|
+        |id|int|No|
         |name|varchar(50)|No|
         |email|varchar(90)|No|
         |amount|int|No|
@@ -138,7 +138,7 @@ Create a database, tables, and columns with following details:
         |------
         |Column|Type|Null|Default
         |------
-        |//**order_id**//|int|No|
+        |order_id|int|No|
         |name|varchar(50)|No|
         |email|varchar(100)|No|
         |address|varchar(200)|No|
@@ -154,7 +154,7 @@ Create a database, tables, and columns with following details:
         |Column|Type|Null|Default
         |------
         |name|varchar(30)|No|
-        |//**email**//|varchar(30)|No|
+        |email|varchar(30)|No|
         |password|varchar(100)|No|
         |gender|varchar(18)|No|
         |state|varchar(30)|No|
@@ -171,7 +171,7 @@ Create a database, tables, and columns with following details:
         |------
         |Column|Type|Null|Default
         |------
-        |//**id**//|int|No|
+        |id|int|No|
         |name|varchar(30)|No|
         |email|varchar(50)|No|
         |section|varchar(30)|No|
@@ -186,7 +186,7 @@ Create a database, tables, and columns with following details:
         |------
         |Column|Type|Null|Default
         |------
-        |//**id**//|int|No|
+        |id|int|No|
         |name|varchar(30)|No|
         |email|varchar(30)|No|
         |section|varchar(30)|No|
