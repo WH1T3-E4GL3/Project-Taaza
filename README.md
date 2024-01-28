@@ -67,6 +67,137 @@ Create a database, tables, and columns with following details:
                  ⦿ table_booking_vip
                      ↳colum names:  id, name, email, section, seat, decor, date, time, payment 
 
+# Database Formats
+        
+        ===Database taaza_db
+        
+        == Table structure for table admin
+        
+        |------
+        |Column|Type|Null|Default
+        |------
+        |//**id**//|int|No|
+        |email|varchar(50)|No|
+        |name|varchar(100)|No|
+        |password|varchar(190)|No|
+        |resettoken|varchar(190)|No|
+        |resettokenexpire|date|Yes|NULL
+        |enable_table_booking|tinyint|No|
+        |enable_menu_page|tinyint|No|
+        
+        
+        
+        == Table structure for table admin_message
+        
+        |------
+        |Column|Type|Null|Default
+        |------
+        |//**id**//|int|No|
+        |message|varchar(5000)|No|
+        |enable_meessage|tinyint|No|
+        
+        
+        
+        == Table structure for table contact
+        
+        |------
+        |Column|Type|Null|Default
+        |------
+        |//**id**//|int|No|
+        |email|varchar(90)|No|
+        |timestamp|timestamp|No|CURRENT_TIMESTAMP
+        
+        
+        
+        == Table structure for table feedback
+        
+        |------
+        |Column|Type|Null|Default
+        |------
+        |//**feedback_id**//|int|No|
+        |user_email|varchar(255)|No|
+        |feedback_text|text|No|
+        |timestamp|timestamp|Yes|CURRENT_TIMESTAMP
+        
+        
+        == Table structure for table lend_hand
+        
+        |------
+        |Column|Type|Null|Default
+        |------
+        |//**id**//|int|No|
+        |name|varchar(50)|No|
+        |email|varchar(90)|No|
+        |amount|int|No|
+        |timestamp|timestamp|No|
+        |show_detail|tinyint|No|
+        
+        
+        == Table structure for table orders
+        
+        |------
+        |Column|Type|Null|Default
+        |------
+        |//**order_id**//|int|No|
+        |name|varchar(50)|No|
+        |email|varchar(100)|No|
+        |address|varchar(200)|No|
+        |item|varchar(30)|No|
+        |quantity|varchar(30)|No|
+        |total_price|varchar(30)|No|
+        |timestamp|timestamp|Yes|CURRENT_TIMESTAMP
+        
+        
+        == Table structure for table registered_users
+        
+        |------
+        |Column|Type|Null|Default
+        |------
+        |name|varchar(30)|No|
+        |//**email**//|varchar(30)|No|
+        |password|varchar(100)|No|
+        |gender|varchar(18)|No|
+        |state|varchar(30)|No|
+        |district|varchar(30)|No|
+        |verification_code|varchar(225)|No|
+        |is_verified|int|No|0
+        |resettoken|varchar(255)|Yes|NULL
+        |resettokenexpire|date|Yes|NULL
+        |is_vip|tinyint|No|
+        
+        
+        == Table structure for table table_booking_ground
+        
+        |------
+        |Column|Type|Null|Default
+        |------
+        |//**id**//|int|No|
+        |name|varchar(30)|No|
+        |email|varchar(50)|No|
+        |section|varchar(30)|No|
+        |seat|varchar(30)|Yes|NULL
+        |date|date|No|
+        |time|varchar(50)|No|
+        |payment|tinyint(1)|No|
+        
+        
+        == Table structure for table table_booking_vip
+        
+        |------
+        |Column|Type|Null|Default
+        |------
+        |//**id**//|int|No|
+        |name|varchar(30)|No|
+        |email|varchar(30)|No|
+        |section|varchar(30)|No|
+        |seat|varchar(30)|No|
+        |decor|varchar(50)|No|
+        |date|date|No|
+        |time|varchar(20)|No|
+        |payment|tinyint(1)|No|
+
+
+
 
 # Technologies Used
 
