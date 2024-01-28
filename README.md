@@ -37,7 +37,7 @@ Please read the full license text at [http://creativecommons.org/licenses/by-nc/
 
 
 # How to run
-Create a database, tables, and columns with following details:
+Create a database, tables, and columns with following details using phpmyadmin (Detailed structure and query given below this box):
 
     Database name: taaza_db
     Table names: ⦿ admin
@@ -84,7 +84,20 @@ Create a database, tables, and columns with following details:
         |resettokenexpire|date|Yes|NULL
         |enable_table_booking|tinyint|No|
         |enable_menu_page|tinyint|No|
-        
+
+    Create 'admin' table Query :
+    
+        CREATE TABLE admin (
+        id INT NOT NULL,
+        email VARCHAR(50) NOT NULL,
+        name VARCHAR(100) NOT NULL,
+        password VARCHAR(190) NOT NULL,
+        resettoken VARCHAR(190) NOT NULL,
+        resettokenexpire DATE DEFAULT NULL,
+        enable_table_booking TINYINT NOT NULL,
+        enable_menu_page TINYINT NOT NULL
+    );
+
         
         
         == Table structure for table admin_message
@@ -95,7 +108,16 @@ Create a database, tables, and columns with following details:
         |id|int|No|
         |message|varchar(5000)|No|
         |enable_meessage|tinyint|No|
-        
+
+
+    Create 'admin_message' table Query :
+
+        CREATE TABLE admin_message (
+        id INT NOT NULL,
+        message VARCHAR(5000) NOT NULL,
+        enable_message TINYINT NOT NULL
+    );
+
         
         
         == Table structure for table contact
@@ -106,6 +128,15 @@ Create a database, tables, and columns with following details:
         |id|int|No|
         |email|varchar(90)|No|
         |timestamp|timestamp|No|CURRENT_TIMESTAMP
+
+    Create 'contact' table Query :
+
+        CREATE TABLE contact (
+        id INT NOT NULL,
+        email VARCHAR(90) NOT NULL,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
         
         
         
@@ -118,6 +149,16 @@ Create a database, tables, and columns with following details:
         |user_email|varchar(255)|No|
         |feedback_text|text|No|
         |timestamp|timestamp|Yes|CURRENT_TIMESTAMP
+
+    Create 'feedback' table Query :
+
+        CREATE TABLE feedback (
+        feedback_id INT NOT NULL,
+        user_email VARCHAR(255) NOT NULL,
+        feedback_text TEXT NOT NULL,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
         
         
         == Table structure for table lend_hand
@@ -131,6 +172,19 @@ Create a database, tables, and columns with following details:
         |amount|int|No|
         |timestamp|timestamp|No|
         |show_detail|tinyint|No|
+        
+
+    Create 'lend_hand' table Query :
+
+        CREATE TABLE lend_hand (
+        id INT NOT NULL,
+        name VARCHAR(50) NOT NULL,
+        email VARCHAR(90) NOT NULL,
+        amount INT NOT NULL,
+        timestamp TIMESTAMP NOT NULL,
+        show_detail TINYINT NOT NULL
+    );
+
         
         
         == Table structure for table orders
@@ -146,6 +200,21 @@ Create a database, tables, and columns with following details:
         |quantity|varchar(30)|No|
         |total_price|varchar(30)|No|
         |timestamp|timestamp|Yes|CURRENT_TIMESTAMP
+
+
+    Create 'orders' table Query :
+
+        CREATE TABLE orders (
+        order_id INT NOT NULL,
+        name VARCHAR(50) NOT NULL,
+        email VARCHAR(100) NOT NULL,
+        address VARCHAR(200) NOT NULL,
+        item VARCHAR(30) NOT NULL,
+        quantity VARCHAR(30) NOT NULL,
+        total_price VARCHAR(30) NOT NULL,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
         
         
         == Table structure for table registered_users
@@ -164,6 +233,24 @@ Create a database, tables, and columns with following details:
         |resettoken|varchar(255)|Yes|NULL
         |resettokenexpire|date|Yes|NULL
         |is_vip|tinyint|No|
+
+
+    Create 'registered_users' table Query :
+
+        CREATE TABLE registered_users (
+        name VARCHAR(30) NOT NULL,
+        email VARCHAR(30) NOT NULL,
+        password VARCHAR(100) NOT NULL,
+        gender VARCHAR(18) NOT NULL,
+        state VARCHAR(30) NOT NULL,
+        district VARCHAR(30) NOT NULL,
+        verification_code VARCHAR(225) NOT NULL,
+        is_verified INT NOT NULL DEFAULT 0,
+        resettoken VARCHAR(255) DEFAULT NULL,
+        resettokenexpire DATE DEFAULT NULL,
+        is_vip TINYINT NOT NULL
+    );
+
         
         
         == Table structure for table table_booking_ground
@@ -179,6 +266,21 @@ Create a database, tables, and columns with following details:
         |date|date|No|
         |time|varchar(50)|No|
         |payment|tinyint(1)|No|
+
+
+    Create 'table_booking_ground' table Query :
+
+        CREATE TABLE table_booking_ground (
+        id INT NOT NULL,
+        name VARCHAR(30) NOT NULL,
+        email VARCHAR(50) NOT NULL,
+        section VARCHAR(30) NOT NULL,
+        seat VARCHAR(30) DEFAULT NULL,
+        date DATE NOT NULL,
+        time VARCHAR(50) NOT NULL,
+        payment TINYINT NOT NULL
+    );
+
         
         
         == Table structure for table table_booking_vip
@@ -195,6 +297,21 @@ Create a database, tables, and columns with following details:
         |date|date|No|
         |time|varchar(20)|No|
         |payment|tinyint(1)|No|
+
+    Create 'table_booking_vip' table Query :
+
+        CREATE TABLE table_booking_vip (
+        id INT NOT NULL,
+        name VARCHAR(30) NOT NULL,
+        email VARCHAR(30) NOT NULL,
+        section VARCHAR(30) NOT NULL,
+        seat VARCHAR(30) NOT NULL,
+        decor VARCHAR(50) NOT NULL,
+        date DATE NOT NULL,
+        time VARCHAR(20) NOT NULL,
+        payment TINYINT NOT NULL
+    );
+
 
 
 
