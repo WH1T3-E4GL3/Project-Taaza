@@ -51,6 +51,69 @@ define("APPURL", "http://localhost/taaza");
             background-color: #f44336;
             color: white;
         }
+        .vip-button {
+  background-image: linear-gradient(to right, #0d5215 , green);
+  color: white;
+  width: 100%;
+  font-size: var(--fs-7);
+  text-transform: uppercase;
+  padding: 20px 30px;
+  text-align: center;
+  border-radius: 7px;
+        }
+
+        .form-field {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.scrolling-box {
+  background-color: #eaeaea;
+  display: block;
+  width: 100%;
+  height: 800px;
+  padding: 1em;
+  overflow-y: scroll;
+  text-align: center;
+}
+/* Style for the scrolling box */
+.scrolling-box {
+    background-color: #eaeaea;
+    display: block;
+    width: 100%;
+    height: 300px; /* Adjust the height as needed */
+    overflow-y: scroll;
+    padding: 10px; /* Add padding for better readability */
+}
+
+/* Style for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Style for table header */
+table th {
+    background-color: #f2f2f2; /* Light gray background for headers */
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Bottom border for header row */
+}
+
+/* Style for alternating table rows */
+table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Lighter background color for even rows */
+}
+
+/* Style for table cells */
+table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Bottom border for each cell */
+}
+
 
     </style>
 
@@ -184,11 +247,22 @@ define("APPURL", "http://localhost/taaza");
                         <h2 style="font-size:30px;">Lend Us A Hand</h2>
                         <br>
                         <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi qui deleniti omnis maiores
-                            vero illo, voluptatem dolore laudantium iste amet possimus nam aspernatur, sunt atque, ex
-                            nemo ea tempore! Dignissimos, perferendis qui.
+                            Lend us a hand and help to provide food for the needed ones...
                         </p>
                         <br>
+
+                    <form action="lend_hand_handler.php" method="POST">
+    <label for="activationAmount">Enter your desired amount and send (Rs):</label>
+    <input class="form-field" type="number" name="activationAmount" id="activationAmount" required>
+    <br>
+    <input type="checkbox" id="anonymousCheckbox" name="anonymousCheckbox">
+    <label for="anonymousCheckbox">Hide your details (Anonymous sending - Your name, email and other details will not be displayed)</label>
+    <br><br>
+    <button type="submit" class="vip-button" name="activateVip">Send Money</button>
+</form>
+
+
+
 
                     </div>
                     <figure class="hero-banner">
@@ -197,6 +271,39 @@ define("APPURL", "http://localhost/taaza");
                     </figure>
                 </div>
                 </section>
+
+                <div class="scrolling-box">
+                <?php
+                $conn = new mysqli("localhost", "root", "", "taaza_db");
+
+                // Query to fetch all user details from the lend_hand table
+                $query = "SELECT `id`, `name`, `email`, `amount`, `timestamp`, `show_detail` FROM `lend_hand`";
+                $result = mysqli_query($conn, $query);
+
+                // Check if there are any rows returned
+                if (mysqli_num_rows($result) > 0) {
+                    echo '<table>';
+                    echo '<tr><h2 style="color:#0d5215;">Our Dearest Users Donated Us</h2></tr><br>';
+                    echo '<tr><th>Name</th><th>Email</th><th>Amount</th><th>Time of donation</th></tr>';
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<tr>';
+                        echo '<td>' . $row['name'] . '</td>';
+                        echo '<td>' . $row['email'] . '</td>';
+                        echo '<td>' . $row['amount'] . '</td>';
+                        echo '<td>' . $row['timestamp'] . '</td>';
+                        echo '</tr>';
+                    }
+                    echo '</table>';
+                } else {
+                    echo 'No user details found.';
+                }
+
+                // Close the database connection
+                mysqli_close($conn);
+                ?>
+            </div>
+
+                <br><br><br><br>
 
                 <footer>
                     <div class=" footer-wrapper">
