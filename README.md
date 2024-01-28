@@ -69,7 +69,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
 
 # Database Formats
         
-        ===Database taaza_db
+        Database name: taaza_db
         
 ---------------------------------------------------------------     
         == Table structure for table admin
