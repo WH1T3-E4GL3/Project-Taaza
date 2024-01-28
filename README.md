@@ -13,10 +13,6 @@ Taaza is a full website project. It is a responsive restaurant website which pro
 
 
 
-<b><strong><i>You can visit the website demo live at </i></strong></b>[taaza.com](https://wh1te-401.github.io/test/taaza/).
-
-[Note: This is just a demo landing page just for understanding the structure, original site is well improved.]
-
 This is a web template that I have created and made available for private use. Please note the licensing terms before using this template.
 
 ## License
