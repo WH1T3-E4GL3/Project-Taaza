@@ -71,6 +71,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         
         ===Database taaza_db
         
+---------------------------------------------------------------     
         == Table structure for table admin
         
         |------
@@ -97,7 +98,8 @@ Create a database, tables, and columns with following details using phpmyadmin (
         enable_table_booking TINYINT NOT NULL,
         enable_menu_page TINYINT NOT NULL
     );
----------------------------------------------------------------
+    
+    ---------------------------------------------------------------
         
         
         == Table structure for table admin_message
@@ -137,7 +139,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
-        
+---------------------------------------------------------------
         
         
         == Table structure for table feedback
@@ -159,7 +161,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
-        
+---------------------------------------------------------------
         
         == Table structure for table lend_hand
         
@@ -185,7 +187,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         show_detail TINYINT NOT NULL
     );
 
-        
+---------------------------------------------------------------     
         
         == Table structure for table orders
         
@@ -215,7 +217,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
-        
+---------------------------------------------------------------
         
         == Table structure for table registered_users
         
@@ -251,7 +253,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         is_vip TINYINT NOT NULL
     );
 
-        
+---------------------------------------------------------------
         
         == Table structure for table table_booking_ground
         
@@ -281,7 +283,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         payment TINYINT NOT NULL
     );
 
-        
+---------------------------------------------------------------
         
         == Table structure for table table_booking_vip
         
