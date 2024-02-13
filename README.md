@@ -205,7 +205,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         show_detail TINYINT NOT NULL
     );
     
-    --------------------------------------------------------------- 
+--------------------------------------------------------------- 
     
     == Table structure for table menu_items
     
