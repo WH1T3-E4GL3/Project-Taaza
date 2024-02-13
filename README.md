@@ -235,7 +235,7 @@ Create a database, tables, and columns with following details using phpmyadmin (
         PRIMARY KEY (id)
     );
     
-    ------------------------------------------------
+------------------------------------------------
         
         == Table structure for table orders
         
