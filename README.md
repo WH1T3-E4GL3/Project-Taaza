@@ -58,7 +58,10 @@ Create a database, tables, and columns with following details using phpmyadmin (
                      ↳colum names:  feedback_id, user_email, feedback_text, timestamp
 
                  ⦿ lend_hand
-                     ↳colum names:   id, name, email, amount, timestamp, show_detail 	
+                     ↳colum names:   id, name, email, amount, timestamp, show_detail 
+
+                 ⦿ menu_items
+                     ↳colum names:    id, name, description, category, price, quantity, available, image_path 	
                 
                  ⦿ orders
                     ↳colum names:  order_id ,name, email, address, item, quantity, total_price, timestamp 	
@@ -201,8 +204,38 @@ Create a database, tables, and columns with following details using phpmyadmin (
         timestamp TIMESTAMP NOT NULL,
         show_detail TINYINT NOT NULL
     );
-
----------------------------------------------------------------     
+    
+    --------------------------------------------------------------- 
+    
+    == Table structure for table menu_items
+    
+    |------
+    |Column|Type|Null|Default
+    |------
+    |//**id**//|int|No|
+    |name|varchar(255)|No|
+    |description|text|Yes|NULL
+    |category|varchar(50)|Yes|NULL
+    |price|decimal(10,2)|No|
+    |quantity|int|No|0
+    |available|tinyint(1)|No|1
+    |image_path|varchar(255)|Yes|NULL
+    
+    ---------------------------------------------------
+    
+    CREATE TABLE menu_items (
+        id int NOT NULL AUTO_INCREMENT,
+        name varchar(255) NOT NULL,
+        description text,
+        category varchar(50),
+        price decimal(10,2) NOT NULL,
+        quantity int NOT NULL DEFAULT 0,
+        available tinyint(1) NOT NULL DEFAULT 1,
+        image_path varchar(255),
+        PRIMARY KEY (id)
+    );
+    
+    ------------------------------------------------
         
         == Table structure for table orders
         
