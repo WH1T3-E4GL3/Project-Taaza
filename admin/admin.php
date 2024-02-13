@@ -77,15 +77,15 @@ if ($selectUserStmt) {
                         <div class="card bg-common card-left">
                             <div class="card-body">
                                 <nav class="nav d-md-block d-none">
-                                    <a data-toggle='tab' class="nav-link" href="#profile"><i class="fas fa-user"></i> &nbsp;Profile Settings</a>
-                                    <a data-toggle='tab' class="nav-link" href="#account"><i class="fas fa-user-cog"></i> &nbsp;User Orders</a>
-                                    <a data-toggle='tab' class="nav-link" href="#security"><i class="fas fa-user-shield"></i> &nbsp;User Feedbacks</a>
-                                    <a data-toggle='tab' class="nav-link" href="#notification"><i class="fas fa-bell"></i> &nbsp;Registered Users</a>
-                                    <a data-toggle='tab' class="nav-link" href="#billings"><i class="fas fa-money-check-alt"></i> &nbsp;Table Bookings</a>                                   
-                                    <a data-toggle='tab' class="nav-link" href="#tocontact"><i class="fas fa-money-check-alt"></i> &nbsp;To Contact</a>
-                                    <a data-toggle='tab' class="nav-link" href="#tableupdates"><i class="fas fa-money-check-alt"></i> &nbsp;Table booking page update</a>
-                                    <a data-toggle='tab' class="nav-link" href="#menuupdates"><i class="fas fa-money-check-alt"></i> &nbsp;Menu page update</a>
-                                    <a data-toggle='tab' class="nav-link" href="#displaymessage"><i class="fas fa-money-check-alt"></i> &nbsp;Display message on website</a>
+                                    <a data-toggle='tab' class="nav-link" href="#profile"><i class="fas fa-user-cog"></i> &nbsp;Profile Settings</a>
+                                    <a data-toggle='tab' class="nav-link" href="#account"><i class="fas fa-shopping-cart"></i> &nbsp;User Orders</a>
+                                    <a data-toggle='tab' class="nav-link" href="#security"><i class="fas fa-comment-alt"></i> &nbsp;User Feedbacks</a>
+                                    <a data-toggle='tab' class="nav-link" href="#notification"><i class="fas fa-users"></i> &nbsp;Registered Users</a>
+                                    <a data-toggle='tab' class="nav-link" href="#billings"><i class="fas fa-clipboard-check"></i> &nbsp;Table Bookings</a>                                   
+                                    <a data-toggle='tab' class="nav-link" href="#tocontact"><i class="fas fa-envelope"></i> &nbsp;To Contact</a>
+                                    <a data-toggle='tab' class="nav-link" href="#tableupdates"><i class="fas fa-wrench"></i> &nbsp;Table booking page update</a>
+                                    <a data-toggle='tab' class="nav-link" href="#menuupdates"><i class="fas fa-wrench"></i> &nbsp;Menu page update</a>
+                                    <a data-toggle='tab' class="nav-link" href="#displaymessage"><i class="fas fa-user-edit"></i> &nbsp;Display message on website</a>
                             </nav>
                             </div>
                         </div>
@@ -618,41 +618,111 @@ if ($selectUserStmt) {
                     </div>
 
                     <div class="tab-pane" id="menuupdates">
-                        <h2>Disable or Enable Menu Page</h2><hr>
-                        <?php
+                        <h2>Menu Management</h2>
+                        <hr>
+                        <!-- Enable/Disable Menu Page Section -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3>Enable or Disable Menu Page</h3>
+                                <?php
+                                // Query to fetch the enable_menu_page status
+                                $query = "SELECT `enable_menu_page` FROM `admin` WHERE 1";
+                                $result = mysqli_query($conn, $query);
 
-                            // Query to fetch the enable_table_booking status
-                            $query = "SELECT `enable_menu_page` FROM `admin` WHERE 1";
-                            $result = mysqli_query($conn, $query);
+                                if ($result) {
+                                    // Fetch the result as an associative array
+                                    $row = mysqli_fetch_assoc($result);
 
-                            if ($result) {
-                                // Fetch the result as an associative array
-                                $row = mysqli_fetch_assoc($result);
+                                    // Check if the row exists and has the enable_menu_page key
+                                    if ($row && array_key_exists('enable_menu_page', $row)) {
+                                        $status = $row['enable_menu_page'];
 
-                                // Check if the row exists and has the enable_table_booking key
-                                if ($row && array_key_exists('enable_menu_page', $row)) {
-                                    $status = $row['enable_menu_page'];
-
-                                    // Display the status with appropriate color
-                                    $statusText = ($status == 1) ? '<p style="color: green;">Current status: Enabled</p>' : '<p style="color: red;">Current status: Disabled</p>';
-                                    echo $statusText;
+                                        // Display the status with appropriate color
+                                        $statusText = ($status == 1) ? '<p style="color: green;">Current status: Enabled</p>' : '<p style="color: red;">Current status: Disabled</p>';
+                                        echo $statusText;
+                                    } else {
+                                        echo '<p>Status not available</p>';
+                                    }
                                 } else {
-                                    echo '<p>Status not available</p>';
+                                    echo '<p>Error fetching status</p>';
                                 }
-                            } else {
-                                echo '<p>Error fetching status</p>';
-                            }
+                                ?>
+                            </div>
+                            <div class="col-md-6">
+                                <!-- Form to Disable Menu Page -->
+                                <form method="post" action="functions/disable-menu-page.php">
+                                    <button type="submit" class="btn btn-warning" style="float: left;">Disable Menu Page</button>
+                                </form>
+                                <!-- Form to Enable Menu Page -->
+                                <form method="post" action="functions/enable-menu-page.php" style="margin-left: 1em;">
+                                    <button type="submit" class="btn btn-success">Enable Menu Page</button>
+                                </form>
+                            </div><hr>
+                        </div>
 
-                            // Close the database connection
-                            // mysqli_close($conn);
-                            ?>
-                        
-                            <form method="post" action="functions/disable-menu-page.php" style="float: left">
-                                <button type="submit" class="btn btn-warning">Disable Menu Page</button>
-                            </form>
-                            <form method="post" action="functions/enable-menu-page.php" style="float: left; margin-left: 8em;">
-                                <button type="submit" class="btn btn-success">Enable Menu Page</button>
-                            </form>
+                        <!-- Add New Menu Item Section -->
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <h3>Add New Menu Item</h3>
+                                <form method="post" action="functions/add-menu-item.php">
+                                    <!-- Add input fields for name, description, category, price, quantity, availability, image path -->
+                                    <input type="text" name="name" class="form-control mb-2" placeholder="Name" required>
+                                    <input type="text" name="description" class="form-control mb-2" placeholder="Description" required>
+                                    <select name="category" class="form-control mb-2" required>
+                                        <option value="">Select Category</option>
+                                        <option value="Veg">Veg</option>
+                                        <option value="Non-Veg">Non-Veg</option>
+                                        <option value="Local Taste">Local Taste</option>
+                                        <option value="Seafood">Seafood</option>
+                                        <option value="Chinese">Chinese</option>
+                                    </select>
+                                    <input type="number" name="price" class="form-control mb-2" placeholder="Price" required>
+                                    <input type="number" name="quantity" class="form-control mb-2" placeholder="Quantity" required>
+                                    <select name="available" class="form-control mb-2" required>
+                                        <option value="">Availability</option>
+                                        <option value="1">Available</option>
+                                        <option value="0">Not Available</option>
+                                    </select>
+                                    <input type="text" name="image_path" class="form-control mb-2" placeholder="Image Path" required>
+                                    <button type="submit" class="btn btn-primary">Add Menu Item</button>
+                                </form>
+                            </div>
+
+                            <!-- Delete Menu Item Section -->
+                            <div class="col-md-6">
+                                <h3>Delete Menu Item</h3>
+                                <form method="post" action="functions/delete-menu-item.php">
+                                    <!-- Add input field for item Name to delete -->
+                                    <input type="text" name="name" class="form-control mb-2" placeholder="Item Name to Delete" required>
+                                    <button type="submit" class="btn btn-danger">Delete Menu Item</button>
+                                </form><br>
+
+                               <!-- Update Menu Item Section -->
+                                <h3>Update Menu Item</h3>
+                                <form method="post" action="functions/update-menu-item.php">
+                                    <!-- Add input fields for item Name and new details -->
+                                    <input type="text" name="name" class="form-control mb-2" placeholder="Item Name to Update" required>
+                                    <input type="text" name="new_name" class="form-control mb-2" placeholder="New Name">
+                                    <input type="text" name="description" class="form-control mb-2" placeholder="New Description">
+                                    <select name="category" class="form-control mb-2">
+                                        <option value="">Select New Category</option>
+                                        <option value="Veg">Veg</option>
+                                        <option value="Non-Veg">Non-Veg</option>
+                                        <option value="Local Taste">Local Taste</option>
+                                        <option value="Seafood">Seafood</option>
+                                        <option value="Chinese">Chinese</option>
+                                    </select>
+                                    <input type="number" name="price" class="form-control mb-2" placeholder="New Price">
+                                    <input type="number" name="quantity" class="form-control mb-2" placeholder="New Quantity">
+                                    <select name="available" class="form-control mb-2">
+                                        <option value="1">Available</option>
+                                        <option value="0">Not Available</option>
+                                    </select>
+                                    <input type="text" name="image_path" class="form-control mb-2" placeholder="New Image Path">
+                                    <button type="submit" class="btn btn-info">Update Menu Item</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -703,8 +773,6 @@ if ($selectUserStmt) {
                             <button type="submit" class="btn btn-danger">Disable Admin Message</button>
                         </form>
                     </div>
-
-
 
                         </div>
 
