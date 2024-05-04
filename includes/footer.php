@@ -11,7 +11,7 @@
             <ion-icon name="logo-twitter"></ion-icon>
           </a>
 
-          <a href="https://www.instagram.com/whxite.exe/">
+          <a href="https://www.instagram.com/whxitte">
             <ion-icon name="logo-instagram"></ion-icon>
           </a>
 
